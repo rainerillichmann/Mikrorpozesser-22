@@ -13,19 +13,7 @@ namespace Mikroprozesser_22
 {
     public partial class Form1 : Form
     {
-        class CommandLine
-        {   
-            public byte counter;
-            public UInt32 command;
-
-            public CommandLine(byte cou, UInt32 com)
-            {
-                this.counter = cou;
-                this.command = com;
-                
-            }
-            public CommandLine(): base() {}
-        }
+        
         string line;
         CommandLine Speicherding = new CommandLine();
         List<CommandLine> LineList = new List<CommandLine>();
@@ -82,7 +70,7 @@ namespace Mikroprozesser_22
 
         private void dateiÖffnenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)  //Einlesen der Datei
             {
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName);
@@ -101,7 +89,7 @@ namespace Mikroprozesser_22
                         string TempCounter = new string(TempChar);
                         Speicherding.counter = Byte.Parse(TempCounter);
                         
-                        for (int i = 5; i < 9; i++)
+                        for (int i = 5; i < 9; i++) //Auslesen des Befehls
                         {
                             TempChar[i - 5] = line[i];
                         }
@@ -110,7 +98,7 @@ namespace Mikroprozesser_22
                         LineList.Add(new CommandLine (Speicherding.counter, Speicherding.command));
                     }
                 }
-                for (int i = 0; i < LineList.Count; i++)
+                for (int i = 0; i < LineList.Count; i++) //Ausgabe der Befehlsliste
                 {
                     OutputDing.Text +=  LineList[i].counter + " " + Convert.ToString(LineList[i].command, 16) + System.Environment.NewLine;
                 }
