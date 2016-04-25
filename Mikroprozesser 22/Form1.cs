@@ -17,10 +17,14 @@ namespace Mikroprozesser_22
         string line;
         CommandLine Speicherding = new CommandLine();
         List<CommandLine> LineList = new List<CommandLine>();
+        Arbeitsspeicher Speicher = new Arbeitsspeicher();
+        int counter = 0;
+        int halt = 0;
 
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -103,7 +107,8 @@ namespace Mikroprozesser_22
                     OutputDing.Text +=  LineList[i].counter + " " + Convert.ToString(LineList[i].command, 16) + System.Environment.NewLine;
                 }
                 sr.Close();
-
+                button1.Enabled = true;
+                
                 
          
 
@@ -119,5 +124,78 @@ namespace Mikroprozesser_22
         {
 
         }
+
+       
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void Programmablauf(BackgroundWorker bw)
+        {
+            while (!bw.CancellationPending)
+            {
+
+
+                if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
+                if ((Speicher.RAM[0, 5] & 2) == 2) checkBox7.Checked = true; else checkBox7.Checked = false;
+                if ((Speicher.RAM[0, 5] & 4) == 4) checkBox6.Checked = true; else checkBox6.Checked = false;
+                if ((Speicher.RAM[0, 5] & 8) == 8) checkBox5.Checked = true; else checkBox5.Checked = false;
+                if ((Speicher.RAM[0, 5] & 16) == 16) checkBox4.Checked = true; else checkBox4.Checked = false;
+                if ((Speicher.RAM[0, 5] & 32) == 32) checkBox3.Checked = true; else checkBox3.Checked = false;
+                if ((Speicher.RAM[0, 5] & 64) == 64) checkBox2.Checked = true; else checkBox2.Checked = false;
+                if ((Speicher.RAM[0, 5] & 128) == 128) checkBox1.Checked = true; else checkBox1.Checked = false;
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bw = sender as BackgroundWorker;
+
+
+            // Extract the argument.
+            int arg = (int)e.Argument;
+
+            // Start the time-consuming operation.
+            Programmablauf(bw);
+
+            // If the operation was canceled by the user, 
+            // set the DoWorkEventArgs.Cancel property to true.
+            if (bw.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+
+           
+            
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+
+
+        private void Start_Click(object sender, EventArgs e)
+        {
+            this.backgroundWorker1.RunWorkerAsync(2000);
+        }
+
+        private void Stop_Click(object sender, EventArgs e)
+        {
+            this.backgroundWorker1.CancelAsync();
+        }
+
+        
     }
 }

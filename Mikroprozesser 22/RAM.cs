@@ -8,6 +8,7 @@ namespace Mikroprozesser_22
 {
     public class Arbeitsspeicher
     {
+        public
         byte[,] RAM = new byte [2,64];
 
          public Arbeitsspeicher()
@@ -22,7 +23,7 @@ namespace Mikroprozesser_22
             this.RAM[0, 9] = 0x00; //EEADR
             this.RAM[0, 10] = 0x00; //PCLATH
             this.RAM[0, 11] = 0x00; //INTCON
-            for (int i = 12; i < 65; i++) this.RAM[0, i] = 0x00; //Variabler shizzle
+            for (int i = 12; i < 64; i++) this.RAM[0, i] = 0x00; //Variabler shizzle
 
             this.RAM[1, 1] = 0xFF; //OPTION
             this.RAM[1, 2] = 0x00; //PCL

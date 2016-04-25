@@ -51,6 +51,11 @@
             this.dateiÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OutputDing = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
+            this.LWBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,6 +130,7 @@
             this.checkBox8.Size = new System.Drawing.Size(15, 14);
             this.checkBox8.TabIndex = 7;
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // label1
             // 
@@ -266,11 +272,60 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(177, 313);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Start_Click);
+            // 
+            // LWBox
+            // 
+            this.LWBox.Location = new System.Drawing.Point(375, 128);
+            this.LWBox.Name = "LWBox";
+            this.LWBox.ReadOnly = true;
+            this.LWBox.Size = new System.Drawing.Size(100, 20);
+            this.LWBox.TabIndex = 21;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(375, 112);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "LW";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(258, 313);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "Stop";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Stop_Click);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(710, 377);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.LWBox);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.OutputDing);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox9);
@@ -326,6 +381,11 @@
         private System.Windows.Forms.ToolStripMenuItem dateiÖffnenToolStripMenuItem;
         private System.Windows.Forms.TextBox OutputDing;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox LWBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
     }
 }
