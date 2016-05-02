@@ -290,6 +290,7 @@
             this.LWBox.ReadOnly = true;
             this.LWBox.Size = new System.Drawing.Size(100, 20);
             this.LWBox.TabIndex = 21;
+            this.LWBox.TextChanged += new System.EventHandler(this.LWBox_TextChanged);
             // 
             // label3
             // 

@@ -19,7 +19,7 @@ namespace Mikroprozesser_22
         List<CommandLine> LineList = new List<CommandLine>();
         Arbeitsspeicher Speicher = new Arbeitsspeicher();
         int counter = 0;
-        int halt = 0;
+        
 
         public Form1()
         {
@@ -98,7 +98,7 @@ namespace Mikroprozesser_22
                             TempChar[i - 5] = line[i];
                         }
                         string TempCommand = new string(TempChar);
-                        Speicherding.command = Convert.ToUInt32(TempCommand, 16);
+                        Speicherding.command = Convert.ToUInt16(TempCommand, 16);
                         LineList.Add(new CommandLine (Speicherding.counter, Speicherding.command));
                     }
                 }
@@ -144,8 +144,9 @@ namespace Mikroprozesser_22
         {
             while (!bw.CancellationPending)
             {
+                
 
-
+                LWBox.Text = Speicher.LW.ToString();
                 if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
                 if ((Speicher.RAM[0, 5] & 2) == 2) checkBox7.Checked = true; else checkBox7.Checked = false;
                 if ((Speicher.RAM[0, 5] & 4) == 4) checkBox6.Checked = true; else checkBox6.Checked = false;
@@ -188,12 +189,20 @@ namespace Mikroprozesser_22
 
         private void Start_Click(object sender, EventArgs e)
         {
-            this.backgroundWorker1.RunWorkerAsync(2000);
+            //this.backgroundWorker1.RunWorkerAsync(2000);
+            Commands.Befehlsanalyse(LineList[Speicher.RAM[0, 2]], Speicher);
+
+            LWBox.Text = Speicher.LW.ToString();
         }
 
         private void Stop_Click(object sender, EventArgs e)
         {
             this.backgroundWorker1.CancelAsync();
+        }
+
+        private void LWBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         

@@ -8,10 +8,16 @@ namespace Mikroprozesser_22
 {
     public class Arbeitsspeicher
     {
-        public
-        byte[,] RAM = new byte [2,64];
+        public byte[,] RAM = new byte [2,64];
+        public byte LW = 0;
+        public List<int> Stack = new List<int>();
 
-         public Arbeitsspeicher()
+        public void addStack(int pc)
+        {
+            Stack.Add(pc);
+        }
+
+        public Arbeitsspeicher()
         {
             this.RAM[0, 1] = 0x00; //TIMR0
             this.RAM[0, 2] = 0x00; //PCL
