@@ -91,7 +91,7 @@ namespace Mikroprozesser_22
                             TempChar[i] = line[i];
                         }
                         string TempCounter = new string(TempChar);
-                        Speicherding.counter = Byte.Parse(TempCounter);
+                        Speicherding.counter = Convert.ToUInt16(TempCounter, 16);
                         
                         for (int i = 5; i < 9; i++) //Auslesen des Befehls
                         {
@@ -107,6 +107,9 @@ namespace Mikroprozesser_22
                     OutputDing.Text +=  LineList[i].counter + " " + Convert.ToString(LineList[i].command, 16) + System.Environment.NewLine;
                 }
                 sr.Close();
+                OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.RAM[0, 2]), OutputDing.Lines[Speicher.RAM[0, 2]].Length);
+                OutputDing.SelectionBackColor = Color.Blue;
+                OutputDing.SelectionColor = Color.White;
                 button1.Enabled = true;
                 
                 
@@ -146,7 +149,7 @@ namespace Mikroprozesser_22
             {
                 
 
-                LWBox.Text = Speicher.LW.ToString();
+                LWBox.Text = Speicher.W.ToString();
                 if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
                 if ((Speicher.RAM[0, 5] & 2) == 2) checkBox7.Checked = true; else checkBox7.Checked = false;
                 if ((Speicher.RAM[0, 5] & 4) == 4) checkBox6.Checked = true; else checkBox6.Checked = false;
@@ -190,9 +193,20 @@ namespace Mikroprozesser_22
         private void Start_Click(object sender, EventArgs e)
         {
             //this.backgroundWorker1.RunWorkerAsync(2000);
+            
+            OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.RAM[0, 2]), OutputDing.Lines[Speicher.RAM[0, 2]].Length);
+            OutputDing.SelectionBackColor = Color.White;
+            OutputDing.SelectionColor = Color.Black;   
+            
+            
             Commands.Befehlsanalyse(LineList[Speicher.RAM[0, 2]], Speicher);
 
-            LWBox.Text = Speicher.LW.ToString();
+            OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.RAM[0, 2]), OutputDing.Lines[Speicher.RAM[0, 2]].Length);
+            OutputDing.SelectionBackColor = Color.Blue;
+            OutputDing.SelectionColor = Color.White;
+            LWBox.Text = Convert.ToString(Speicher.W, 16);
+            Box0Ch.Text = Convert.ToString(Speicher.RAM[0,12], 16);
+            Box0Dh.Text = Convert.ToString(Speicher.RAM[0,13], 16);
         }
 
         private void Stop_Click(object sender, EventArgs e)
@@ -201,6 +215,16 @@ namespace Mikroprozesser_22
         }
 
         private void LWBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

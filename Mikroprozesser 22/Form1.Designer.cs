@@ -49,13 +49,17 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.simulatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OutputDing = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.LWBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.OutputDing = new System.Windows.Forms.RichTextBox();
+            this.Box0Ch = new System.Windows.Forms.TextBox();
+            this.Box0Dh = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -256,17 +260,6 @@
             this.dateiÖffnenToolStripMenuItem.Text = "Datei öffnen";
             this.dateiÖffnenToolStripMenuItem.Click += new System.EventHandler(this.dateiÖffnenToolStripMenuItem_Click);
             // 
-            // OutputDing
-            // 
-            this.OutputDing.Enabled = false;
-            this.OutputDing.Location = new System.Drawing.Point(375, 179);
-            this.OutputDing.Multiline = true;
-            this.OutputDing.Name = "OutputDing";
-            this.OutputDing.ReadOnly = true;
-            this.OutputDing.Size = new System.Drawing.Size(323, 186);
-            this.OutputDing.TabIndex = 19;
-            this.OutputDing.TextChanged += new System.EventHandler(this.OutputDing_TextChanged);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -285,7 +278,7 @@
             // 
             // LWBox
             // 
-            this.LWBox.Location = new System.Drawing.Point(375, 128);
+            this.LWBox.Location = new System.Drawing.Point(51, 176);
             this.LWBox.Name = "LWBox";
             this.LWBox.ReadOnly = true;
             this.LWBox.Size = new System.Drawing.Size(100, 20);
@@ -295,7 +288,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(375, 112);
+            this.label3.Location = new System.Drawing.Point(21, 179);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(24, 13);
             this.label3.TabIndex = 22;
@@ -318,16 +311,64 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // OutputDing
+            // 
+            this.OutputDing.Location = new System.Drawing.Point(378, 176);
+            this.OutputDing.Name = "OutputDing";
+            this.OutputDing.Size = new System.Drawing.Size(305, 175);
+            this.OutputDing.TabIndex = 24;
+            this.OutputDing.Text = "";
+            // 
+            // Box0Ch
+            // 
+            this.Box0Ch.Location = new System.Drawing.Point(50, 202);
+            this.Box0Ch.Name = "Box0Ch";
+            this.Box0Ch.ReadOnly = true;
+            this.Box0Ch.Size = new System.Drawing.Size(100, 20);
+            this.Box0Ch.TabIndex = 25;
+            this.Box0Ch.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Box0Dh
+            // 
+            this.Box0Dh.Location = new System.Drawing.Point(51, 228);
+            this.Box0Dh.Name = "Box0Dh";
+            this.Box0Dh.ReadOnly = true;
+            this.Box0Dh.Size = new System.Drawing.Size(100, 20);
+            this.Box0Dh.TabIndex = 26;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 205);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "0Ch";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 231);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(27, 13);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "0Dh";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(710, 377);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.Box0Dh);
+            this.Controls.Add(this.Box0Ch);
+            this.Controls.Add(this.OutputDing);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LWBox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.OutputDing);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox9);
             this.Controls.Add(this.checkBox10);
@@ -380,13 +421,17 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem simulatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateiÖffnenToolStripMenuItem;
-        private System.Windows.Forms.TextBox OutputDing;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox LWBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.RichTextBox OutputDing;
+        private System.Windows.Forms.TextBox Box0Ch;
+        private System.Windows.Forms.TextBox Box0Dh;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
 
     }
 }

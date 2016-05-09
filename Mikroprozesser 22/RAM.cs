@@ -9,7 +9,7 @@ namespace Mikroprozesser_22
     public class Arbeitsspeicher
     {
         public byte[,] RAM = new byte [2,64];
-        public byte LW = 0;
+        public byte W = 0;
         public List<int> Stack = new List<int>();
 
         public void addStack(int pc)

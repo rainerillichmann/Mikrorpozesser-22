@@ -8,10 +8,10 @@ namespace Mikroprozesser_22
 {
     public class CommandLine
     {
-        public byte counter;
+        public UInt16 counter;
         public UInt16 command;
 
-        public CommandLine(byte cou, UInt16 com)
+        public CommandLine(UInt16 cou, UInt16 com)
         {
             this.counter = cou;
             this.command = com;
