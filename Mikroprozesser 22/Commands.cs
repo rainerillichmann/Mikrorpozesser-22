@@ -64,13 +64,28 @@ namespace Mikroprozesser_22
             if ((Befehl.command & 0x3F80) == 0x0180) CLRF(Befehl.command, RAM);
             //CLRW
             if (((Befehl.command & 0x3FFF) >= 0x0100) && ((Befehl.command & 0x3FFF) <= 0x017F)) CLRW(Befehl.command, RAM);
-            
+            //RLF
+            if ((Befehl.command & 0x3F00) == 0x0D00) RLF(Befehl.command, RAM);
+            //RRF
+            if ((Befehl.command & 0x3F00) == 0x0C00) RRF(Befehl.command, RAM);
             //COMF
             if ((Befehl.command & 0x3F00) == 0x0900) COMF(Befehl.command, RAM);
             //DECF
             if ((Befehl.command & 0x3F00) == 0x0300) DECF(Befehl.command, RAM);
+            //DECFSZ
+            if ((Befehl.command & 0x3F00) == 0x0B00) DECFSZ(Befehl.command, RAM);
             //INCF
             if ((Befehl.command & 0x3F00) == 0x0A00) INCF(Befehl.command, RAM);
+            //INCFSZ
+            if ((Befehl.command & 0x3F00) == 0x0F00) INCFSZ(Befehl.command, RAM);
+            //BSF
+            if ((Befehl.command & 0x3C00) == 0x1400) BSF(Befehl.command, RAM);
+            //BCF
+            if ((Befehl.command & 0x3C00) == 0x1000) BCF(Befehl.command, RAM);
+            //BTFSC
+            if ((Befehl.command & 0x3C00) == 0x1800) BTFSC(Befehl.command, RAM);
+            //BTFSS
+            if ((Befehl.command & 0x3C00) == 0x1C00) BTFSS(Befehl.command, RAM);
         }
 
         static void MOVLW(UInt16 Befehl, Arbeitsspeicher RAM)
@@ -220,6 +235,24 @@ namespace Mikroprozesser_22
             ++RAM.RAM[0, 2];
         }
 
+        static void DECFSZ(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            bool zeroFlag = false;
+            if ((Befehl & 0x80) == 0)
+            {
+                RAM.W = (byte)(RAM.RAM[0, (Befehl & 0x7F)] - 1);
+                if (RAM.W == 0) zeroFlag = true;
+            }
+            else
+            {
+                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] - 1);
+                if (RAM.RAM[0, (Befehl & 0x7F)] == 0) zeroFlag = true;
+            }
+
+            if (zeroFlag == false) ++RAM.RAM[0, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
+            else RAM.RAM[0, 2] += 2;                                             //ansonsten überspringe den nächsten
+        }
+
         static void INCF(UInt16 Befehl, Arbeitsspeicher RAM)
         {
             if ((Befehl & 0x80) == 0)
@@ -237,6 +270,24 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[0, 2];
+        }
+
+        static void INCFSZ(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            bool zeroFlag = false;
+            if ((Befehl & 0x80) == 0)
+            {
+                RAM.W = (byte)(RAM.RAM[0, (Befehl & 0x7F)] + 1);
+                if (RAM.W == 0) zeroFlag = true;
+            }
+            else
+            {
+                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] + 1);
+                if (RAM.RAM[0, (Befehl & 0x7F)] == 0) zeroFlag = true;
+            }
+
+            if (zeroFlag == false) ++RAM.RAM[0, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
+            else RAM.RAM[0, 2] += 2;                                             //ansonsten überspringe den nächsten
         }
 
         static void IORLW(UInt16 Befehl, Arbeitsspeicher RAM)
@@ -386,6 +437,94 @@ namespace Mikroprozesser_22
             RAM.W = (byte)(Befehl & 0xFF);
             RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
             RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
+        }
+
+        static void RLF(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            byte tempState = RAM.RAM[0, 3];
+            byte tempNumber = (byte)(RAM.RAM[0,(Befehl & 0x7F)]);
+
+            if ((tempNumber & 0x80) == 0) RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] & 0xFE); //wenn das höchste Bit ==0, schreibe 0 in C-Bit
+            else RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] | 0x1);
+
+            tempNumber = (byte)(tempNumber *2);
+
+            if ((tempState & 0x1) == 0) tempNumber = (byte)(tempNumber & 0xFE);         // wenn C-Bit == 0, dann wird 0 an das niedrigste Bit geschrieben
+            else tempNumber = (byte)(tempNumber | 0x1);                                 // ansonsten 1
+
+            
+               
+
+            if ((Befehl & 0x80) == 0)
+            {
+                RAM.W = tempNumber;
+                
+            }
+            else
+            {
+
+                RAM.RAM[0, (Befehl & 0x7F)] = tempNumber;
+            }
+
+            ++RAM.RAM[0, 2];
+        }
+
+        static void RRF(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            byte tempState = RAM.RAM[0, 3];
+            byte tempNumber = (byte)(RAM.RAM[0, (Befehl & 0x7F)]);
+
+            if ((tempNumber & 0x1) == 0) RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] & 0xFE); //wenn das niedrigste Bit == 0, schreibe 0 in C-Bit
+            else RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] | 0x1);                           // ansonsten 1 in C-Bit
+
+            tempNumber = (byte)(tempNumber / 2);
+
+            if ((tempState & 0x1) == 0) tempNumber = (byte)(tempNumber & 0x7F);         // wenn C-Bit == 0, dann wird 0 an das höchste Bit geschrieben
+            else tempNumber = (byte)(tempNumber | 0x80);                                 // ansonsten 1
+
+            if ((Befehl & 0x80) == 0)
+            {
+                RAM.W = tempNumber;
+
+            }
+            else
+            {
+
+                RAM.RAM[0, (Befehl & 0x7F)] = tempNumber;
+            }
+
+            ++RAM.RAM[0, 2];
+        }
+
+        static void BSF(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            int tempBit =(int) Math.Pow( 2, ((Befehl & 0x0380)>>7));
+            RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] | tempBit);
+            ++RAM.RAM[0, 2];
+        }
+
+        static void BCF(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
+            RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] & ~tempBit);
+            ++RAM.RAM[0, 2];
+        }
+
+        static void BTFSC(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
+
+            if ((RAM.RAM[0, (Befehl & 0x7F)] & tempBit) == 0) RAM.RAM[0, 2] += 2;
+            else ++RAM.RAM[0, 2];
+        }
+
+        static void BTFSS(UInt16 Befehl, Arbeitsspeicher RAM)
+        {
+            int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
+
+            if ((RAM.RAM[0, (Befehl & 0x7F)] & tempBit) == 0) ++RAM.RAM[0, 2];
+            else RAM.RAM[0, 2] += 2;
+            
         }
     }
 }

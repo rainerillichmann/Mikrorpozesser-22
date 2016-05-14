@@ -60,6 +60,8 @@
             this.Box0Dh = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Box0Eh = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -241,7 +243,7 @@
             this.simulatorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(710, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(792, 24);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -268,7 +270,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(177, 313);
+            this.button1.Location = new System.Drawing.Point(290, 512);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 20;
@@ -297,7 +299,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(258, 313);
+            this.button2.Location = new System.Drawing.Point(371, 512);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 23;
@@ -313,9 +315,9 @@
             // 
             // OutputDing
             // 
-            this.OutputDing.Location = new System.Drawing.Point(378, 176);
+            this.OutputDing.Location = new System.Drawing.Point(475, 169);
             this.OutputDing.Name = "OutputDing";
-            this.OutputDing.Size = new System.Drawing.Size(305, 175);
+            this.OutputDing.Size = new System.Drawing.Size(305, 366);
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
             // 
@@ -355,11 +357,30 @@
             this.label5.TabIndex = 28;
             this.label5.Text = "0Dh";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(18, 257);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "0Eh";
+            // 
+            // Box0Eh
+            // 
+            this.Box0Eh.Location = new System.Drawing.Point(51, 254);
+            this.Box0Eh.Name = "Box0Eh";
+            this.Box0Eh.ReadOnly = true;
+            this.Box0Eh.Size = new System.Drawing.Size(100, 20);
+            this.Box0Eh.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 377);
+            this.ClientSize = new System.Drawing.Size(792, 547);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.Box0Eh);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Box0Dh);
@@ -432,6 +453,8 @@
         private System.Windows.Forms.TextBox Box0Dh;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox Box0Eh;
 
     }
 }

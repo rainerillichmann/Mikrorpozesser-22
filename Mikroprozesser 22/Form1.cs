@@ -207,6 +207,7 @@ namespace Mikroprozesser_22
             LWBox.Text = Convert.ToString(Speicher.W, 16);
             Box0Ch.Text = Convert.ToString(Speicher.RAM[0,12], 16);
             Box0Dh.Text = Convert.ToString(Speicher.RAM[0,13], 16);
+            Box0Eh.Text = Convert.ToString(Speicher.RAM[0, 14], 16);
         }
 
         private void Stop_Click(object sender, EventArgs e)
