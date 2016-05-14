@@ -78,6 +78,9 @@ namespace Mikroprozesser_22
             {
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName);
+                LineList.Clear();
+                OutputDing.Clear();
+                Speicher.Reset();
                 while ((line = sr.ReadLine()) != null)
                 {
                     char[] TempChar = new char[4];
