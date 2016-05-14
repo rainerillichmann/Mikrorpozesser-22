@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+
+
 namespace Mikroprozesser_22
 {
+    using Mikroprozesser_22;
     class Commands
     {
         public static void Befehlsanalyse(CommandLine Befehl, Arbeitsspeicher RAM)
@@ -89,7 +92,7 @@ namespace Mikroprozesser_22
             //BTFSS
             if ((Befehl.command & 0x3C00) == 0x1C00) BTFSS(Befehl.command, RAM, tempBank);
 
-            if (tempBank == 0) for (int i = 2; i < 5; i++) RAM.RAM[1, i] = RAM.RAM[0, i];
+            if (tempBank == 0) for (int i = 2; i < 5; i++) RAM.RAM[1, i] = RAM.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
             else for (int i = 2; i < 5; i++) RAM.RAM[0, i] = RAM.RAM[1, i];
         }
 
@@ -97,7 +100,7 @@ namespace Mikroprozesser_22
         {
              
             ++RAM.RAM[bank, 2];
-            RAM.W = (byte)(0xFF & Befehl);
+            RAM.ChangeW( (byte)(0xFF & Befehl));
             
         }
 
@@ -105,7 +108,8 @@ namespace Mikroprozesser_22
         {
              
             ++RAM.RAM[bank, 2];
-            RAM.RAM[bank,(Befehl & 0x007F)] = RAM.W;
+       
+            RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), RAM.W);
             
         }
 
@@ -115,312 +119,290 @@ namespace Mikroprozesser_22
             ++RAM.RAM[bank, 2];
 
             if ((Befehl & 0x80) == 0)
-            {
-                RAM.W = (byte)(RAM.RAM[bank, (Befehl & 0x7F)]);
-                StatusChange.ZeroBitW(RAM, bank);
+            {               
+                RAM.ChangeW(bank, (byte)(Befehl & 0x7F));
+                RAM.ZeroBit(bank);
             }
-            else
-            {
-
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
-            }      
+            else RAM.ZeroBit(bank, Befehl);                     //lediglich Test auf Zero Bit    
         }
 
         static void CLRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-
-            RAM.RAM[bank, (Befehl & 0x007F)] = 0;
-            StatusChange.ZeroBitF(RAM, bank, Befehl);
+            RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), 0);
+            RAM.ZeroBit(bank, Befehl);
             ++RAM.RAM[bank, 2];
         }
 
         static void CLRW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-
-            RAM.W = 0;
-            StatusChange.ZeroBitW(RAM, bank);
+            RAM.ChangeW (0);
+            RAM.ZeroBit(bank, 0);
             ++RAM.RAM[bank, 2];
         }
 
         static void ANDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
-        {
-             
+        {            
+            RAM.ChangeW ((byte)((0xFF & Befehl) & RAM.W));
 
-            RAM.W = (byte)((0xFF & Befehl) & RAM.W);
-
-            StatusChange.ZeroBitW(RAM, bank);
-            ++RAM.RAM[0, 2];
+            RAM.ZeroBit(bank);
+            ++RAM.RAM[bank, 2];
         }
 
         static void ANDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)(RAM.W & (RAM.RAM[0, (Befehl & 0x7F)]));
-                StatusChange.ZeroBitW(RAM, bank);
+                RAM.ChangeW ((byte)(RAM.W & regValue));
+                RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.W & (RAM.RAM[0, (Befehl & 0x7F)]));
-
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(RAM.W & regValue));
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void IORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             if ((Befehl & 0x80) == 0)
-            {
-                RAM.W = (byte)(RAM.W | (RAM.RAM[0, (Befehl & 0x7F)]));
-                StatusChange.ZeroBitW(RAM, bank);
+            {                
+                RAM.ChangeW((byte)(RAM.W | regValue));
+
+                RAM.ZeroBit(bank);               
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.W | (RAM.RAM[0, (Befehl & 0x7F)]));
-
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(RAM.W | regValue));
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void XORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
-            {
-                RAM.W = (byte)(RAM.W ^ (RAM.RAM[0, (Befehl & 0x7F)]));
-                StatusChange.ZeroBitW(RAM, bank);
+            {             
+                RAM.ChangeW((byte)(RAM.W ^ regValue));
+
+                RAM.ZeroBit(bank);
             }
             else
-            {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.W ^ (RAM.RAM[0, (Befehl & 0x7F)]));
+            {                
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(RAM.W ^ regValue));
 
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void COMF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
-            {
-                RAM.W = (byte)~(RAM.RAM[0, (Befehl & 0x7F)]);
-                StatusChange.ZeroBitW(RAM, bank);
+            {               
+                RAM.ChangeW((byte)(~regValue));
+                RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)~(RAM.RAM[0, (Befehl & 0x7F)]);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(~regValue));
 
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void DECF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)(RAM.RAM[0, (Befehl & 0x7F)]-1);
-                StatusChange.ZeroBitW(RAM, bank);
+                RAM.ChangeW((byte)(regValue-1));
+                RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)]-1);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(regValue-1));
 
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void DECFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             bool zeroFlag = false;
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)(RAM.RAM[0, (Befehl & 0x7F)] - 1);
+                RAM.ChangeW((byte)(regValue - 1));
                 if (RAM.W == 0) zeroFlag = true;
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] - 1);
-                if (RAM.RAM[0, (Befehl & 0x7F)] == 0) zeroFlag = true;
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(regValue - 1));
+                if ((regValue-1) == 0) zeroFlag = true;
             }
 
-            if (zeroFlag == false) ++RAM.RAM[0, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
+            if (zeroFlag == false) ++RAM.RAM[bank, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
             else RAM.RAM[0, 2] += 2;                                             //ansonsten überspringe den nächsten
         }
 
         static void INCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)(RAM.RAM[0, (Befehl & 0x7F)] + 1);
-                StatusChange.ZeroBitW(RAM, bank);
+                RAM.ChangeW((byte)(regValue + 1));
+                RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] + 1);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(regValue + 1));
 
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void INCFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             bool zeroFlag = false;
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)(RAM.RAM[0, (Befehl & 0x7F)] + 1);
+                RAM.ChangeW((byte)(regValue + 1));
                 if (RAM.W == 0) zeroFlag = true;
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] + 1);
-                if (RAM.RAM[0, (Befehl & 0x7F)] == 0) zeroFlag = true;
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(regValue + 1));
+                if ((regValue+1) == 0) zeroFlag = true;
             }
 
-            if (zeroFlag == false) ++RAM.RAM[0, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
+            if (zeroFlag == false) ++RAM.RAM[bank, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
             else RAM.RAM[0, 2] += 2;                                             //ansonsten überspringe den nächsten
         }
 
         static void IORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
-            RAM.W = (byte)((0xFF & Befehl) | RAM.W);
-            StatusChange.ZeroBitW(RAM, bank);
-            ++RAM.RAM[0, 2];
+            RAM.ChangeW((byte)((0xFF & Befehl) | RAM.W));
+            RAM.ZeroBit(bank);
+            ++RAM.RAM[bank, 2];
         }
 
         static void XORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-            RAM.W = (byte)((0xFF & Befehl) ^ RAM.W);
-            StatusChange.ZeroBitW(RAM, bank);
-            ++RAM.RAM[0, 2];
+
+            RAM.ChangeW((byte)((0xFF & Befehl) ^ RAM.W));
+            RAM.ZeroBit( bank);
+            ++RAM.RAM[bank, 2];
         }
 
         static void SUBLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
-            byte tempLW = RAM.W;
+            byte tempW = RAM.W;
 
-            if ((0xFF & Befehl) > RAM.W) StatusChange.SetCarry(RAM,bank);
-            else StatusChange.ClearCarry(RAM, bank);                          //C
-
-            RAM.W = (byte)((0xFF & Befehl) - RAM.W);
+            if ((0xFF & Befehl) > RAM.W) RAM.CarryBit(bank,1);
+            else RAM.CarryBit(bank,0);                          //C
 
 
-            StatusChange.ZeroBitW(RAM, bank);
+            RAM.ChangeW((byte)((0xFF & Befehl) - RAM.W));
 
-            if (((RAM.W & 0xF) + ~(Befehl & 0xF)) > 0xF) RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] | 0x2); //DC, komplett des Subtrahenten wird addiert
-            else RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] & 0xFD);
+            RAM.ZeroBit(bank);
 
-            ++RAM.RAM[0, 2];
+            if (((RAM.W & 0xF) + ~(Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1); //DC, komplett des Subtrahenten wird addiert
+            else RAM.DigitCarryBit(bank,0);
+
+            ++RAM.RAM[bank, 2];
         }
 
         static void ADDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
+            if (((0xFF & Befehl) + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
+            else RAM.CarryBit(bank,0);                                 //C
+            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1);
+            else RAM.DigitCarryBit(bank,0);                              //DC, wenn die beiden Low Byte addiert >15 sind
 
-            if (((0xFF & Befehl) + RAM.W) > 0xFF) StatusChange.SetCarry(RAM, bank);
-            else StatusChange.ClearCarry(RAM, bank);                                 //C
-            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] | 0x2);
-            else RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] & 0xFD);                              //DC, wenn die beiden Low Byte addiert >15 sind
+            RAM.ChangeW((byte)((0xFF & Befehl) + RAM.W));
 
-            RAM.W = (byte)((255 & Befehl) + RAM.W);
-
-
-            StatusChange.ZeroBitW(RAM, bank);
+            RAM.ZeroBit(bank);
             
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void ADDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-            if (((0xFF & Befehl) + RAM.W) > 0xFF) StatusChange.SetCarry(RAM, bank);
-            else StatusChange.ClearCarry(RAM, bank); //C
-            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] | 0x2);
-            else RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] & 0xFD); //DC, wenn die beiden Low Byte addiert >15 sind
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
+
+            if ((regValue + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
+            else RAM.CarryBit(bank,0); //C
+            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1);
+            else RAM.DigitCarryBit(bank,0); //DC, wenn die beiden Low Byte addiert >15 sind
 
 
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)(RAM.W + (RAM.RAM[0,(Befehl & 0x7F)]));
-
-                StatusChange.ZeroBitW(RAM, bank);
+                RAM.ChangeW((byte)(RAM.W + regValue));
+                RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.W + (RAM.RAM[0, (Befehl & 0x7F)]));
-
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(RAM.W + regValue));
+                RAM.ZeroBit(bank, Befehl);
             }
 
-                ++RAM.RAM[0, 2];
+                ++RAM.RAM[bank, 2];
         }
 
         static void SUBWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
 
-            if (((0xFF & Befehl) + RAM.W) > 0xFF) StatusChange.SetCarry(RAM, bank);
-            else StatusChange.ClearCarry(RAM, bank); //C
-            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] | 0x2);
-            else RAM.RAM[0, 3] = (byte)(RAM.RAM[0, 3] & 0xFD); //DC, wenn die beiden Low Byte addiert >15 sind
+            if (((0xFF & Befehl) + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
+            else RAM.CarryBit(bank,0); //C
+            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1);
+            else RAM.DigitCarryBit(bank,0); //DC, wenn die beiden Low Byte addiert >15 sind
 
 
             if ((Befehl & 0x80) == 0)
             {
-                RAM.W = (byte)((RAM.RAM[0, (Befehl & 0x7F)]) -RAM.W);
-
-                StatusChange.ZeroBitW(RAM, bank);
+                RAM.ChangeW((byte)(RAM.W - regValue));
+                RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.RAM[0, (Befehl & 0x7F)] = (byte)((RAM.RAM[0, (Befehl & 0x7F)]) - RAM.W);
-
-                StatusChange.ZeroBitF(RAM, bank, Befehl);
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(RAM.W - regValue));
+                RAM.ZeroBit(bank, Befehl);
             }
 
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void SWAPF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-            byte temp = (byte)(((RAM.RAM[0, (Befehl & 0x7F)] & 0x0F)*16)+((RAM.RAM[0, (Befehl & 0x7F)] & 0xF0) / 16));
-            if ((Befehl & 0x80) == 0)
-            {
-                
-                RAM.W = temp;
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
+  
+            byte temp = (byte)(((regValue & 0x0F)*16)+((regValue & 0xF0) / 16));
 
-            }
-            else
-            {
-                RAM.RAM[0, (Befehl & 0x7F)] = temp;
+            if ((Befehl & 0x80) == 0) RAM.ChangeW(temp);
+            else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), temp);
 
-            }
-
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void g0t0(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -445,8 +427,7 @@ namespace Mikroprozesser_22
 
         static void RETLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-            RAM.W = (byte)(Befehl & 0xFF);
+            RAM.ChangeW((byte)(Befehl & 0xFF));
             RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
             RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
         }
@@ -454,93 +435,78 @@ namespace Mikroprozesser_22
         static void RLF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
-            byte tempState = RAM.RAM[0, 3];
-            byte tempNumber = (byte)(RAM.RAM[0,(Befehl & 0x7F)]);
+            byte tempState = RAM.RAM[bank, 3];
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
 
-            if ((tempNumber & 0x80) == 0) StatusChange.ClearCarry(RAM, bank); //wenn das höchste Bit ==0, schreibe 0 in C-Bit
-            else StatusChange.SetCarry(RAM, bank);
+            if ((regValue & 0x80) == 0) RAM.CarryBit(bank,0); //wenn das höchste Bit ==0, schreibe 0 in C-Bit
+            else RAM.CarryBit(bank,1);
 
-            tempNumber = (byte)(tempNumber *2);
+            regValue = (byte)(regValue *2);
 
-            if ((tempState & 0x1) == 0) tempNumber = (byte)(tempNumber & 0xFE);         // wenn C-Bit == 0, dann wird 0 an das niedrigste Bit geschrieben
-            else tempNumber = (byte)(tempNumber | 0x1);                                 // ansonsten 1
+            if ((tempState & 0x1) == 0) regValue = (byte)(regValue & 0xFE);         // wenn C-Bit == 0, dann wird 0 an das niedrigste Bit geschrieben
+            else regValue = (byte)(regValue | 0x1);                                 // ansonsten 1       
 
-            
-               
+            if ((Befehl & 0x80) == 0) RAM.ChangeW(regValue);
+            else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), regValue);
 
-            if ((Befehl & 0x80) == 0)
-            {
-                RAM.W = tempNumber;
-                
-            }
-            else
-            {
-
-                RAM.RAM[0, (Befehl & 0x7F)] = tempNumber;
-            }
-
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void RRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             byte tempState = RAM.RAM[0, 3];
-            byte tempNumber = (byte)(RAM.RAM[0, (Befehl & 0x7F)]);
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
 
-            if ((tempNumber & 0x1) == 0) StatusChange.ClearCarry(RAM, bank); //wenn das niedrigste Bit == 0, schreibe 0 in C-Bit
-            else StatusChange.SetCarry(RAM, bank);                          // ansonsten 1 in C-Bit
+            if ((regValue & 0x1) == 0) RAM.CarryBit(bank,0); //wenn das niedrigste Bit == 0, schreibe 0 in C-Bit
+            else RAM.CarryBit(bank,1);                          // ansonsten 1 in C-Bit
 
-            tempNumber = (byte)(tempNumber / 2);
+            regValue = (byte)(regValue / 2);
 
-            if ((tempState & 0x1) == 0) tempNumber = (byte)(tempNumber & 0x7F);         // wenn C-Bit == 0, dann wird 0 an das höchste Bit geschrieben
-            else tempNumber = (byte)(tempNumber | 0x80);                                 // ansonsten 1
+            if ((tempState & 0x1) == 0) regValue = (byte)(regValue & 0x7F);         // wenn C-Bit == 0, dann wird 0 an das höchste Bit geschrieben
+            else regValue = (byte)(regValue | 0x80);                                 // ansonsten 1
 
-            if ((Befehl & 0x80) == 0)
-            {
-                RAM.W = tempNumber;
+            if ((Befehl & 0x80) == 0) RAM.ChangeW(regValue);
+            else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), regValue);
 
-            }
-            else
-            {
-
-                RAM.RAM[0, (Befehl & 0x7F)] = tempNumber;
-            }
-
-            ++RAM.RAM[0, 2];
+            ++RAM.RAM[bank, 2];
         }
 
         static void BSF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             int tempBit =(int) Math.Pow( 2, ((Befehl & 0x0380)>>7));
-            RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] | tempBit);
-            ++RAM.RAM[0, 2];
+
+            RAM.ChangeRegister(bank,(byte)(Befehl & 0x7F), (byte)(regValue | tempBit)); 
+
+            ++RAM.RAM[bank, 2];
         }
 
         static void BCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));  
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
-            RAM.RAM[0, (Befehl & 0x7F)] = (byte)(RAM.RAM[0, (Befehl & 0x7F)] & ~tempBit);
-            ++RAM.RAM[0, 2];
+
+            RAM.ChangeRegister(bank,(byte)(Befehl & 0x7F), (byte)(regValue & ~tempBit)); 
+
+            ++RAM.RAM[bank, 2];
         }
 
         static void BTFSC(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
 
-            if ((RAM.RAM[0, (Befehl & 0x7F)] & tempBit) == 0) RAM.RAM[0, 2] += 2;
-            else ++RAM.RAM[0, 2];
+            if ((regValue & tempBit) == 0) RAM.RAM[0, 2] += 2;
+            else ++RAM.RAM[bank, 2];
         }
 
         static void BTFSS(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
 
-            if ((RAM.RAM[0, (Befehl & 0x7F)] & tempBit) == 0) ++RAM.RAM[0, 2];
+            if ((regValue & tempBit) == 0) ++RAM.RAM[bank, 2];
             else RAM.RAM[0, 2] += 2;
             
         }

@@ -47,6 +47,7 @@ namespace Mikroprozesser_22
         {
             this.W = 0;
             this.Stack.Clear();
+
             this.RAM[0, 1] = 0x00; //TIMR0
             this.RAM[0, 2] = 0x00; //PCL
             this.RAM[0, 3] = 0x18; //STATUS
@@ -69,5 +70,53 @@ namespace Mikroprozesser_22
             this.RAM[1, 10] = 0x00; //PCLATH
             this.RAM[1, 11] = 0x00; //INTCON
         }
+
+        public void ZeroBit( int bank)              //changes ZeroBit if W == 0
+        {
+            if (this.W == 0) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x4);// Z
+            else this.RAM[bank, 3] = (byte)(this.RAM[0, 3] & 0xFB);
+        }
+
+        public void ZeroBit(int bank, UInt16 Befehl)  //changes ZeroBit if Register == 0
+        {
+            if (this.RAM[bank, (Befehl & 0x7F)] == 0) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x4); //Z
+            else this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] & 0xFB);
+        }
+
+        public void CarryBit(int bank, int value)
+        {
+           if (value == 1) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x1);
+           else this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] & 0xFE);
+        }
+
+        public void DigitCarryBit(int bank, int value)
+        {
+            if (value == 1) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x2);
+            else this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] & 0xFD);
+        }
+
+        public void ChangeW(int bank, byte register)  //Changes W
+        {
+            if (register == 0) ;
+            else this.W = this.RAM[bank, register];
+        }
+
+        public void ChangeW(byte newValue)  //Changes W
+        {
+            this.W = newValue;
+        }
+
+        public byte getRegisterValue(int bank, byte register)
+        {
+            if (register == 0) return 0;
+            else return this.RAM[bank, register];
+        }
+
+        public void ChangeRegister(int bank, byte register, byte newValue)  //Changes Registers
+        {
+
+             this.RAM[bank, register] = newValue;
+        }
+
     }
 }
