@@ -107,7 +107,7 @@ namespace Mikroprozesser_22
                 }
                 for (int i = 0; i < LineList.Count; i++) //Ausgabe der Befehlsliste
                 {
-                    OutputDing.Text +=  LineList[i].counter + " " + Convert.ToString(LineList[i].command, 16) + System.Environment.NewLine;
+                    OutputDing.Text +=  Convert.ToString(LineList[i].counter,16) + " " + Convert.ToString(LineList[i].command, 16) + System.Environment.NewLine;
                 }
                 sr.Close();
                 OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.RAM[0, 2]), OutputDing.Lines[Speicher.RAM[0, 2]].Length);
@@ -208,9 +208,14 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
             LWBox.Text = Convert.ToString(Speicher.W, 16);
-            Box0Ch.Text = Convert.ToString(Speicher.RAM[0,12], 16);
-            Box0Dh.Text = Convert.ToString(Speicher.RAM[0,13], 16);
-            Box0Eh.Text = Convert.ToString(Speicher.RAM[0, 14], 16);
+            
+            FSRBox.Text = Convert.ToString(Speicher.RAM[0, 4], 16);
+
+            speicher1.Clear();
+            for (int i = 0x0B; i < 64; i++)
+            {
+                speicher1.Text += Convert.ToString(i,16) + " " + Convert.ToString(Speicher.RAM[0,i], 16) + System.Environment.NewLine;
+            }
         }
 
         private void Stop_Click(object sender, EventArgs e)
@@ -229,6 +234,16 @@ namespace Mikroprozesser_22
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
         }

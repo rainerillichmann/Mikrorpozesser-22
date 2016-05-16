@@ -250,7 +250,7 @@ namespace Mikroprozesser_22
             else
             {
                 RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(regValue - 1));
-                if ((regValue-1) == 0) zeroFlag = true;
+                if ((byte)(regValue-1) == 0) zeroFlag = true;
             }
 
             if (zeroFlag == false) ++RAM.RAM[bank, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
@@ -287,7 +287,7 @@ namespace Mikroprozesser_22
             else
             {
                 RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(regValue + 1));
-                if ((regValue+1) == 0) zeroFlag = true;
+                if ((byte)(regValue+1) == 0) zeroFlag = true;
             }
 
             if (zeroFlag == false) ++RAM.RAM[bank, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus

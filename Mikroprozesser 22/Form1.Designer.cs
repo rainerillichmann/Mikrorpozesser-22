@@ -56,12 +56,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.OutputDing = new System.Windows.Forms.RichTextBox();
-            this.Box0Ch = new System.Windows.Forms.TextBox();
-            this.Box0Dh = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.Box0Eh = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.FSRBox = new System.Windows.Forms.TextBox();
+            this.speicher1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -292,9 +289,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(21, 179);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 22;
-            this.label3.Text = "LW";
+            this.label3.Text = "W";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button2
@@ -321,70 +318,41 @@
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
             // 
-            // Box0Ch
+            // label7
             // 
-            this.Box0Ch.Location = new System.Drawing.Point(50, 202);
-            this.Box0Ch.Name = "Box0Ch";
-            this.Box0Ch.ReadOnly = true;
-            this.Box0Ch.Size = new System.Drawing.Size(100, 20);
-            this.Box0Ch.TabIndex = 25;
-            this.Box0Ch.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(158, 179);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(28, 13);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "FSR";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
-            // Box0Dh
+            // FSRBox
             // 
-            this.Box0Dh.Location = new System.Drawing.Point(51, 228);
-            this.Box0Dh.Name = "Box0Dh";
-            this.Box0Dh.ReadOnly = true;
-            this.Box0Dh.Size = new System.Drawing.Size(100, 20);
-            this.Box0Dh.TabIndex = 26;
+            this.FSRBox.Location = new System.Drawing.Point(191, 176);
+            this.FSRBox.Name = "FSRBox";
+            this.FSRBox.ReadOnly = true;
+            this.FSRBox.Size = new System.Drawing.Size(100, 20);
+            this.FSRBox.TabIndex = 31;
+            this.FSRBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
-            // label4
+            // speicher1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 205);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 13);
-            this.label4.TabIndex = 27;
-            this.label4.Text = "0Ch";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 231);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 13);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "0Dh";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 257);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 13);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "0Eh";
-            // 
-            // Box0Eh
-            // 
-            this.Box0Eh.Location = new System.Drawing.Point(51, 254);
-            this.Box0Eh.Name = "Box0Eh";
-            this.Box0Eh.ReadOnly = true;
-            this.Box0Eh.Size = new System.Drawing.Size(100, 20);
-            this.Box0Eh.TabIndex = 29;
+            this.speicher1.Location = new System.Drawing.Point(22, 202);
+            this.speicher1.Name = "speicher1";
+            this.speicher1.Size = new System.Drawing.Size(211, 321);
+            this.speicher1.TabIndex = 33;
+            this.speicher1.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 547);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.Box0Eh);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.Box0Dh);
-            this.Controls.Add(this.Box0Ch);
+            this.Controls.Add(this.speicher1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.FSRBox);
             this.Controls.Add(this.OutputDing);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
@@ -449,12 +417,9 @@
         private System.Windows.Forms.Button button2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.RichTextBox OutputDing;
-        private System.Windows.Forms.TextBox Box0Ch;
-        private System.Windows.Forms.TextBox Box0Dh;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox Box0Eh;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox FSRBox;
+        private System.Windows.Forms.RichTextBox speicher1;
 
     }
 }

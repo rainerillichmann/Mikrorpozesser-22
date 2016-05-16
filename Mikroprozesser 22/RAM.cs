@@ -19,6 +19,7 @@ namespace Mikroprozesser_22
 
         public Arbeitsspeicher()
         {
+            this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
             this.RAM[0, 2] = 0x00; //PCL
             this.RAM[0, 3] = 0x18; //STATUS
@@ -48,6 +49,7 @@ namespace Mikroprozesser_22
             this.W = 0;
             this.Stack.Clear();
 
+            this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
             this.RAM[0, 2] = 0x00; //PCL
             this.RAM[0, 3] = 0x18; //STATUS
@@ -97,8 +99,8 @@ namespace Mikroprozesser_22
 
         public void ChangeW(int bank, byte register)  //Changes W
         {
-            if (register == 0) ;
-            else this.W = this.RAM[bank, register];
+            byte newValue = this.getRegisterValue(bank, register);
+            this.W = newValue;
         }
 
         public void ChangeW(byte newValue)  //Changes W
@@ -108,14 +110,32 @@ namespace Mikroprozesser_22
 
         public byte getRegisterValue(int bank, byte register)
         {
-            if (register == 0) return 0;
+            if (register == 0)      //überprüfe ob INDF angesprochen wird
+            {
+                byte indAdress = this.RAM[bank, 4];
+                if ((byte)(indAdress & 0x7F) == 0) return 0;  //falls indf addressiert wird, return 0x00;
+                else
+                {
+                    if ((byte)(indAdress & 0x80) == 0) return this.RAM[0, (byte)(indAdress & 0x7F)];  //überprüfe Bit 7, welche Bank angesprochen wird
+                    else return this.RAM[1, (byte)(indAdress & 0x7F)];
+                }
+            }
             else return this.RAM[bank, register];
         }
 
         public void ChangeRegister(int bank, byte register, byte newValue)  //Changes Registers
         {
-
-             this.RAM[bank, register] = newValue;
+            if (register == 0)      //überprüfe ob INDF angesprochen wird
+            {
+                byte indAdress = this.RAM[bank, 4];
+                if ((byte)(indAdress & 0x7F) == 0);  //falls indf addressiert wird, return 0x00;
+                else
+                {
+                    if ((byte)(indAdress & 0x80) == 0) this.RAM[0, (byte)(indAdress & 0x7F)] = newValue;  //überprüfe Bit 7, welche Bank angesprochen wird
+                    else this.RAM[0, (byte)(indAdress & 0x7F)] = newValue; 
+                }
+            }
+            else this.RAM[bank, register] = newValue;
         }
 
     }
