@@ -15,90 +15,101 @@ namespace Mikroprozesser_22
         public static void Befehlsanalyse(CommandLine Befehl, Arbeitsspeicher RAM)
         {
             byte tempBank = (byte)(RAM.RAM[0, 3]>>5);
+            bool timer;
+            if ((RAM.RAM[1, 1] & 0x20) == 0x20) timer = false;
+            else timer = true;
+            //if (tempBank == 0) for (int i = 2; i < 5; i++) RAM.RAM[1, i] = RAM.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
+            //else for (int i = 2; i < 5; i++) RAM.RAM[0, i] = RAM.RAM[1, i];
             
             //MOVLW
-            if ((Befehl.command & 0x3F00) == 0x3000) MOVLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3100) MOVLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3200) MOVLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3300) MOVLW(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x3000) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3100) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3200) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3300) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //MOVWF
-            if ((Befehl.command & 0x3F80) == 0x0080) MOVWF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F80) == 0x0080) { MOVWF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //MOVF
-            if ((Befehl.command & 0x3F00) == 0x0800) MOVF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0800) { MOVF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //ANDLW
-            if ((Befehl.command & 0x3F00) == 0x3900) ANDLW(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x3900) { ANDLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //ANDWF
-            if ((Befehl.command & 0x3F00) == 0x0500) ANDWF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0500) { ANDWF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //IORLW
-            if ((Befehl.command & 0x3F00) == 0x3800) IORLW(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x3800) { IORLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //IORWF
-            if ((Befehl.command & 0x3F00) == 0x0400) IORWF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0400) { IORWF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //SUBLW
-            if ((Befehl.command & 0x3F00) == 0x3C00) SUBLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3D00) SUBLW(Befehl.command, RAM, tempBank); 
+            if ((Befehl.command & 0x3F00) == 0x3C00) { SUBLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3D00) { SUBLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //XORLW
-            if ((Befehl.command & 0x3F00) == 0x3A00) XORLW(Befehl.command, RAM, tempBank); 
+            if ((Befehl.command & 0x3F00) == 0x3A00) { XORLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //XORWF
-            if ((Befehl.command & 0x3F00) == 0x0600) XORWF(Befehl.command, RAM, tempBank); 
+            if ((Befehl.command & 0x3F00) == 0x0600) { XORWF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //ADDLW
-            if ((Befehl.command & 0x3F00) == 0x3E00) ADDLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3F00) ADDLW(Befehl.command, RAM, tempBank); 
+            if ((Befehl.command & 0x3F00) == 0x3E00) { ADDLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3F00) { ADDLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //ADDWF
-            if ((Befehl.command & 0x3F00) == 0x0700) ADDWF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0700) { ADDWF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //SUBWF
-            if ((Befehl.command & 0x3F00) == 0x0200) SUBWF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0200) { SUBWF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //SWAPF
-            if ((Befehl.command & 0x3F00) == 0x0E00) SWAPF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0E00) { SWAPF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //GOTO
-            if ((Befehl.command & 0x3800) == 0x2800) g0t0(Befehl.command, RAM, tempBank); 
+            if ((Befehl.command & 0x3800) == 0x2800) { g0t0(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //CALL
-            if ((Befehl.command & 0x3800) == 0x2000) CALL(Befehl.command, RAM, tempBank); 
+            if ((Befehl.command & 0x3800) == 0x2000) { CALL(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //NOP
-            if ((Befehl.command & 0x3FFF) == 0x0000) ++RAM.RAM[tempBank, 2];
-            if ((Befehl.command & 0x3FFF) == 0x0020) ++RAM.RAM[tempBank, 2];
-            if ((Befehl.command & 0x3FFF) == 0x0040) ++RAM.RAM[tempBank, 2];
-            if ((Befehl.command & 0x3FFF) == 0x0060) ++RAM.RAM[tempBank, 2];
+            if ((Befehl.command & 0x3FFF) == 0x0000) { NOP(RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0020) { NOP(RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0040) { NOP(RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0060) { NOP(RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //RETURN
-            if ((Befehl.command & 0x3FFF) == 0x0008) RETURN(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3FFF) == 0x0008) { RETURN(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //RETLW
-            if ((Befehl.command & 0x3F00) == 0x3400) RETLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3500) RETLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3600) RETLW(Befehl.command, RAM, tempBank);
-            if ((Befehl.command & 0x3F00) == 0x3700) RETLW(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x3400) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3500) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3600) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
+            if ((Befehl.command & 0x3F00) == 0x3700) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //CLRF
-            if ((Befehl.command & 0x3F80) == 0x0180) CLRF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F80) == 0x0180) { CLRF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //CLRW
-            if (((Befehl.command & 0x3FFF) >= 0x0100) && ((Befehl.command & 0x3FFF) <= 0x017F)) CLRW(Befehl.command, RAM, tempBank);
+            if (((Befehl.command & 0x3FFF) >= 0x0100) && ((Befehl.command & 0x3FFF) <= 0x017F)) { CLRW(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //RLF
-            if ((Befehl.command & 0x3F00) == 0x0D00) RLF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0D00) { RLF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //RRF
-            if ((Befehl.command & 0x3F00) == 0x0C00) RRF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0C00) { RRF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //COMF
-            if ((Befehl.command & 0x3F00) == 0x0900) COMF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0900) { COMF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //DECF
-            if ((Befehl.command & 0x3F00) == 0x0300) DECF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0300) { DECF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank);return; }
             //DECFSZ
-            if ((Befehl.command & 0x3F00) == 0x0B00) DECFSZ(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0B00) { DECFSZ(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //INCF
-            if ((Befehl.command & 0x3F00) == 0x0A00) INCF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0A00) { INCF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //INCFSZ
-            if ((Befehl.command & 0x3F00) == 0x0F00) INCFSZ(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3F00) == 0x0F00) { INCFSZ(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //BSF
-            if ((Befehl.command & 0x3C00) == 0x1400) BSF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3C00) == 0x1400) { BSF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //BCF
-            if ((Befehl.command & 0x3C00) == 0x1000) BCF(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3C00) == 0x1000) { BCF(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //BTFSC
-            if ((Befehl.command & 0x3C00) == 0x1800) BTFSC(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3C00) == 0x1800) { BTFSC(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
             //BTFSS
-            if ((Befehl.command & 0x3C00) == 0x1C00) BTFSS(Befehl.command, RAM, tempBank);
+            if ((Befehl.command & 0x3C00) == 0x1C00) { BTFSS(Befehl.command, RAM, tempBank); RAM.updateReg3_5(tempBank); return; }
 
-            if (tempBank == 0) for (int i = 2; i < 5; i++) RAM.RAM[1, i] = RAM.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
-            else for (int i = 2; i < 5; i++) RAM.RAM[0, i] = RAM.RAM[1, i];
+            
         }
+
+        static void NOP(Arbeitsspeicher RAM, byte bank)
+        {
+            RAM.incTimer(1);
+            ++RAM.RAM[bank, 2];
+        }
+
 
         static void MOVLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            RAM.incTimer(1);
             ++RAM.RAM[bank, 2];
             RAM.ChangeW( (byte)(0xFF & Befehl));
             
@@ -106,7 +117,7 @@ namespace Mikroprozesser_22
 
         static void MOVWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
+            RAM.incTimer(1); 
             ++RAM.RAM[bank, 2];
        
             RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), RAM.W);
@@ -114,42 +125,50 @@ namespace Mikroprozesser_22
         }
 
         static void MOVF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
-        {
-             
-            ++RAM.RAM[bank, 2];
-
+        {           
             if ((Befehl & 0x80) == 0)
             {               
                 RAM.ChangeW(bank, (byte)(Befehl & 0x7F));
                 RAM.ZeroBit(bank);
             }
             else RAM.ZeroBit(bank, Befehl);                     //lediglich Test auf Zero Bit    
+
+            RAM.incTimer(1);
+            ++RAM.RAM[bank, 2];
         }
 
         static void CLRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+
             RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), 0);
             RAM.ZeroBit(bank, Befehl);
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void CLRW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+           
             RAM.ChangeW (0);
             RAM.ZeroBit(bank, 0);
+
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void ANDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
-        {            
+        {
+            
             RAM.ChangeW ((byte)((0xFF & Befehl) & RAM.W));
-
             RAM.ZeroBit(bank);
+
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void ANDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+            
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             if ((Befehl & 0x80) == 0)
             {
@@ -163,10 +182,12 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void IORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+            RAM.incTimer(1);
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             if ((Befehl & 0x80) == 0)
             {                
@@ -185,6 +206,7 @@ namespace Mikroprozesser_22
 
         static void XORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+            
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
             {             
@@ -200,10 +222,12 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void COMF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+            RAM.incTimer(1);
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
             {               
@@ -222,6 +246,7 @@ namespace Mikroprozesser_22
 
         static void DECF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
+            
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
             {
@@ -236,6 +261,7 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void DECFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -253,8 +279,16 @@ namespace Mikroprozesser_22
                 if ((byte)(regValue-1) == 0) zeroFlag = true;
             }
 
-            if (zeroFlag == false) ++RAM.RAM[bank, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
-            else RAM.RAM[0, 2] += 2;                                             //ansonsten überspringe den nächsten
+            if (zeroFlag == false)  //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
+            {
+                ++RAM.RAM[bank, 2];
+                RAM.incTimer(1);
+            }
+            else //ansonsten überspringe den nächsten
+            {
+                RAM.RAM[0, 2] += 2;
+                RAM.incTimer(2);
+            }
         }
 
         static void INCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -273,6 +307,7 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void INCFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -290,8 +325,16 @@ namespace Mikroprozesser_22
                 if ((byte)(regValue+1) == 0) zeroFlag = true;
             }
 
-            if (zeroFlag == false) ++RAM.RAM[bank, 2];                              //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
-            else RAM.RAM[0, 2] += 2;                                             //ansonsten überspringe den nächsten
+            if (zeroFlag == false)     //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
+            {
+                ++RAM.RAM[bank, 2];
+                RAM.incTimer(1);
+            }
+            else                        //ansonsten überspringe den nächsten
+            {
+                RAM.RAM[0, 2] += 2;
+                RAM.incTimer(2);
+            }
         }
 
         static void IORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -300,6 +343,7 @@ namespace Mikroprozesser_22
             RAM.ChangeW((byte)((0xFF & Befehl) | RAM.W));
             RAM.ZeroBit(bank);
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void XORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -308,6 +352,7 @@ namespace Mikroprozesser_22
             RAM.ChangeW((byte)((0xFF & Befehl) ^ RAM.W));
             RAM.ZeroBit( bank);
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void SUBLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -327,6 +372,7 @@ namespace Mikroprozesser_22
             else RAM.DigitCarryBit(bank,0);
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void ADDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -343,6 +389,7 @@ namespace Mikroprozesser_22
             
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void ADDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -367,6 +414,7 @@ namespace Mikroprozesser_22
             }
 
                 ++RAM.RAM[bank, 2];
+                RAM.incTimer(1);
         }
 
         static void SUBWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -391,6 +439,7 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void SWAPF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -403,12 +452,14 @@ namespace Mikroprozesser_22
             else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), temp);
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void g0t0(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             RAM.RAM[0, 2] = (byte)(Befehl & 0x7FF);
+            RAM.incTimer(2);
         }
 
         static void CALL(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -416,6 +467,7 @@ namespace Mikroprozesser_22
              
             RAM.addStack(RAM.RAM[0, 2] + 1);
             RAM.RAM[0, 2] = (byte)(Befehl & 0x7FF);
+            RAM.incTimer(2);
         }
 
         static void RETURN(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -423,6 +475,7 @@ namespace Mikroprozesser_22
              
             RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
             RAM.Stack.RemoveAt(RAM.Stack.Count -1);
+            RAM.incTimer(2);
         }
 
         static void RETLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -430,6 +483,7 @@ namespace Mikroprozesser_22
             RAM.ChangeW((byte)(Befehl & 0xFF));
             RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
             RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
+            RAM.incTimer(2);
         }
 
         static void RLF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -450,6 +504,7 @@ namespace Mikroprozesser_22
             else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), regValue);
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void RRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -470,6 +525,7 @@ namespace Mikroprozesser_22
             else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), regValue);
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void BSF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -480,6 +536,7 @@ namespace Mikroprozesser_22
             RAM.ChangeRegister(bank,(byte)(Befehl & 0x7F), (byte)(regValue | tempBit)); 
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void BCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -490,6 +547,7 @@ namespace Mikroprozesser_22
             RAM.ChangeRegister(bank,(byte)(Befehl & 0x7F), (byte)(regValue & ~tempBit)); 
 
             ++RAM.RAM[bank, 2];
+            RAM.incTimer(1);
         }
 
         static void BTFSC(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -497,8 +555,16 @@ namespace Mikroprozesser_22
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
 
-            if ((regValue & tempBit) == 0) RAM.RAM[0, 2] += 2;
-            else ++RAM.RAM[bank, 2];
+            if ((regValue & tempBit) == 0)
+            {
+                RAM.RAM[0, 2] += 2;
+                RAM.incTimer(2);
+            }
+            else
+            {
+                ++RAM.RAM[bank, 2];
+                RAM.incTimer(1);
+            }
         }
 
         static void BTFSS(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -506,8 +572,16 @@ namespace Mikroprozesser_22
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
 
-            if ((regValue & tempBit) == 0) ++RAM.RAM[bank, 2];
-            else RAM.RAM[0, 2] += 2;
+            if ((regValue & tempBit) == 0)
+            {
+                ++RAM.RAM[bank, 2];
+                RAM.incTimer(1);
+            }
+            else
+            {
+                RAM.RAM[0, 2] += 2;
+                RAM.incTimer(2);
+            }
             
         }
     }

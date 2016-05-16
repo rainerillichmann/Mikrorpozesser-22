@@ -59,6 +59,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.FSRBox = new System.Windows.Forms.TextBox();
             this.speicher1 = new System.Windows.Forms.RichTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TIM0 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +99,7 @@
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
             this.checkBox4.TabIndex = 3;
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox5
             // 
@@ -277,7 +280,7 @@
             // 
             // LWBox
             // 
-            this.LWBox.Location = new System.Drawing.Point(51, 176);
+            this.LWBox.Location = new System.Drawing.Point(50, 148);
             this.LWBox.Name = "LWBox";
             this.LWBox.ReadOnly = true;
             this.LWBox.Size = new System.Drawing.Size(100, 20);
@@ -287,7 +290,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 179);
+            this.label3.Location = new System.Drawing.Point(27, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 22;
@@ -321,7 +324,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(158, 179);
+            this.label7.Location = new System.Drawing.Point(156, 151);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 13);
             this.label7.TabIndex = 32;
@@ -330,7 +333,7 @@
             // 
             // FSRBox
             // 
-            this.FSRBox.Location = new System.Drawing.Point(191, 176);
+            this.FSRBox.Location = new System.Drawing.Point(190, 148);
             this.FSRBox.Name = "FSRBox";
             this.FSRBox.ReadOnly = true;
             this.FSRBox.Size = new System.Drawing.Size(100, 20);
@@ -345,11 +348,33 @@
             this.speicher1.TabIndex = 33;
             this.speicher1.Text = "";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label4.Location = new System.Drawing.Point(17, 179);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "TIM0";
+            this.label4.Click += new System.EventHandler(this.label4_Click_1);
+            // 
+            // TIM0
+            // 
+            this.TIM0.Location = new System.Drawing.Point(51, 176);
+            this.TIM0.Name = "TIM0";
+            this.TIM0.ReadOnly = true;
+            this.TIM0.Size = new System.Drawing.Size(100, 20);
+            this.TIM0.TabIndex = 34;
+            this.TIM0.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 547);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.TIM0);
             this.Controls.Add(this.speicher1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.FSRBox);
@@ -420,6 +445,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox FSRBox;
         private System.Windows.Forms.RichTextBox speicher1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox TIM0;
 
     }
 }

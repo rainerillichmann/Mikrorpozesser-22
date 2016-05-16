@@ -11,6 +11,7 @@ namespace Mikroprozesser_22
         public byte[,] RAM = new byte [2,64];
         public byte W = 0;
         public List<int> Stack = new List<int>();
+        public int timerCounter = 0;
 
         public void addStack(int pc)
         {
@@ -48,6 +49,7 @@ namespace Mikroprozesser_22
         {
             this.W = 0;
             this.Stack.Clear();
+            this.timerCounter = 0;
 
             this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
@@ -71,6 +73,119 @@ namespace Mikroprozesser_22
             this.RAM[1, 8] = 0x00; //EECON
             this.RAM[1, 10] = 0x00; //PCLATH
             this.RAM[1, 11] = 0x00; //INTCON
+        }
+
+        public void updateReg3_5(byte bank)
+        {
+            if (bank == 0) for (int i = 2; i < 5; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
+            else for (int i = 2; i < 5; i++) this.RAM[0, i] = this.RAM[1, i];
+        }
+
+        public void incTimer(byte takt)
+        {
+            for (int i = takt; i> 0; i--)
+            {
+                ++this.timerCounter;
+                if ((this.RAM[1, 1] & 0x08) == 0)   //wenn PSA = 0 ist der Timer-Prescaler aktiv
+                {
+                    // 1:2
+                    if ((this.RAM[1, 1] & 0x07) == 0)
+                    {
+                        if (this.timerCounter % 2 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:4
+                    if ((this.RAM[1, 1] & 0x07) == 1)
+                    {
+                        if (this.timerCounter % 4 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:8
+                    if ((this.RAM[1, 1] & 0x07) == 2)
+                    {
+                        if (this.timerCounter % 8 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:16
+                    if ((this.RAM[1, 1] & 0x07) == 3)
+                    {
+                        if (this.timerCounter % 16 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:32
+                    if ((this.RAM[1, 1] & 0x07) == 4)
+                    {
+                        if (this.timerCounter % 32 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:64
+                    if ((this.RAM[1, 1] & 0x07) == 5)
+                    {
+                        if (this.timerCounter % 64 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:128
+                    if ((this.RAM[1, 1] & 0x07) == 6)
+                    {
+                        if (this.timerCounter % 128 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+
+                    // 1:256
+                    if ((this.RAM[1, 1] & 0x07) == 7)
+                    {
+                        if (this.timerCounter % 256 == 0)
+                        {
+                            this.timerCounter = 0;
+                            ++this.RAM[0, 1];
+                            if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        }
+
+                    }
+                }
+                else ++this.RAM[0, 1];      // wenn kein prescaler aktiv ist, wird der Timer nach jedem Cycle erhöht
+            }
         }
 
         public void ZeroBit( int bank)              //changes ZeroBit if W == 0

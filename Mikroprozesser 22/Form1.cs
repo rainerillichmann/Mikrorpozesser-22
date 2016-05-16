@@ -150,9 +150,28 @@ namespace Mikroprozesser_22
         {
             while (!bw.CancellationPending)
             {
-                
+                OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.RAM[0, 2]), OutputDing.Lines[Speicher.RAM[0, 2]].Length);
+                OutputDing.SelectionBackColor = Color.White;
+                OutputDing.SelectionColor = Color.Black;
 
-                LWBox.Text = Speicher.W.ToString();
+
+                Commands.Befehlsanalyse(LineList[Speicher.RAM[0, 2]], Speicher);
+
+                OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.RAM[0, 2]), OutputDing.Lines[Speicher.RAM[0, 2]].Length);
+                OutputDing.SelectionBackColor = Color.Blue;
+                OutputDing.SelectionColor = Color.White;
+                LWBox.Text = Convert.ToString(Speicher.W, 16);
+
+                FSRBox.Text = Convert.ToString(Speicher.RAM[0, 4], 16);
+                TIM0.Text = Convert.ToString(Speicher.RAM[0, 1], 16);
+                speicher1.Clear();
+                speicher1.Text = "Bank0 \tValue\t|  Bank1\tValue\n";
+                for (int i = 0x00; i < 64; i++)
+                {
+                    speicher1.Text += Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[0, i], 16) + "\t|  " + Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[1, i], 16) + System.Environment.NewLine;
+                }
+
+                
                 if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
                 if ((Speicher.RAM[0, 5] & 2) == 2) checkBox7.Checked = true; else checkBox7.Checked = false;
                 if ((Speicher.RAM[0, 5] & 4) == 4) checkBox6.Checked = true; else checkBox6.Checked = false;
@@ -210,12 +229,13 @@ namespace Mikroprozesser_22
             LWBox.Text = Convert.ToString(Speicher.W, 16);
             
             FSRBox.Text = Convert.ToString(Speicher.RAM[0, 4], 16);
-
+            TIM0.Text = Convert.ToString(Speicher.RAM[0, 1], 16);
             speicher1.Clear();
-            for (int i = 0x0B; i < 64; i++)
+            speicher1.Text = "Bank0 \tValue\t|  Bank1\tValue\n";
+            for (int i = 0x00; i < 64; i++)
             {
-                speicher1.Text += Convert.ToString(i,16) + " " + Convert.ToString(Speicher.RAM[0,i], 16) + System.Environment.NewLine;
-            }
+                speicher1.Text += Convert.ToString(i,16) + "\t" + Convert.ToString(Speicher.RAM[0,i], 16) + "\t|  " + Convert.ToString(i,16) + "\t" + Convert.ToString(Speicher.RAM[1,i], 16) + System.Environment.NewLine;
+            } 
         }
 
         private void Stop_Click(object sender, EventArgs e)
@@ -246,6 +266,31 @@ namespace Mikroprozesser_22
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            int bank = Speicher.RAM[0, 3] & 0x20;
+            if (checkBox4.Checked == true)
+            {
+                Speicher.RAM[bank, 5] |= 0x8;
+                if ((Speicher.RAM[1, 1] & 0x30) == 0x20) Speicher.incTimer(1);
+            }
+            else
+            {
+                Speicher.RAM[bank, 5] &= 0xF7;
+                if ((Speicher.RAM[1, 1] & 0x30) == 0x30) Speicher.incTimer(1);
+            }
         }
 
         
