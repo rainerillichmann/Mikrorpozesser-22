@@ -77,10 +77,13 @@ namespace Mikroprozesser_22
             this.RAM[1, 11] = 0x00; //INTCON
         }
 
-        public void updateReg3_5(byte bank)
+        public void updateReg(byte bank)
         {
             if (bank == 0) for (int i = 2; i < 5; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
             else for (int i = 2; i < 5; i++) this.RAM[0, i] = this.RAM[1, i];
+
+            if (bank == 0) for (int i = 0x0A; i < 0x0C; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
+            else for (int i = 0x0A; i < 0x0C; i++) this.RAM[0, i] = this.RAM[1, i];
         }
 
         public void incInternalTimer(byte takt)
@@ -171,6 +174,23 @@ namespace Mikroprozesser_22
             else this.RAM[bank, register] = newValue;
         }
 
+        public void interrupt()
+        {
+            if ((this.RAM[0, 0x0B] & 0x80) == 0x80)         //GIE = 1 -> alle interrupts enabled
+            {
+                if ((this.RAM[0, 0x0B] & 0x20) == 0x20)     //T0IE = 1 -> Timer Overflow interrupt enabled
+                {
+                    if ((this.RAM[0, 0x0B] & 0x04) == 0x04) // Timer Overflow ist passiert
+                    {
+                        this.addStack(this.RAM[0, 2]);
+                        this.RAM[0, 2] = 0x04;
+                        this.RAM[1, 2] = 0x04;
+                        this.RAM[0, 0x0B] &= 0x7F;           //GIE Disablen
+                    }
+                }
+            }
+        }
+
         public int TimerPrescaler(int counter)
         {
             if ((this.RAM[1, 1] & 0x08) == 0)   //wenn PSA = 0 ist der Timer-Prescaler aktiv
@@ -181,7 +201,11 @@ namespace Mikroprozesser_22
                     if (counter % 2 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
                         return 0;
                     }
                     return counter;
@@ -193,7 +217,12 @@ namespace Mikroprozesser_22
                     if (counter % 4 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                 
                         return 0;
                     }
                     return counter;
@@ -206,7 +235,12 @@ namespace Mikroprozesser_22
                     if (counter % 8 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                  ;
                         return 0;
                     }
                     return counter;
@@ -220,7 +254,12 @@ namespace Mikroprozesser_22
                     {
                         this.internalTimerCounter = 0;
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                      
                         return 0;
                     }
                     return counter;
@@ -233,7 +272,12 @@ namespace Mikroprozesser_22
                     if (counter % 32 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                      
                         return 0;
                     }
                     return counter;
@@ -246,7 +290,12 @@ namespace Mikroprozesser_22
                     if (counter % 64 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                       
                         return 0;
                     }
                     return counter;
@@ -259,7 +308,12 @@ namespace Mikroprozesser_22
                     if (counter % 128 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                       
                         return 0;
                     }
                     return counter;
@@ -272,14 +326,31 @@ namespace Mikroprozesser_22
                     if (counter % 256 == 0)
                     {
                         ++this.RAM[0, 1];
-                        if (this.RAM[0, 1] == 0) RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                        if (this.RAM[0, 1] == 0)
+                        {
+                            RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                            RAM[0, 0xB] |= 0x04;
+                        }
+                        
                         return 0;
                     }
                     return counter;
 
                 }
+                
             }
-            else ++this.RAM[0, 1]; // wenn kein prescaler aktiv ist, wird der Timer nach jedem Cycle erhöht
+            else
+            {
+                ++this.RAM[0, 1]; // wenn kein prescaler aktiv ist, wird der Timer nach jedem Cycle erhöht
+                if (this.RAM[0, 1] == 0)
+                {
+                    RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
+                    RAM[0, 0xB] |= 0x04;
+                }
+                
+                return 0;
+                
+            }
             return 0;
         }
 

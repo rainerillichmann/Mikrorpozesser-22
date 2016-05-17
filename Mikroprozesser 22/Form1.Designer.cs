@@ -62,6 +62,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.TIM0 = new System.Windows.Forms.TextBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.Einzelschritt = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -375,11 +376,23 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // Einzelschritt
+            // 
+            this.Einzelschritt.Enabled = false;
+            this.Einzelschritt.Location = new System.Drawing.Point(452, 512);
+            this.Einzelschritt.Name = "Einzelschritt";
+            this.Einzelschritt.Size = new System.Drawing.Size(75, 23);
+            this.Einzelschritt.TabIndex = 36;
+            this.Einzelschritt.Text = "Einzelschritt";
+            this.Einzelschritt.UseVisualStyleBackColor = true;
+            this.Einzelschritt.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 542);
+            this.Controls.Add(this.Einzelschritt);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TIM0);
             this.Controls.Add(this.speicher1);
@@ -455,6 +468,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TIM0;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.Button Einzelschritt;
 
     }
 }
