@@ -13,6 +13,8 @@ namespace Mikroprozesser_22
         public List<int> Stack = new List<int>();
         public int internalTimerCounter = 0;
         public int externalTimerCounter = 0;
+        public bool interruptRB5_7 = false;
+        public bool interruptRB0 = false;
 
         public void addStack(int pc)
         {
@@ -186,7 +188,33 @@ namespace Mikroprozesser_22
                         this.RAM[0, 2] = 0x04;
                         this.RAM[1, 2] = 0x04;
                         this.RAM[0, 0x0B] &= 0x7F;           //GIE Disablen
+                        return;
+                    }                   
+                }
+
+                if ((this.RAM[0, 0x0B] & 0x08) == 0x08)     //RB5-7 interrupt enabled
+                {
+                    if ((this.RAM[0,0x0B] & 0x01)  == 0x01) //RBChange Flag enabled
+                    {
+                        this.addStack(this.RAM[0, 2]);
+                        this.RAM[0, 2] = 0x04;
+                        this.RAM[1, 2] = 0x04;
+                        this.RAM[0, 0x0B] &= 0x7F;          //GIE Disablen                      
+                        return;
+                    }                  
+                }
+
+                if ((this.RAM[0, 0x0B] & 0x10) == 0x10)     //RB0 interrupt enabled
+                {
+                    if ((this.RAM[0,0x0B] &0x02) == 0x02)
+                    {
+                        this.addStack(this.RAM[0, 2]);
+                        this.RAM[0, 2] = 0x04;
+                        this.RAM[1, 2] = 0x04;
+                        this.RAM[0, 0x0B] &= 0x7F;          //GIE Disablen
+                        return;
                     }
+                   
                 }
             }
         }

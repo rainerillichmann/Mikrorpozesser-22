@@ -32,44 +32,118 @@ namespace Mikroprozesser_22
 
         }
 
-        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        private void checkBox9_CheckedChanged(object sender, EventArgs e) //RB0
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox9.Checked == true) && ((Speicher.RAM[1, 6] & 0x01) == 0x01)) //TRISB Bit 0 muss gesetzt sein
+            {
+                Speicher.RAM[bank, 6] |= 0x01;
+                if ((Speicher.RAM[0, 0x0B] & 0x10) == 0x10) Speicher.RAM[0,0xB] |= 0x02;
+            }
+            if ((checkBox9.Checked == false) && ((Speicher.RAM[1, 6] & 0x01) == 0x01))
+            {
+                Speicher.RAM[bank, 6] &= 0xFE;
+                if ((Speicher.RAM[0, 0x0B] & 0x10) == 0x10) Speicher.RAM[0, 0xB] |= 0x02;
+            }
         }
 
-        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        private void checkBox10_CheckedChanged(object sender, EventArgs e) //RB1
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox9.Checked == true) && ((Speicher.RAM[1, 6] & 0x02) == 0x02)) //TRISB Bit 1 muss gesetzt sein
+            {
+                Speicher.RAM[bank, 6] |= 0x02;
+            }
+            if ((checkBox9.Checked == false) && ((Speicher.RAM[1, 6] & 0x02) == 0x02))
+            {
+                Speicher.RAM[bank, 6] &= 0xFD;
+            }
         }
 
-        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        private void checkBox11_CheckedChanged(object sender, EventArgs e) //RB2
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox9.Checked == true) && ((Speicher.RAM[1, 6] & 0x04) == 0x04)) //TRISB Bit 2 muss gesetzt sein
+            {
+                Speicher.RAM[bank, 6] |= 0x04;
+            }
+            if ((checkBox9.Checked == false) && ((Speicher.RAM[1, 6] & 0x04) == 0x04))
+            {
+                Speicher.RAM[bank, 6] &= 0xFB;
+            }
         }
 
-        private void checkBox12_CheckedChanged(object sender, EventArgs e)
+        private void checkBox12_CheckedChanged(object sender, EventArgs e) //RB3
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox9.Checked == true) && ((Speicher.RAM[1, 6] & 0x08) == 0x08)) //TRISB Bit 3 muss gesetzt sein
+            {
+                Speicher.RAM[bank, 6] |= 0x08;
+            }
+            if ((checkBox9.Checked == false) && ((Speicher.RAM[1, 6] & 0x04) == 0x04))
+            {
+                Speicher.RAM[bank, 6] &= 0xF7;
+            }
         }
 
-        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        private void checkBox13_CheckedChanged(object sender, EventArgs e) //RB4
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox13.Checked == true) && ((Speicher.RAM[1, 6] & 0x10) == 0x10)) //TRISB Bit 4 muss gesetzt sein
+            {
+                Speicher.RAM[bank, 6] |= 0x10;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0,0x0B] |= 0x01;
+            }
+            if ((checkBox13.Checked == false) && ((Speicher.RAM[1, 6] & 0x10) == 0x10)) 
+            {
+                Speicher.RAM[bank, 6] &= 0xEF;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01;
+            }
         }
 
-        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        private void checkBox14_CheckedChanged(object sender, EventArgs e) //RB5
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox14.Checked == true) && ((Speicher.RAM[1, 6] & 0x20) == 0x20))
+            {
+                Speicher.RAM[bank, 6] |= 0x20;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01;
+            }
+            if ((checkBox14.Checked == false) && ((Speicher.RAM[1, 6] & 0x20) == 0x20))
+            {
+                Speicher.RAM[bank, 6] &= 0xDF;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01;
+            }
         }
 
-        private void checkBox15_CheckedChanged(object sender, EventArgs e)
+        private void checkBox15_CheckedChanged(object sender, EventArgs e) //RB6
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox15.Checked == true) && ((Speicher.RAM[1, 6] & 0x40) == 0x40))
+            {
+                Speicher.RAM[bank, 6] |= 0x40;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01;
+            }
+            if ((checkBox15.Checked == false) && ((Speicher.RAM[1, 6] & 0x40) == 0x40))
+            {
+                Speicher.RAM[bank, 6] &= 0xBF;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01;
+            }
         }
 
-        private void checkBox16_CheckedChanged(object sender, EventArgs e)
+        private void checkBox16_CheckedChanged(object sender, EventArgs e) //RB7
         {
-
+            int bank = (Speicher.RAM[0, 3] & 0x20) >> 5;
+            if ((checkBox16.Checked == true) && ((Speicher.RAM[1, 6] & 0x80) == 0x80))
+            {
+                Speicher.RAM[bank, 6] |= 0x80;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01; ;
+            }
+            if ((checkBox16.Checked == false) && ((Speicher.RAM[1, 6] & 0x80) == 0x80))
+            {
+                Speicher.RAM[bank, 6] &= 0x7F;
+                if ((Speicher.RAM[0, 0x0B] & 0x08) == 0x08) Speicher.RAM[0, 0x0B] |= 0x01;
+            }
         }
 
         private void dateiÖffnenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -265,12 +339,12 @@ namespace Mikroprozesser_22
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             int bank = (Speicher.RAM[0, 3] & 0x20)>>5;
-            if (checkBox4.Checked == true)
+            if ((checkBox4.Checked == true) && ((Speicher.RAM[1,5] & 0x10) == 0x10)) //TRISA Bit 4 = 1
             {
                 Speicher.RAM[bank, 5] |= 0x10;
                 if ((Speicher.RAM[1, 1] & 0x30) == 0x20) Speicher.incExternalTimer(1);
             }
-            else
+            if ((checkBox4.Checked == false) && ((Speicher.RAM[1, 5] & 0x10) == 0x10)) //TRISA Bit 4 = 1
             {
                 Speicher.RAM[bank, 5] &= 0xEF;
                 if ((Speicher.RAM[1, 1] & 0x30) == 0x30) Speicher.incExternalTimer(1);
