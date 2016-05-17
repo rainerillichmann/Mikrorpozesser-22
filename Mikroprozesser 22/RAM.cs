@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Mikroprozesser_22
+
 {
     public class Arbeitsspeicher
     {
