@@ -61,6 +61,7 @@
             this.speicher1 = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.TIM0 = new System.Windows.Forms.TextBox();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -280,7 +281,7 @@
             // 
             // LWBox
             // 
-            this.LWBox.Location = new System.Drawing.Point(50, 148);
+            this.LWBox.Location = new System.Drawing.Point(320, 37);
             this.LWBox.Name = "LWBox";
             this.LWBox.ReadOnly = true;
             this.LWBox.Size = new System.Drawing.Size(100, 20);
@@ -290,7 +291,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 148);
+            this.label3.Location = new System.Drawing.Point(297, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 22;
@@ -315,16 +316,16 @@
             // 
             // OutputDing
             // 
-            this.OutputDing.Location = new System.Drawing.Point(475, 169);
+            this.OutputDing.Location = new System.Drawing.Point(12, 148);
             this.OutputDing.Name = "OutputDing";
-            this.OutputDing.Size = new System.Drawing.Size(305, 366);
+            this.OutputDing.Size = new System.Drawing.Size(237, 387);
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(156, 151);
+            this.label7.Location = new System.Drawing.Point(426, 40);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 13);
             this.label7.TabIndex = 32;
@@ -333,7 +334,7 @@
             // 
             // FSRBox
             // 
-            this.FSRBox.Location = new System.Drawing.Point(190, 148);
+            this.FSRBox.Location = new System.Drawing.Point(460, 37);
             this.FSRBox.Name = "FSRBox";
             this.FSRBox.ReadOnly = true;
             this.FSRBox.Size = new System.Drawing.Size(100, 20);
@@ -342,9 +343,9 @@
             // 
             // speicher1
             // 
-            this.speicher1.Location = new System.Drawing.Point(22, 202);
+            this.speicher1.Location = new System.Drawing.Point(569, 27);
             this.speicher1.Name = "speicher1";
-            this.speicher1.Size = new System.Drawing.Size(211, 321);
+            this.speicher1.Size = new System.Drawing.Size(211, 508);
             this.speicher1.TabIndex = 33;
             this.speicher1.Text = "";
             // 
@@ -352,7 +353,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label4.Location = new System.Drawing.Point(17, 179);
+            this.label4.Location = new System.Drawing.Point(287, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 35;
@@ -361,18 +362,24 @@
             // 
             // TIM0
             // 
-            this.TIM0.Location = new System.Drawing.Point(51, 176);
+            this.TIM0.Location = new System.Drawing.Point(321, 65);
             this.TIM0.Name = "TIM0";
             this.TIM0.ReadOnly = true;
             this.TIM0.Size = new System.Drawing.Size(100, 20);
             this.TIM0.TabIndex = 34;
             this.TIM0.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
             // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.WorkerSupportsCancellation = true;
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 547);
+            this.ClientSize = new System.Drawing.Size(792, 542);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TIM0);
             this.Controls.Add(this.speicher1);
@@ -447,6 +454,7 @@
         private System.Windows.Forms.RichTextBox speicher1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TIM0;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
 
     }
 }

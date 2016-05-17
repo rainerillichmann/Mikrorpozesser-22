@@ -102,14 +102,14 @@ namespace Mikroprozesser_22
 
         static void NOP(Arbeitsspeicher RAM, byte bank)
         {
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
             ++RAM.RAM[bank, 2];
         }
 
 
         static void MOVLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
             ++RAM.RAM[bank, 2];
             RAM.ChangeW( (byte)(0xFF & Befehl));
             
@@ -117,7 +117,7 @@ namespace Mikroprozesser_22
 
         static void MOVWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-            RAM.incTimer(1); 
+            RAM.incInternalTimer(1); 
             ++RAM.RAM[bank, 2];
        
             RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), RAM.W);
@@ -133,7 +133,7 @@ namespace Mikroprozesser_22
             }
             else RAM.ZeroBit(bank, Befehl);                     //lediglich Test auf Zero Bit    
 
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
             ++RAM.RAM[bank, 2];
         }
 
@@ -143,7 +143,7 @@ namespace Mikroprozesser_22
             RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), 0);
             RAM.ZeroBit(bank, Befehl);
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void CLRW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -153,7 +153,7 @@ namespace Mikroprozesser_22
             RAM.ZeroBit(bank, 0);
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void ANDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -163,7 +163,7 @@ namespace Mikroprozesser_22
             RAM.ZeroBit(bank);
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void ANDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -182,12 +182,12 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void IORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             if ((Befehl & 0x80) == 0)
             {                
@@ -222,12 +222,12 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void COMF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
             {               
@@ -261,7 +261,7 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void DECFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -282,12 +282,12 @@ namespace Mikroprozesser_22
             if (zeroFlag == false)  //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
             {
                 ++RAM.RAM[bank, 2];
-                RAM.incTimer(1);
+                RAM.incInternalTimer(1);
             }
             else //ansonsten überspringe den nächsten
             {
                 RAM.RAM[0, 2] += 2;
-                RAM.incTimer(2);
+                RAM.incInternalTimer(2);
             }
         }
 
@@ -307,7 +307,7 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void INCFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -328,12 +328,12 @@ namespace Mikroprozesser_22
             if (zeroFlag == false)     //Wenn das Zero Flag nicht gesetzt ist, führe nächsten Befehl aus
             {
                 ++RAM.RAM[bank, 2];
-                RAM.incTimer(1);
+                RAM.incInternalTimer(1);
             }
             else                        //ansonsten überspringe den nächsten
             {
                 RAM.RAM[0, 2] += 2;
-                RAM.incTimer(2);
+                RAM.incInternalTimer(2);
             }
         }
 
@@ -343,7 +343,7 @@ namespace Mikroprozesser_22
             RAM.ChangeW((byte)((0xFF & Befehl) | RAM.W));
             RAM.ZeroBit(bank);
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void XORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -352,7 +352,7 @@ namespace Mikroprozesser_22
             RAM.ChangeW((byte)((0xFF & Befehl) ^ RAM.W));
             RAM.ZeroBit( bank);
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void SUBLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -372,7 +372,7 @@ namespace Mikroprozesser_22
             else RAM.DigitCarryBit(bank,0);
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void ADDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -389,7 +389,7 @@ namespace Mikroprozesser_22
             
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void ADDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -414,7 +414,7 @@ namespace Mikroprozesser_22
             }
 
                 ++RAM.RAM[bank, 2];
-                RAM.incTimer(1);
+                RAM.incInternalTimer(1);
         }
 
         static void SUBWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -439,7 +439,7 @@ namespace Mikroprozesser_22
             }
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void SWAPF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -452,14 +452,14 @@ namespace Mikroprozesser_22
             else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), temp);
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void g0t0(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             RAM.RAM[0, 2] = (byte)(Befehl & 0x7FF);
-            RAM.incTimer(2);
+            RAM.incInternalTimer(2);
         }
 
         static void CALL(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -467,7 +467,7 @@ namespace Mikroprozesser_22
              
             RAM.addStack(RAM.RAM[0, 2] + 1);
             RAM.RAM[0, 2] = (byte)(Befehl & 0x7FF);
-            RAM.incTimer(2);
+            RAM.incInternalTimer(2);
         }
 
         static void RETURN(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -475,7 +475,7 @@ namespace Mikroprozesser_22
              
             RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
             RAM.Stack.RemoveAt(RAM.Stack.Count -1);
-            RAM.incTimer(2);
+            RAM.incInternalTimer(2);
         }
 
         static void RETLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -483,7 +483,7 @@ namespace Mikroprozesser_22
             RAM.ChangeW((byte)(Befehl & 0xFF));
             RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
             RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
-            RAM.incTimer(2);
+            RAM.incInternalTimer(2);
         }
 
         static void RLF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -504,7 +504,7 @@ namespace Mikroprozesser_22
             else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), regValue);
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void RRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -525,7 +525,7 @@ namespace Mikroprozesser_22
             else RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), regValue);
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void BSF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -536,7 +536,7 @@ namespace Mikroprozesser_22
             RAM.ChangeRegister(bank,(byte)(Befehl & 0x7F), (byte)(regValue | tempBit)); 
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void BCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -547,7 +547,7 @@ namespace Mikroprozesser_22
             RAM.ChangeRegister(bank,(byte)(Befehl & 0x7F), (byte)(regValue & ~tempBit)); 
 
             ++RAM.RAM[bank, 2];
-            RAM.incTimer(1);
+            RAM.incInternalTimer(1);
         }
 
         static void BTFSC(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
@@ -558,12 +558,12 @@ namespace Mikroprozesser_22
             if ((regValue & tempBit) == 0)
             {
                 RAM.RAM[0, 2] += 2;
-                RAM.incTimer(2);
+                RAM.incInternalTimer(2);
             }
             else
             {
                 ++RAM.RAM[bank, 2];
-                RAM.incTimer(1);
+                RAM.incInternalTimer(1);
             }
         }
 
@@ -575,12 +575,12 @@ namespace Mikroprozesser_22
             if ((regValue & tempBit) == 0)
             {
                 ++RAM.RAM[bank, 2];
-                RAM.incTimer(1);
+                RAM.incInternalTimer(1);
             }
             else
             {
                 RAM.RAM[0, 2] += 2;
-                RAM.incTimer(2);
+                RAM.incInternalTimer(2);
             }
             
         }
