@@ -152,6 +152,8 @@ namespace Mikroprozesser_22
             {
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName);
+                this.Text = "PIC16F84A - " + openFileDialog1.FileName;
+               
                 LineList.Clear();
                 OutputDing.Clear();
                 Speicher.Reset();
@@ -424,6 +426,30 @@ namespace Mikroprozesser_22
                 speicher1.Text += Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[0, i], 16) + "\t|  " + Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[1, i], 16) + System.Environment.NewLine;
             }
 
+            try {Stack0.Text = Convert.ToString(Speicher.Stack[0], 16);}            
+            catch {Stack0.Text = "";}
+
+            try {Stack1.Text = Convert.ToString(Speicher.Stack[1], 16);}
+            catch { Stack1.Text = "";}
+
+            try { Stack2.Text = Convert.ToString(Speicher.Stack[2], 16);}
+            catch {Stack2.Text = "";}
+
+            try { Stack3.Text = Convert.ToString(Speicher.Stack[3], 16);}
+            catch { Stack3.Text = "";}
+
+            try { Stack4.Text = Convert.ToString(Speicher.Stack[4], 16);}
+            catch { Stack4.Text = "";}
+
+            try { Stack5.Text = Convert.ToString(Speicher.Stack[5], 16);}
+            catch { Stack5.Text = "";}
+
+            try { Stack6.Text = Convert.ToString(Speicher.Stack[6], 16);}
+            catch{ Stack6.Text = "";}
+
+            try{ Stack7.Text = Convert.ToString(Speicher.Stack[7], 16); }
+            catch { Stack7.Text = "";}
+
             if ((Speicher.RAM[1, 5] & 0x01) == 0x00)
             {
                 if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
@@ -481,6 +507,16 @@ namespace Mikroprozesser_22
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
+        }
+
+        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
