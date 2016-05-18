@@ -15,6 +15,7 @@ namespace Mikroprozesser_22
         public List<int> Stack = new List<int>();
         public int internalTimerCounter = 0;
         public int externalTimerCounter = 0;
+       
 
         public void addStack(int pc)
         {

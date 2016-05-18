@@ -335,6 +335,8 @@
             this.OutputDing.Size = new System.Drawing.Size(237, 387);
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
+            this.OutputDing.TextChanged += new System.EventHandler(this.OutputDing_TextChanged_1);
+            this.OutputDing.DoubleClick += new System.EventHandler(this.OutputDing_DoubleClick);
             // 
             // speicher1
             // 

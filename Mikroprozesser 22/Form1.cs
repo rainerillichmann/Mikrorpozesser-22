@@ -182,7 +182,9 @@ namespace Mikroprozesser_22
                 
                 for (int i = 0; i < LineList.Count; i++) //Ausgabe der Befehlsliste
                 {
-                    OutputDing.Text +=  Convert.ToString(LineList[i].counter,16) + "\t" + Convert.ToString(LineList[i].command, 16) + System.Environment.NewLine;
+                    OutputDing.Text += Convert.ToString(LineList[i].counter, 16) + "\t" + Convert.ToString(LineList[i].command, 16) + "\t" + CMDVisualise.Befehlsstring(LineList[i]) + "\t"; 
+                    if (LineList[i].breakPoint == true) OutputDing.Text +="X" + System.Environment.NewLine;
+                    else OutputDing.Text += System.Environment.NewLine;
                 }
                 sr.Close();
                 OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
@@ -190,7 +192,7 @@ namespace Mikroprozesser_22
                 OutputDing.SelectionColor = Color.White;
                 button1.Enabled = true;
                 Einzelschritt.Enabled = true;
-                Visualisierung();
+                RAMVisualisierung();
             }
         }
 
@@ -223,17 +225,29 @@ namespace Mikroprozesser_22
         {
             while (!bw.CancellationPending)
             {
-                OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
-                OutputDing.SelectionBackColor = Color.White;
-                OutputDing.SelectionColor = Color.Black;
+                if (LineList[Speicher.PC].breakPoint == false)
+                {
+                    OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
+                    OutputDing.SelectionBackColor = Color.White;
+                    OutputDing.SelectionColor = Color.Black;
 
 
-                Commands.Befehlsanalyse(LineList[Speicher.PC], Speicher);
+                    Commands.Befehlsanalyse(LineList[Speicher.PC], Speicher);
 
-                OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
-                OutputDing.SelectionBackColor = Color.Blue;
-                OutputDing.SelectionColor = Color.White;
-                
+                    OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
+                    OutputDing.SelectionBackColor = Color.Blue;
+                    OutputDing.SelectionColor = Color.White;
+                }
+                else
+                {
+                    this.backgroundWorker1.CancelAsync();
+                    this.backgroundWorker2.CancelAsync();
+                    System.Threading.Thread.Sleep(250);
+                    RAMVisualisierung();
+                    button1.Enabled = false;
+                    Einzelschritt.Enabled = true;
+                    Reset.Enabled = true;
+                }
             }
         }
 
@@ -271,25 +285,9 @@ namespace Mikroprozesser_22
             this.backgroundWorker1.RunWorkerAsync(2000);
             this.backgroundWorker2.RunWorkerAsync(2000);
             button1.Enabled = false;
+            Einzelschritt.Enabled = false;
+            Reset.Enabled = false;
             
-            /*OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
-            OutputDing.SelectionBackColor = Color.White;
-            OutputDing.SelectionColor = Color.Black;   
-            
-            
-            Commands.Befehlsanalyse(LineList[Speicher.PC], Speicher);
-
-            OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
-            OutputDing.SelectionBackColor = Color.Blue;
-            OutputDing.SelectionColor = Color.White;
-            LWBox.Text = Convert.ToString(Speicher.W, 16);
-                       
-            speicher1.Clear();
-            speicher1.Text = "Bank0 \tValue\t|  Bank1\tValue\n";
-            for (int i = 0x00; i < 64; i++)
-            {
-                speicher1.Text += Convert.ToString(i,16) + "\t" + Convert.ToString(Speicher.RAM[0,i], 16) + "\t|  " + Convert.ToString(i,16) + "\t" + Convert.ToString(Speicher.RAM[1,i], 16) + System.Environment.NewLine;
-            } */
         }
 
         private void Stop_Click(object sender, EventArgs e)
@@ -297,6 +295,8 @@ namespace Mikroprozesser_22
             this.backgroundWorker1.CancelAsync();
             this.backgroundWorker2.CancelAsync();
             button1.Enabled = true;
+            Einzelschritt.Enabled = true;
+            Reset.Enabled = true;
         }
 
         private void LWBox_TextChanged(object sender, EventArgs e)
@@ -358,7 +358,7 @@ namespace Mikroprozesser_22
             int arg = (int)e.Argument;
 
             // Start the time-consuming operation.
-            Visualisierung(bw);
+            VisualisierungBW(bw);
 
             // If the operation was canceled by the user, 
             // set the DoWorkEventArgs.Cancel property to true.
@@ -368,12 +368,12 @@ namespace Mikroprozesser_22
             }
         }
 
-        private void Visualisierung(BackgroundWorker bw)
+        private void VisualisierungBW(BackgroundWorker bw)
         {
             while (!bw.CancellationPending)
             {
 
-                Visualisierung();
+                RAMVisualisierung();
             }
         }
 
@@ -390,11 +390,16 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
 
-            Visualisierung();
+            RAMVisualisierung();
+            button1.Enabled = true;
         }
 
         private void Reset_Click(object sender, EventArgs e)
         {
+            this.backgroundWorker1.CancelAsync();
+            this.backgroundWorker2.CancelAsync();
+            button1.Enabled = true;
+
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.White;
             OutputDing.SelectionColor = Color.Black;
@@ -405,10 +410,10 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
 
-            Visualisierung();
+            RAMVisualisierung();
         }
 
-        private void Visualisierung()
+        private void RAMVisualisierung()
         {
             LWBox.Text = Convert.ToString(Speicher.W, 16);
 
@@ -439,6 +444,43 @@ namespace Mikroprozesser_22
             {
                 if ((Speicher.RAM[0, 5] & 16) == 16) checkBox4.Checked = true; else checkBox4.Checked = false;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QuarzFrequenz_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void OutputDing_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void OutputDing_DoubleClick(object sender, EventArgs e)
+        {
+            int firstcharindex = OutputDing.GetFirstCharIndexOfCurrentLine();
+            int currentline = OutputDing.GetLineFromCharIndex(firstcharindex);
+            if (LineList[currentline].breakPoint == true) LineList[currentline].breakPoint = false;
+            else LineList[currentline].breakPoint = true;
+
+            OutputDing.Clear();
+            for (int i = 0; i < LineList.Count; i++) //Ausgabe der Befehlsliste
+            {
+                OutputDing.Text += Convert.ToString(LineList[i].counter, 16) + "\t" + Convert.ToString(LineList[i].command, 16) + "\t" + CMDVisualise.Befehlsstring(LineList[i]) + "\t";
+                if (LineList[i].breakPoint == true) OutputDing.Text += "X" + System.Environment.NewLine;
+                else OutputDing.Text += System.Environment.NewLine;
+            }
+
+            OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
+            OutputDing.SelectionBackColor = Color.Blue;
+            OutputDing.SelectionColor = Color.White;
         }
     }
 }
