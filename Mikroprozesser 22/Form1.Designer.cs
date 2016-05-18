@@ -75,6 +75,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.Reset = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -284,7 +285,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(290, 512);
+            this.button1.Location = new System.Drawing.Point(290, 464);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 20;
@@ -313,7 +314,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(371, 512);
+            this.button2.Location = new System.Drawing.Point(371, 464);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 23;
@@ -352,7 +353,7 @@
             // Einzelschritt
             // 
             this.Einzelschritt.Enabled = false;
-            this.Einzelschritt.Location = new System.Drawing.Point(452, 512);
+            this.Einzelschritt.Location = new System.Drawing.Point(290, 493);
             this.Einzelschritt.Name = "Einzelschritt";
             this.Einzelschritt.Size = new System.Drawing.Size(75, 23);
             this.Einzelschritt.TabIndex = 36;
@@ -504,11 +505,22 @@
             this.label21.TabIndex = 45;
             this.label21.Text = "7";
             // 
+            // Reset
+            // 
+            this.Reset.Location = new System.Drawing.Point(371, 493);
+            this.Reset.Name = "Reset";
+            this.Reset.Size = new System.Drawing.Size(75, 23);
+            this.Reset.TabIndex = 53;
+            this.Reset.Text = "Reset";
+            this.Reset.UseVisualStyleBackColor = true;
+            this.Reset.Click += new System.EventHandler(this.Reset_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 542);
+            this.Controls.Add(this.Reset);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
@@ -610,6 +622,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button Reset;
 
     }
 }

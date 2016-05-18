@@ -190,10 +190,7 @@ namespace Mikroprozesser_22
                 OutputDing.SelectionColor = Color.White;
                 button1.Enabled = true;
                 Einzelschritt.Enabled = true;
-                
-                
-         
-
+                Visualisierung();
             }
         }
 
@@ -375,39 +372,8 @@ namespace Mikroprozesser_22
         {
             while (!bw.CancellationPending)
             {
-                
-                LWBox.Text = Convert.ToString(Speicher.W, 16);
 
-                speicher1.Clear();
-                speicher1.Text = "Bank0 \tValue\t|  Bank1\tValue\n";
-                for (int i = 0x00; i < 64; i++)
-                {
-                    speicher1.Text += Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[0, i], 16) + "\t|  " + Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[1, i], 16) + System.Environment.NewLine;
-                }
-
-                if ((Speicher.RAM[1, 5] & 0x01) == 0x00)
-                {
-                    if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
-                }
-                if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
-                {
-                    if ((Speicher.RAM[0, 5] & 2) == 2) checkBox7.Checked = true; else checkBox7.Checked = false;
-                }
-                if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
-                {
-                    if ((Speicher.RAM[0, 5] & 4) == 4) checkBox6.Checked = true; else checkBox6.Checked = false;
-                }
-                if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
-                {
-                    if ((Speicher.RAM[0, 5] & 8) == 8) checkBox5.Checked = true; else checkBox5.Checked = false;
-                }
-                if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
-                {
-                    if ((Speicher.RAM[0, 5] & 16) == 16) checkBox4.Checked = true; else checkBox4.Checked = false;
-                }
-                /*if ((Speicher.RAM[0, 5] & 32) == 32) checkBox3.Checked = true; else checkBox3.Checked = false;
-                if ((Speicher.RAM[0, 5] & 64) == 64) checkBox2.Checked = true; else checkBox2.Checked = false;
-                if ((Speicher.RAM[0, 5] & 128) == 128) checkBox1.Checked = true; else checkBox1.Checked = false;*/
+                Visualisierung();
             }
         }
 
@@ -424,7 +390,28 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
 
+            Visualisierung();
+        }
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+            OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
+            OutputDing.SelectionBackColor = Color.White;
+            OutputDing.SelectionColor = Color.Black;
+
+            Speicher.Reset();
+
+            OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
+            OutputDing.SelectionBackColor = Color.Blue;
+            OutputDing.SelectionColor = Color.White;
+
+            Visualisierung();
+        }
+
+        private void Visualisierung()
+        {
             LWBox.Text = Convert.ToString(Speicher.W, 16);
+
             speicher1.Clear();
             speicher1.Text = "Bank0 \tValue\t|  Bank1\tValue\n";
             for (int i = 0x00; i < 64; i++)
@@ -453,7 +440,5 @@ namespace Mikroprozesser_22
                 if ((Speicher.RAM[0, 5] & 16) == 16) checkBox4.Checked = true; else checkBox4.Checked = false;
             }
         }
-
-        
     }
 }
