@@ -11,16 +11,17 @@ namespace Mikroprozesser_22
     {
         public byte[,] RAM = new byte [2,64];
         public byte W = 0;
+        public UInt16 PC = 0;
         public List<int> Stack = new List<int>();
         public int internalTimerCounter = 0;
         public int externalTimerCounter = 0;
-        public bool interruptRB5_7 = false;
-        public bool interruptRB0 = false;
 
         public void addStack(int pc)
         {
             Stack.Add(pc);
         }
+
+
 
         public Arbeitsspeicher()
         {
@@ -52,7 +53,9 @@ namespace Mikroprozesser_22
         public void Reset()
         {
             this.W = 0;
+            this.PC = 0;
             this.Stack.Clear();
+            byte stackCounter = 0;
             this.internalTimerCounter = 0;
             this.externalTimerCounter = 0;
 
@@ -83,10 +86,13 @@ namespace Mikroprozesser_22
         public void updateReg(byte bank)
         {
             if (bank == 0) for (int i = 2; i < 5; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
-            else for (int i = 2; i < 5; i++) this.RAM[0, i] = this.RAM[1, i];
+            else { for (int i = 2; i < 5; i++) this.RAM[0, i] = this.RAM[1, i]; }
 
             if (bank == 0) for (int i = 0x0A; i < 0x0C; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
-            else for (int i = 0x0A; i < 0x0C; i++) this.RAM[0, i] = this.RAM[1, i];
+            else { for (int i = 0x0A; i < 0x0C; i++) this.RAM[0, i] = this.RAM[1, i]; }
+
+            
+            this.PC = (UInt16)((this.PC & 0x1F00) + (this.RAM[0, 2]));
         }
 
         public void incInternalTimer(byte takt)
@@ -185,9 +191,10 @@ namespace Mikroprozesser_22
                 {
                     if ((this.RAM[0, 0x0B] & 0x04) == 0x04) // Timer Overflow ist passiert
                     {
-                        this.addStack(this.RAM[0, 2]);
+                        this.addStack(this.PC);
                         this.RAM[0, 2] = 0x04;
                         this.RAM[1, 2] = 0x04;
+                        this.PC = 0x04;
                         this.RAM[0, 0x0B] &= 0x7F;           //GIE Disablen
                         return;
                     }                   
@@ -197,9 +204,10 @@ namespace Mikroprozesser_22
                 {
                     if ((this.RAM[0,0x0B] & 0x01)  == 0x01) //RBChange Flag enabled
                     {
-                        this.addStack(this.RAM[0, 2]);
+                        this.addStack(this.PC);
                         this.RAM[0, 2] = 0x04;
                         this.RAM[1, 2] = 0x04;
+                        this.PC = 0x04;
                         this.RAM[0, 0x0B] &= 0x7F;          //GIE Disablen                      
                         return;
                     }                  
@@ -209,9 +217,10 @@ namespace Mikroprozesser_22
                 {
                     if ((this.RAM[0,0x0B] &0x02) == 0x02)
                     {
-                        this.addStack(this.RAM[0, 2]);
+                        this.addStack(this.PC);
                         this.RAM[0, 2] = 0x04;
                         this.RAM[1, 2] = 0x04;
+                        this.PC = 0x04;
                         this.RAM[0, 0x0B] &= 0x7F;          //GIE Disablen
                         return;
                     }

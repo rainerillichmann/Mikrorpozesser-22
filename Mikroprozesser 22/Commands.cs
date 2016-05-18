@@ -52,21 +52,21 @@ namespace Mikroprozesser_22
             //SWAPF
             if ((Befehl.command & 0x3F00) == 0x0E00) { SWAPF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             //GOTO
-            if ((Befehl.command & 0x3800) == 0x2800) { g0t0(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3800) == 0x2800) { g0t0(Befehl.command, RAM, tempBank);  RAM.interrupt(); return; }
             //CALL
-            if ((Befehl.command & 0x3800) == 0x2000) { CALL(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3800) == 0x2000) { CALL(Befehl.command, RAM, tempBank);  RAM.interrupt(); return; }
             //NOP
             if ((Befehl.command & 0x3FFF) == 0x0000) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             if ((Befehl.command & 0x3FFF) == 0x0020) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             if ((Befehl.command & 0x3FFF) == 0x0040) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             if ((Befehl.command & 0x3FFF) == 0x0060) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             //RETURN
-            if ((Befehl.command & 0x3FFF) == 0x0008) { RETURN(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0008) { RETURN(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             //RETLW
-            if ((Befehl.command & 0x3F00) == 0x3400) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3500) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3600) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3700) { RETLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3400) { RETLW(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3500) { RETLW(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3600) { RETLW(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3700) { RETLW(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             //CLRF
             if ((Befehl.command & 0x3F80) == 0x0180) { CLRF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             //CLRW
@@ -94,8 +94,9 @@ namespace Mikroprozesser_22
             //BTFSS
             if ((Befehl.command & 0x3C00) == 0x1C00) { BTFSS(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             //RETFIE
-            if ((Befehl.command & 0x3FFF) == 0x0009) { RETFIE(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            
+            if ((Befehl.command & 0x3FFF) == 0x0009) { RETFIE(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
+            //SLEEP
+            if ((Befehl.command & 0x3FFF) == 0x0063) { RETFIE(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
         }
 
         static void NOP(Arbeitsspeicher RAM, byte bank)
@@ -284,7 +285,7 @@ namespace Mikroprozesser_22
             }
             else //ansonsten überspringe den nächsten
             {
-                RAM.RAM[0, 2] += 2;
+                RAM.RAM[bank, 2] += 2;
                 RAM.incInternalTimer(2);
             }
         }
@@ -330,7 +331,7 @@ namespace Mikroprozesser_22
             }
             else                        //ansonsten überspringe den nächsten
             {
-                RAM.RAM[0, 2] += 2;
+                RAM.RAM[bank, 2] += 2;
                 RAM.incInternalTimer(2);
             }
         }
@@ -427,12 +428,12 @@ namespace Mikroprozesser_22
 
             if ((Befehl & 0x80) == 0)
             {
-                RAM.ChangeW((byte)(RAM.W - regValue));
+                RAM.ChangeW((byte)( regValue - RAM.W ));
                 RAM.ZeroBit(bank);
             }
             else
             {
-                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)(RAM.W - regValue));
+                RAM.ChangeRegister(bank, (byte)(Befehl & 0x7F), (byte)( regValue - RAM.W));
                 RAM.ZeroBit(bank, Befehl);
             }
 
@@ -455,23 +456,35 @@ namespace Mikroprozesser_22
 
         static void g0t0(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-            RAM.RAM[bank, 2] = (byte)(Befehl & 0x7FF);
+            UInt16 newPC = (UInt16)((Befehl & 0x7FF) + ((RAM.RAM[0, 0xA] & 0x18) << 8)); //Berechnung des neuen PC
+            RAM.PC = newPC;                                                              //PC wird in den RAM geschrieben
+
+            RAM.RAM[0, 2] = (byte)(Befehl & 0xFF);
+            RAM.RAM[1, 2] = (byte)(Befehl & 0xFF);                                      //der PCL wird anhand des PC beschrieben
+
             RAM.incInternalTimer(2);
         }
 
         static void CALL(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-             
-            RAM.addStack(RAM.RAM[0, 2] + 1);
-            RAM.RAM[bank, 2] = (byte)(Befehl & 0x7FF);
+            
+            RAM.addStack(RAM.PC + 1);
+
+            UInt16 newPC = (UInt16)((Befehl & 0x7FF) + ((RAM.RAM[0, 0xA] & 0x18) << 8)); //Berechnung des neuen PC
+            RAM.PC = newPC;                                                              //PC wird in den RAM geschrieben
+
+            RAM.RAM[0, 2] = (byte)(Befehl & 0xFF);
+            RAM.RAM[1, 2] = (byte)(Befehl & 0xFF);                                      //der PCL wird anhand des PC beschrieben
+
             RAM.incInternalTimer(2);
         }
 
         static void RETURN(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
-            RAM.RAM[0, 2] = (byte)RAM.Stack.Last();
+            RAM.PC = (byte)RAM.Stack.Last();
+            RAM.RAM[0, 2] = (byte)(RAM.PC & 0xFF);
+            RAM.RAM[1, 2] = (byte)(RAM.PC & 0xFF);
             RAM.Stack.RemoveAt(RAM.Stack.Count -1);
             RAM.incInternalTimer(2);
         }
@@ -479,7 +492,9 @@ namespace Mikroprozesser_22
         static void RETLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             RAM.ChangeW((byte)(Befehl & 0xFF));
-            RAM.RAM[bank, 2] = (byte)RAM.Stack.Last();
+            RAM.PC = (byte)RAM.Stack.Last();
+            RAM.RAM[0, 2] = (byte)(RAM.PC & 0xFF);
+            RAM.RAM[1, 2] = (byte)(RAM.PC & 0xFF);
             RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
             RAM.incInternalTimer(2);
         }
@@ -555,7 +570,7 @@ namespace Mikroprozesser_22
 
             if ((regValue & tempBit) == 0)
             {
-                RAM.RAM[0, 2] += 2;
+                RAM.RAM[bank, 2] += 2;
                 RAM.incInternalTimer(2);
             }
             else
@@ -586,10 +601,21 @@ namespace Mikroprozesser_22
         static void RETFIE(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
-            RAM.RAM[bank, 2] = (byte)RAM.Stack.Last();
+            RAM.PC = (byte)RAM.Stack.Last();
+            RAM.RAM[0, 2] = (byte)(RAM.PC & 0xFF);
+            RAM.RAM[1, 2] = (byte)(RAM.PC & 0xFF);
             RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
-            RAM.RAM[bank, 0x0b] |= 0x80;
+            RAM.RAM[0, 0x0b] |= 0x80;
+            RAM.RAM[1, 0x0b] |= 0x80;
             RAM.incInternalTimer(2);
+        }
+
+        static void SLEEP(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        {
+
+            RAM.RAM[bank, 3] |= 0x10; //TO = 1
+            RAM.RAM[bank, 3] &= 0xF7; //PD = 0
+            
         }
     }
 }
