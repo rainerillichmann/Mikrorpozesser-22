@@ -21,19 +21,25 @@ namespace Mikroprozesser_22
 
         public void addStack(int pc)
         {
-            if (stackCounter < 8) this.Stack.Add(pc);
+            /* Der Stack des RAM wird beschrieben, und der stackCounter erhöht.
+             * Wird nun versucht mehr als acht mal in den Stack zu schreiben, werden 
+             * wieder die ersten Elemente des Stack überschrieben, mit Hilfe des stackCounter
+             */
+            if (this.Stack.Count() < 8) this.Stack.Add(pc);
             else this.Stack[stackCounter % 8] = pc;
             this.stackCounter++;
         }
 
         public void removeStack()
         {
+            // Letzes Element des Stack wird gelöscht, und stackCounter um 1 verringert
             this.Stack.RemoveAt(this.Stack.Count - 1);
             this.stackCounter--;
         }
 
         public Arbeitsspeicher()
         {
+            //Konstruktor
             this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
             this.RAM[0, 2] = 0x00; //PCL
@@ -61,10 +67,11 @@ namespace Mikroprozesser_22
 
         public void Reset()
         {
+            // Power On Reset des Prozessors
             this.W = 0;
             this.PC = 0;
             this.Stack.Clear();
-            byte stackCounter = 0;
+            this.stackCounter = 0;
             this.internalTimerCounter = 0;
             this.externalTimerCounter = 0;
 
@@ -94,18 +101,27 @@ namespace Mikroprozesser_22
 
         public void updateReg(byte bank)
         {
+            /* Die Resiter 2:4 und 0xA:0xB des RAM ist auf beiden Seiten gleich, je nach verwendeter Bank werden die Werte in die jeweils
+             * andere Bank des RAM übertragen.
+             * zusätlich wird der PC geupdatet.
+             */
             if (bank == 0) for (int i = 2; i < 5; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
             else { for (int i = 2; i < 5; i++) this.RAM[0, i] = this.RAM[1, i]; }
 
             if (bank == 0) for (int i = 0x0A; i < 0x0C; i++) this.RAM[1, i] = this.RAM[0, i]; //Schreibe Register 2-4 in Bank0/1
             else { for (int i = 0x0A; i < 0x0C; i++) this.RAM[0, i] = this.RAM[1, i]; }
 
-            
+            //die ersten 5 Bit des PC werden nur über PCLATH geändert, die unteren 8 Bit werden dem PCL entnommen
             this.PC = (UInt16)((this.PC & 0x1F00) + (this.RAM[0, 2]));
         }
 
         public void incInternalTimer(byte takt)
         {
+            /* dieser Counter wird nach jedem Befehl aufgerufen. Je nach angegebenem Takt wird hier der Counter 
+             * entsprechend erhöht.
+             * Bei jedem einzelnen erhöhehn des Counters, muss über den Prescaler gelaufen werden, um evtl ein 
+             * erhöhen des TIM0 auszulösen, deswegen die for-Schleife
+             */
             for (int i = takt; i> 0; i--)
             {
                 ++this.internalTimerCounter;
@@ -117,53 +133,63 @@ namespace Mikroprozesser_22
             }
         }
 
-        public void incExternalTimer(byte takt)
-        {
-            for (int i = takt; i > 0; i--)
-            {
-                    ++this.externalTimerCounter;
-                    externalTimerCounter = this.TimerPrescaler(externalTimerCounter);
-                
-            }
+        public void incExternalTimer()
+        { 
+            /* Diese Funktion wird aufgerufen, wenn RA4 also Clock Input benutzt wird.
+             * der externTimerCoutner wird erhöht und an die Prescaler Funktion übergeben,
+             * um evtl TIM0 zu erhöhen
+             */
+            ++this.externalTimerCounter;
+            externalTimerCounter = this.TimerPrescaler(externalTimerCounter);
         }
 
         public void ZeroBit( int bank)              //changes ZeroBit if W == 0
         {
+            /* Wird aufgerufen, wenn ein Befehl W verändert und dabei das Z Bit betroffen ist */
             if (this.W == 0) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x4);// Z
             else this.RAM[bank, 3] = (byte)(this.RAM[0, 3] & 0xFB);
         }
 
         public void ZeroBit(int bank, UInt16 Befehl)  //changes ZeroBit if Register == 0
         {
+            /* Wird aufgerufen, wenn ein Befehl ein Register verändert und dabei das Z Bit betroffen ist */
             if (this.RAM[bank, (Befehl & 0x7F)] == 0) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x4); //Z
             else this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] & 0xFB);
         }
 
         public void CarryBit(int bank, int value)
         {
+            //Wird aufgerufen, wenn das Carry-Bit verändert werden muss
            if (value == 1) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x1);
            else this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] & 0xFE);
         }
 
         public void DigitCarryBit(int bank, int value)
         {
+            //Wird aufgerufen, wenn das DigitCarry-Bit verändert werden muss
             if (value == 1) this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] | 0x2);
             else this.RAM[bank, 3] = (byte)(this.RAM[bank, 3] & 0xFD);
         }
 
         public void ChangeW(int bank, byte register)  //Changes W
         {
+            // Wird aufgerufen, wenn ein Register in W geladen werden soll, dabei wird getRegisterValue verwendet, um FSR zu berücksichtigen
             byte newValue = this.getRegisterValue(bank, register);
             this.W = newValue;
         }
 
         public void ChangeW(byte newValue)  //Changes W
         {
+            // Wird aufgerufen, wenn Literale in W geladen werden
             this.W = newValue;
         }
 
         public byte getRegisterValue(int bank, byte register)
         {
+            /* getRegisterValue gibt den Wert eines Registers zurück. Dabei wird zuerst geprüft, ob das angesprochene Register 
+             * das Indirect Adress Register ist oder nicht. Falls ja, wird das auszulesende Register aus dem FSR Register abgefragt.
+             * Dabei wird noch einmal überprüft ob im FSR das Indirect Register angesprochen wird, um evtl 00h dabei zurück zu geben
+             */
             if (register == 0)      //überprüfe ob INDF angesprochen wird
             {
                 byte indAdress = this.RAM[bank, 4];
@@ -179,10 +205,11 @@ namespace Mikroprozesser_22
 
         public void ChangeRegister(int bank, byte register, byte newValue)  //Changes Registers
         {
+            // Wird aufgerufen, wenn ein Register verändert werden muss, mit Berücksichtigung auf FSR
             if (register == 0)      //überprüfe ob INDF angesprochen wird
             {
                 byte indAdress = this.RAM[bank, 4];
-                if ((byte)(indAdress & 0x7F) == 0);  //falls indf addressiert wird, return 0x00;
+                if ((byte)(indAdress & 0x7F) == 0);  //falls indf addressiert wird, passiert nichts;
                 else
                 {
                     if ((byte)(indAdress & 0x80) == 0) this.RAM[0, (byte)(indAdress & 0x7F)] = newValue;  //überprüfe Bit 7, welche Bank angesprochen wird
@@ -194,6 +221,9 @@ namespace Mikroprozesser_22
 
         public void interrupt()
         {
+            /* Interrupt wird nach jedem Befehl aufgerufen, und überprüft auf verschiedene Interrupts
+             * Falls einer der Interrupts ausgelöst wurde, springt der PC auf Adresse 4
+             */
             if ((this.RAM[0, 0x0B] & 0x80) == 0x80)         //GIE = 1 -> alle interrupts enabled
             {
                 if ((this.RAM[0, 0x0B] & 0x20) == 0x20)     //T0IE = 1 -> Timer Overflow interrupt enabled
@@ -240,6 +270,7 @@ namespace Mikroprozesser_22
 
         public int TimerPrescaler(int counter)
         {
+            //Bei jedem erhöhen der Counter wird diese Funktion aufgerufen, und es wird überprüft, ob und welcher Prescaler aktiv ist
             if ((this.RAM[1, 1] & 0x08) == 0)   //wenn PSA = 0 ist der Timer-Prescaler aktiv
             {
                 // 1:2
@@ -386,7 +417,7 @@ namespace Mikroprozesser_22
                 }
                 
             }
-            else
+            else                     // Falls kein Prescaler aktiv ist
             {
                 ++this.RAM[0, 1]; // wenn kein prescaler aktiv ist, wird der Timer nach jedem Cycle erhöht
                 if (this.RAM[0, 1] == 0)

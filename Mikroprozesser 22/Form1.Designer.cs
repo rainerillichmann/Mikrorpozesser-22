@@ -51,10 +51,10 @@
             this.dateiÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
             this.LWBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.StopButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.OutputDing = new System.Windows.Forms.RichTextBox();
             this.speicher1 = new System.Windows.Forms.RichTextBox();
@@ -304,16 +304,16 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // button1
+            // StartButton
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(371, 463);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Start_Click);
+            this.StartButton.Enabled = false;
+            this.StartButton.Location = new System.Drawing.Point(371, 463);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(75, 23);
+            this.StartButton.TabIndex = 20;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.Start_Click);
             // 
             // LWBox
             // 
@@ -334,15 +334,16 @@
             this.label3.Text = "W";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // button2
+            // StopButton
             // 
-            this.button2.Location = new System.Drawing.Point(452, 463);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Stop";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Stop_Click);
+            this.StopButton.Enabled = false;
+            this.StopButton.Location = new System.Drawing.Point(452, 463);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(75, 23);
+            this.StopButton.TabIndex = 23;
+            this.StopButton.Text = "Stop";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.Stop_Click);
             // 
             // backgroundWorker1
             // 
@@ -531,6 +532,7 @@
             // 
             // Reset
             // 
+            this.Reset.Enabled = false;
             this.Reset.Location = new System.Drawing.Point(452, 492);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 23);
@@ -655,10 +657,10 @@
             this.Controls.Add(this.Einzelschritt);
             this.Controls.Add(this.speicher1);
             this.Controls.Add(this.OutputDing);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LWBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.StartButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.RBBit0);
             this.Controls.Add(this.RBBit1);
@@ -714,10 +716,10 @@
         private System.Windows.Forms.ToolStripMenuItem simulatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateiÖffnenToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.TextBox LWBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button StopButton;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.RichTextBox OutputDing;
         private System.Windows.Forms.RichTextBox speicher1;

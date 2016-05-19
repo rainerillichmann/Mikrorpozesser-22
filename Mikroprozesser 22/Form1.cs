@@ -150,34 +150,46 @@ namespace Mikroprozesser_22
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)  //Einlesen der Datei
             {
+                //Einlesen der Datei über den File Explorer
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName);
+
+                //Dateiname wird in Titel des Forms geschrieben
                 this.Text = "PIC16F84A - " + openFileDialog1.FileName;
                
+                //Speicher wird resettet, Programmvisualisierung wird gelöscht, und Kommandoliste wird gecleart
                 LineList.Clear();
                 OutputDing.Clear();
                 Speicher.Reset();
+
+                //Zeilenweises Einlesen der Datei
                 while ((line = sr.ReadLine()) != null)
                 {
+                    //temporäre Variable zum Speicher der jeweils 4 Zeichen großen Hex-Zahlen
                     char[] TempChar = new char[4];
                     
                     
-                    
+                    //hier wird überprüft, ob die Zeile mit einer Zahl beginnt
                     if (((int)line[0] >= 48) && ((int)line[0] <= 57))
-                    {   //Auslesen des Befehlscounters
+                    {   //Auslesen des Befehlscounters, also der ersten 4 Zeichen der Zeile
                         for (int i = 0; i < 4; i++)
                         {
                             TempChar[i] = line[i];
                         }
+                        //Speichern der Chars in einem String um Convert Funktion zu benutzen
                         string TempCounter = new string(TempChar);
                         Speicherding.counter = Convert.ToUInt16(TempCounter, 16);
-                        
-                        for (int i = 5; i < 9; i++) //Auslesen des Befehls
+
+                        //Auslesen des Befehls, Zeichen 4 ist ein Leerzeichen, also bei Zeichen 5 der Zeile anfangen
+                        for (int i = 5; i < 9; i++) 
                         {
                             TempChar[i - 5] = line[i];
                         }
                         string TempCommand = new string(TempChar);
                         Speicherding.command = Convert.ToUInt16(TempCommand, 16);
+
+                        //Die so gespeicherten Daten werden einem Listenelement hinzugefügt, das später zur Ausgabe und Ausführung der Befehle
+                        //verwendet wird
                         LineList.Add(new CommandLine (Speicherding.counter, Speicherding.command));
                     }
                 }
@@ -185,15 +197,22 @@ namespace Mikroprozesser_22
                 for (int i = 0; i < LineList.Count; i++) //Ausgabe der Befehlsliste
                 {
                     OutputDing.Text += Convert.ToString(LineList[i].counter, 16) + "\t" + Convert.ToString(LineList[i].command, 16) + "\t" + CMDVisualise.Befehlsstring(LineList[i]) + "\t"; 
+                    //falls ein BreakPoint gesetzt ist, füge ein 'X' ans Ende der Zeile hinzu
                     if (LineList[i].breakPoint == true) OutputDing.Text +="X" + System.Environment.NewLine;
                     else OutputDing.Text += System.Environment.NewLine;
                 }
                 sr.Close();
+
+                //Markieren der Ersten Zeile als Programmstart
                 OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
                 OutputDing.SelectionBackColor = Color.Blue;
                 OutputDing.SelectionColor = Color.White;
-                button1.Enabled = true;
+
+                //Aktivieren der Buttons und erste Visualisierung des RAM
+                StartButton.Enabled = true;
                 Einzelschritt.Enabled = true;
+                StopButton.Enabled = true;
+                Reset.Enabled = true;
                 RAMVisualisierung();
             }
         }
@@ -227,6 +246,14 @@ namespace Mikroprozesser_22
         {
             while (!bw.CancellationPending)
             {
+                /* Hier werden nacheinander die Kommandos abgearbeitet, je nach Einstellung des Programmcounters.
+                 * Zuerst wird die aktuelle Line der Texbox wieder ähnlich zu den restlichen Lines eingefärbt,
+                 * danach der Befehl behandelt, welcher den PC verändert, und danach die entsprechende Zeile, auf die
+                 * der neue PC zeigt, markiert.
+                 * Anhand der If-Abfrage wird weiterhin gecheckt, ob diese Zeile einen Breakpoint enthält. Falls ja, wird der Background Worker gestoppt
+                 * dabei ist eine Verzögerung eingebaut, um eine komplette Visualisierung des RAM noch zu ermöglichen.
+                 * Nach einem Breakpoint muss ein Einzelschritt folgen, um den Breakpoint zu überwinden
+                 * */
                 if (LineList[Speicher.PC].breakPoint == false)
                 {
                     OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
@@ -244,9 +271,9 @@ namespace Mikroprozesser_22
                 {
                     this.backgroundWorker1.CancelAsync();
                     this.backgroundWorker2.CancelAsync();
-                    System.Threading.Thread.Sleep(250);
-                    RAMVisualisierung();
-                    button1.Enabled = false;
+                    System.Threading.Thread.Sleep(250);     //kurze Pause
+                    RAMVisualisierung();                    //noch einmal vollständig Visualisieren
+                    StartButton.Enabled = false;
                     Einzelschritt.Enabled = true;
                     Reset.Enabled = true;
                 }
@@ -284,9 +311,12 @@ namespace Mikroprozesser_22
 
         private void Start_Click(object sender, EventArgs e)
         {
+            /* Start startet die beiden Background Worker zum Programmablauf und der Visualisierung des RAM.
+             * Einzelschritt und Reset werden dabei disabled um evtl. Probleme im Programmablauf zu vermeiden
+             * */
             this.backgroundWorker1.RunWorkerAsync(2000);
             this.backgroundWorker2.RunWorkerAsync(2000);
-            button1.Enabled = false;
+            StartButton.Enabled = false;
             Einzelschritt.Enabled = false;
             Reset.Enabled = false;
             
@@ -294,9 +324,10 @@ namespace Mikroprozesser_22
 
         private void Stop_Click(object sender, EventArgs e)
         {
+            /* Stop beendet die Backgroundworker und ermöglicht ein erneutes Starten, Einzelschritt, oder Resets vorzunehmen */
             this.backgroundWorker1.CancelAsync();
             this.backgroundWorker2.CancelAsync();
-            button1.Enabled = true;
+            StartButton.Enabled = true;
             Einzelschritt.Enabled = true;
             Reset.Enabled = true;
         }
@@ -338,16 +369,20 @@ namespace Mikroprozesser_22
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
+            /* Wird RA Bit4 verändert, wird noch einmal TRISA überprüft, und dann der Wert im RAM PortA gespeichert.
+             * außerdem wird, falls T0CS auf 1 gesetzt ist, zur jeweiligen Flanke der Externe Counter des RAM erhöht,
+             * welcher wiederrum über die Prescaler-Funktion geleitet wird, und so TIM0 entsprechend erhöht
+             * */
             int bank = (Speicher.RAM[0, 3] & 0x20)>>5;
             if ((RABit4.Checked == true) && ((Speicher.RAM[1,5] & 0x10) == 0x10)) //TRISA Bit 4 = 1
             {
                 Speicher.RAM[bank, 5] |= 0x10;
-                if ((Speicher.RAM[1, 1] & 0x30) == 0x20) Speicher.incExternalTimer(1);
+                if ((Speicher.RAM[1, 1] & 0x30) == 0x20) Speicher.incExternalTimer();
             }
             if ((RABit4.Checked == false) && ((Speicher.RAM[1, 5] & 0x10) == 0x10)) //TRISA Bit 4 = 1
             {
                 Speicher.RAM[bank, 5] &= 0xEF;
-                if ((Speicher.RAM[1, 1] & 0x30) == 0x30) Speicher.incExternalTimer(1);
+                if ((Speicher.RAM[1, 1] & 0x30) == 0x30) Speicher.incExternalTimer();
             }
         }
 
@@ -372,6 +407,9 @@ namespace Mikroprozesser_22
 
         private void VisualisierungBW(BackgroundWorker bw)
         {
+            /* Die Visualisierung wird in einem eigenen Backgroundworker aufgerugen, um ihn unabhängig vom 
+             * Programmablauf zu machen, und diesen so nicht zu verlangsamen 
+             * */
             while (!bw.CancellationPending)
             {
 
@@ -381,6 +419,10 @@ namespace Mikroprozesser_22
 
         private void button3_Click(object sender, EventArgs e)
         {
+            /** Dieser Button dazu einen Einzelschritt auszuführen
+             * der Button ist nur aktiv, wenn kein Backgroundworker läuft
+             * genauso werden die Zeilen auch hier wieder entsprechend markiert
+             * */
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.White;
             OutputDing.SelectionColor = Color.Black;
@@ -393,14 +435,19 @@ namespace Mikroprozesser_22
             OutputDing.SelectionColor = Color.White;
 
             RAMVisualisierung();
-            button1.Enabled = true;
+            StartButton.Enabled = true;
         }
 
         private void Reset_Click(object sender, EventArgs e)
         {
+            /** Der Reset Button hält das laufende Programm an, 
+             *  der Start Button wird wieder enabled und der Prozessor erfährt 
+             *  einen Power-On Reset, und die Anzeige der Befehle wird so umgestellt,
+             *  dass Befehl 0 wieder markiert ist, und der RAM erneut visualisiert. 
+             * */
             this.backgroundWorker1.CancelAsync();
             this.backgroundWorker2.CancelAsync();
-            button1.Enabled = true;
+            StartButton.Enabled = true;
 
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.White;
@@ -417,6 +464,8 @@ namespace Mikroprozesser_22
 
         private void RAMVisualisierung()
         {
+            /** Der RAM wird visualisiert, 
+             * */
             LWBox.Text = Convert.ToString(Speicher.W, 16);
 
             speicher1.Clear();
@@ -426,6 +475,7 @@ namespace Mikroprozesser_22
                 speicher1.Text += Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[0, i], 16) + "\t|  " + Convert.ToString(i, 16) + "\t" + Convert.ToString(Speicher.RAM[1, i], 16) + System.Environment.NewLine;
             }
 
+            //Überprüfung und Ausgabe des Stacks
             try {Stack0.Text = Convert.ToString(Speicher.Stack[0], 16);}            
             catch {Stack0.Text = "";}
 
@@ -451,7 +501,7 @@ namespace Mikroprozesser_22
             catch { Stack7.Text = "";}
 
 
-            //Überprüfung auf TRISA
+            //Überprüfung auf TRISA und evtl setzen der Checkboxen
             if ((Speicher.RAM[1, 5] & 0x01) == 0x00)
             {
                 RABit0.Enabled = false;
@@ -483,7 +533,7 @@ namespace Mikroprozesser_22
             }
             else RABit4.Enabled = true;
 
-            //Überprüfung auf TRISB
+            //Überprüfung auf TRISB und evtl setzen der Checkboxen
             if ((Speicher.RAM[1, 6] & 0x01) == 0x00)
             {
                 RBBit0.Enabled = false;
@@ -553,11 +603,16 @@ namespace Mikroprozesser_22
 
         private void OutputDing_DoubleClick(object sender, EventArgs e)
         {
+            /*Bei einem Doppelklick auf eine Zeile wird die jeweilige Zeile gesucht 
+             *und dem Befehl in dieser Zeile ein Breakpoint hinzugefügt.
+             *Um dies anzuzeigen wird die Befehlsausgabe gecleart, und neu erzeugt
+             */
             int firstcharindex = OutputDing.GetFirstCharIndexOfCurrentLine();
             int currentline = OutputDing.GetLineFromCharIndex(firstcharindex);
             if (LineList[currentline].breakPoint == true) LineList[currentline].breakPoint = false;
             else LineList[currentline].breakPoint = true;
 
+            //Neu Erzeugen des Befehlsausgabe
             OutputDing.Clear();
             for (int i = 0; i < LineList.Count; i++) //Ausgabe der Befehlsliste
             {
@@ -566,6 +621,7 @@ namespace Mikroprozesser_22
                 else OutputDing.Text += System.Environment.NewLine;
             }
 
+            //Aktuelle Zeile des PC erneut markieren
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
@@ -573,6 +629,7 @@ namespace Mikroprozesser_22
 
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Beendet das Programm
             System.Windows.Forms.Application.Exit();
         }
 
