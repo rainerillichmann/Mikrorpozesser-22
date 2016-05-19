@@ -668,6 +668,7 @@
             // 
             // StopButton
             // 
+
             this.StopButton.Enabled = false;
             this.StopButton.Location = new System.Drawing.Point(298, 46);
             this.StopButton.Name = "StopButton";
