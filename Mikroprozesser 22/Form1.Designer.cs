@@ -28,27 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.RABit7 = new System.Windows.Forms.CheckBox();
+            this.RABit6 = new System.Windows.Forms.CheckBox();
+            this.RABit5 = new System.Windows.Forms.CheckBox();
+            this.RABit4 = new System.Windows.Forms.CheckBox();
+            this.RABit3 = new System.Windows.Forms.CheckBox();
+            this.RABit2 = new System.Windows.Forms.CheckBox();
+            this.RABit1 = new System.Windows.Forms.CheckBox();
+            this.RABit0 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.RBBit0 = new System.Windows.Forms.CheckBox();
+            this.RBBit1 = new System.Windows.Forms.CheckBox();
+            this.RBBit2 = new System.Windows.Forms.CheckBox();
+            this.RBBit3 = new System.Windows.Forms.CheckBox();
+            this.RBBit4 = new System.Windows.Forms.CheckBox();
+            this.RBBit5 = new System.Windows.Forms.CheckBox();
+            this.RBBit6 = new System.Windows.Forms.CheckBox();
+            this.RBBit7 = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.simulatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.LWBox = new System.Windows.Forms.TextBox();
@@ -76,7 +77,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.Reset = new System.Windows.Forms.Button();
-            this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Stack0 = new System.Windows.Forms.TextBox();
             this.Stack1 = new System.Windows.Forms.TextBox();
             this.Stack2 = new System.Windows.Forms.TextBox();
@@ -90,82 +90,82 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // checkBox1
+            // RABit7
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(30, 46);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.RABit7.AutoSize = true;
+            this.RABit7.Enabled = false;
+            this.RABit7.Location = new System.Drawing.Point(30, 46);
+            this.RABit7.Name = "RABit7";
+            this.RABit7.Size = new System.Drawing.Size(15, 14);
+            this.RABit7.TabIndex = 0;
+            this.RABit7.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // RABit6
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(51, 46);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.RABit6.AutoSize = true;
+            this.RABit6.Enabled = false;
+            this.RABit6.Location = new System.Drawing.Point(51, 46);
+            this.RABit6.Name = "RABit6";
+            this.RABit6.Size = new System.Drawing.Size(15, 14);
+            this.RABit6.TabIndex = 1;
+            this.RABit6.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // RABit5
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Enabled = false;
-            this.checkBox3.Location = new System.Drawing.Point(72, 46);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(15, 14);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.RABit5.AutoSize = true;
+            this.RABit5.Enabled = false;
+            this.RABit5.Location = new System.Drawing.Point(72, 46);
+            this.RABit5.Name = "RABit5";
+            this.RABit5.Size = new System.Drawing.Size(15, 14);
+            this.RABit5.TabIndex = 2;
+            this.RABit5.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // RABit4
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(93, 46);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(15, 14);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.RABit4.AutoSize = true;
+            this.RABit4.Location = new System.Drawing.Point(93, 46);
+            this.RABit4.Name = "RABit4";
+            this.RABit4.Size = new System.Drawing.Size(15, 14);
+            this.RABit4.TabIndex = 3;
+            this.RABit4.UseVisualStyleBackColor = true;
+            this.RABit4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
-            // checkBox5
+            // RABit3
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(114, 46);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(15, 14);
-            this.checkBox5.TabIndex = 4;
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.RABit3.AutoSize = true;
+            this.RABit3.Location = new System.Drawing.Point(114, 46);
+            this.RABit3.Name = "RABit3";
+            this.RABit3.Size = new System.Drawing.Size(15, 14);
+            this.RABit3.TabIndex = 4;
+            this.RABit3.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // RABit2
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(135, 46);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(15, 14);
-            this.checkBox6.TabIndex = 5;
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.RABit2.AutoSize = true;
+            this.RABit2.Location = new System.Drawing.Point(135, 46);
+            this.RABit2.Name = "RABit2";
+            this.RABit2.Size = new System.Drawing.Size(15, 14);
+            this.RABit2.TabIndex = 5;
+            this.RABit2.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // RABit1
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(156, 46);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(15, 14);
-            this.checkBox7.TabIndex = 6;
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.RABit1.AutoSize = true;
+            this.RABit1.Location = new System.Drawing.Point(156, 46);
+            this.RABit1.Name = "RABit1";
+            this.RABit1.Size = new System.Drawing.Size(15, 14);
+            this.RABit1.TabIndex = 6;
+            this.RABit1.UseVisualStyleBackColor = true;
             // 
-            // checkBox8
+            // RABit0
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(177, 46);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(15, 14);
-            this.checkBox8.TabIndex = 7;
-            this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            this.RABit0.AutoSize = true;
+            this.RABit0.Location = new System.Drawing.Point(177, 46);
+            this.RABit0.Name = "RABit0";
+            this.RABit0.Size = new System.Drawing.Size(15, 14);
+            this.RABit0.TabIndex = 7;
+            this.RABit0.UseVisualStyleBackColor = true;
+            this.RABit0.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // label1
             // 
@@ -186,85 +186,85 @@
             this.label2.Text = "RB";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // checkBox9
+            // RBBit0
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(177, 104);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(15, 14);
-            this.checkBox9.TabIndex = 16;
-            this.checkBox9.UseVisualStyleBackColor = true;
-            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            this.RBBit0.AutoSize = true;
+            this.RBBit0.Location = new System.Drawing.Point(177, 104);
+            this.RBBit0.Name = "RBBit0";
+            this.RBBit0.Size = new System.Drawing.Size(15, 14);
+            this.RBBit0.TabIndex = 16;
+            this.RBBit0.UseVisualStyleBackColor = true;
+            this.RBBit0.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
-            // checkBox10
+            // RBBit1
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(156, 104);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(15, 14);
-            this.checkBox10.TabIndex = 15;
-            this.checkBox10.UseVisualStyleBackColor = true;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            this.RBBit1.AutoSize = true;
+            this.RBBit1.Location = new System.Drawing.Point(156, 104);
+            this.RBBit1.Name = "RBBit1";
+            this.RBBit1.Size = new System.Drawing.Size(15, 14);
+            this.RBBit1.TabIndex = 15;
+            this.RBBit1.UseVisualStyleBackColor = true;
+            this.RBBit1.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
-            // checkBox11
+            // RBBit2
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(135, 104);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(15, 14);
-            this.checkBox11.TabIndex = 14;
-            this.checkBox11.UseVisualStyleBackColor = true;
-            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
+            this.RBBit2.AutoSize = true;
+            this.RBBit2.Location = new System.Drawing.Point(135, 104);
+            this.RBBit2.Name = "RBBit2";
+            this.RBBit2.Size = new System.Drawing.Size(15, 14);
+            this.RBBit2.TabIndex = 14;
+            this.RBBit2.UseVisualStyleBackColor = true;
+            this.RBBit2.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
-            // checkBox12
+            // RBBit3
             // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(114, 104);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(15, 14);
-            this.checkBox12.TabIndex = 13;
-            this.checkBox12.UseVisualStyleBackColor = true;
-            this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
+            this.RBBit3.AutoSize = true;
+            this.RBBit3.Location = new System.Drawing.Point(114, 104);
+            this.RBBit3.Name = "RBBit3";
+            this.RBBit3.Size = new System.Drawing.Size(15, 14);
+            this.RBBit3.TabIndex = 13;
+            this.RBBit3.UseVisualStyleBackColor = true;
+            this.RBBit3.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
             // 
-            // checkBox13
+            // RBBit4
             // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(93, 104);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(15, 14);
-            this.checkBox13.TabIndex = 12;
-            this.checkBox13.UseVisualStyleBackColor = true;
-            this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
+            this.RBBit4.AutoSize = true;
+            this.RBBit4.Location = new System.Drawing.Point(93, 104);
+            this.RBBit4.Name = "RBBit4";
+            this.RBBit4.Size = new System.Drawing.Size(15, 14);
+            this.RBBit4.TabIndex = 12;
+            this.RBBit4.UseVisualStyleBackColor = true;
+            this.RBBit4.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
             // 
-            // checkBox14
+            // RBBit5
             // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(72, 104);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(15, 14);
-            this.checkBox14.TabIndex = 11;
-            this.checkBox14.UseVisualStyleBackColor = true;
-            this.checkBox14.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
+            this.RBBit5.AutoSize = true;
+            this.RBBit5.Location = new System.Drawing.Point(72, 104);
+            this.RBBit5.Name = "RBBit5";
+            this.RBBit5.Size = new System.Drawing.Size(15, 14);
+            this.RBBit5.TabIndex = 11;
+            this.RBBit5.UseVisualStyleBackColor = true;
+            this.RBBit5.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
             // 
-            // checkBox15
+            // RBBit6
             // 
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.Location = new System.Drawing.Point(51, 104);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(15, 14);
-            this.checkBox15.TabIndex = 10;
-            this.checkBox15.UseVisualStyleBackColor = true;
-            this.checkBox15.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
+            this.RBBit6.AutoSize = true;
+            this.RBBit6.Location = new System.Drawing.Point(51, 104);
+            this.RBBit6.Name = "RBBit6";
+            this.RBBit6.Size = new System.Drawing.Size(15, 14);
+            this.RBBit6.TabIndex = 10;
+            this.RBBit6.UseVisualStyleBackColor = true;
+            this.RBBit6.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
             // 
-            // checkBox16
+            // RBBit7
             // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(30, 104);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(15, 14);
-            this.checkBox16.TabIndex = 9;
-            this.checkBox16.UseVisualStyleBackColor = true;
-            this.checkBox16.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
+            this.RBBit7.AutoSize = true;
+            this.RBBit7.Location = new System.Drawing.Point(30, 104);
+            this.RBBit7.Name = "RBBit7";
+            this.RBBit7.Size = new System.Drawing.Size(15, 14);
+            this.RBBit7.TabIndex = 9;
+            this.RBBit7.UseVisualStyleBackColor = true;
+            this.RBBit7.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -288,9 +288,16 @@
             // dateiÖffnenToolStripMenuItem
             // 
             this.dateiÖffnenToolStripMenuItem.Name = "dateiÖffnenToolStripMenuItem";
-            this.dateiÖffnenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateiÖffnenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.dateiÖffnenToolStripMenuItem.Text = "Datei öffnen";
             this.dateiÖffnenToolStripMenuItem.Click += new System.EventHandler(this.dateiÖffnenToolStripMenuItem_Click);
+            // 
+            // beendenToolStripMenuItem
+            // 
+            this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.beendenToolStripMenuItem.Text = "Beenden";
+            this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -532,13 +539,6 @@
             this.Reset.UseVisualStyleBackColor = true;
             this.Reset.Click += new System.EventHandler(this.Reset_Click);
             // 
-            // beendenToolStripMenuItem
-            // 
-            this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.beendenToolStripMenuItem.Text = "Beenden";
-            this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
-            // 
             // Stack0
             // 
             this.Stack0.Enabled = false;
@@ -660,23 +660,23 @@
             this.Controls.Add(this.LWBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox9);
-            this.Controls.Add(this.checkBox10);
-            this.Controls.Add(this.checkBox11);
-            this.Controls.Add(this.checkBox12);
-            this.Controls.Add(this.checkBox13);
-            this.Controls.Add(this.checkBox14);
-            this.Controls.Add(this.checkBox15);
-            this.Controls.Add(this.checkBox16);
+            this.Controls.Add(this.RBBit0);
+            this.Controls.Add(this.RBBit1);
+            this.Controls.Add(this.RBBit2);
+            this.Controls.Add(this.RBBit3);
+            this.Controls.Add(this.RBBit4);
+            this.Controls.Add(this.RBBit5);
+            this.Controls.Add(this.RBBit6);
+            this.Controls.Add(this.RBBit7);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox8);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.RABit0);
+            this.Controls.Add(this.RABit1);
+            this.Controls.Add(this.RABit2);
+            this.Controls.Add(this.RABit3);
+            this.Controls.Add(this.RABit4);
+            this.Controls.Add(this.RABit5);
+            this.Controls.Add(this.RABit6);
+            this.Controls.Add(this.RABit7);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -692,24 +692,24 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox RABit7;
+        private System.Windows.Forms.CheckBox RABit6;
+        private System.Windows.Forms.CheckBox RABit5;
+        private System.Windows.Forms.CheckBox RABit4;
+        private System.Windows.Forms.CheckBox RABit3;
+        private System.Windows.Forms.CheckBox RABit2;
+        private System.Windows.Forms.CheckBox RABit1;
+        private System.Windows.Forms.CheckBox RABit0;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.CheckBox checkBox13;
-        private System.Windows.Forms.CheckBox checkBox14;
-        private System.Windows.Forms.CheckBox checkBox15;
-        private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.CheckBox RBBit0;
+        private System.Windows.Forms.CheckBox RBBit1;
+        private System.Windows.Forms.CheckBox RBBit2;
+        private System.Windows.Forms.CheckBox RBBit3;
+        private System.Windows.Forms.CheckBox RBBit4;
+        private System.Windows.Forms.CheckBox RBBit5;
+        private System.Windows.Forms.CheckBox RBBit6;
+        private System.Windows.Forms.CheckBox RBBit7;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem simulatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateiÖffnenToolStripMenuItem;
