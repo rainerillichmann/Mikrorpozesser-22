@@ -194,7 +194,7 @@ namespace Mikroprozesser_22
                 OutputDing.SelectionColor = Color.White;
                 button1.Enabled = true;
                 Einzelschritt.Enabled = true;
-                RAMVisualisierung();
+                RAMVisualisierung2();
             }
         }
 
@@ -245,7 +245,7 @@ namespace Mikroprozesser_22
                     this.backgroundWorker1.CancelAsync();
                     this.backgroundWorker2.CancelAsync();
                     System.Threading.Thread.Sleep(250);
-                    RAMVisualisierung();
+                    RAMVisualisierung2();
                     button1.Enabled = false;
                     Einzelschritt.Enabled = true;
                     Reset.Enabled = true;
@@ -375,7 +375,7 @@ namespace Mikroprozesser_22
             while (!bw.CancellationPending)
             {
 
-                RAMVisualisierung();
+                RAMVisualisierung2();
             }
         }
 
@@ -392,7 +392,7 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
 
-            RAMVisualisierung();
+            RAMVisualisierung2();
             button1.Enabled = true;
         }
 
@@ -412,10 +412,516 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
 
-            RAMVisualisierung();
+            RAMVisualisierung2();
+        }
+        //neue RAMVisualisierung, bessere Perfomance
+        private void RAMVisualisierung2()
+        {
+            LWBox.Text = Convert.ToString(Speicher.W, 16);
+
+            try { Stack0.Text = Convert.ToString(Speicher.Stack[0], 16); }
+            catch { Stack0.Text = ""; }
+
+            try { Stack1.Text = Convert.ToString(Speicher.Stack[1], 16); }
+            catch { Stack1.Text = ""; }
+
+            try { Stack2.Text = Convert.ToString(Speicher.Stack[2], 16); }
+            catch { Stack2.Text = ""; }
+
+            try { Stack3.Text = Convert.ToString(Speicher.Stack[3], 16); }
+            catch { Stack3.Text = ""; }
+
+            try { Stack4.Text = Convert.ToString(Speicher.Stack[4], 16); }
+            catch { Stack4.Text = ""; }
+
+            try { Stack5.Text = Convert.ToString(Speicher.Stack[5], 16); }
+            catch { Stack5.Text = ""; }
+
+            try { Stack6.Text = Convert.ToString(Speicher.Stack[6], 16); }
+            catch { Stack6.Text = ""; }
+
+            try { Stack7.Text = Convert.ToString(Speicher.Stack[7], 16); }
+            catch { Stack7.Text = ""; }
+
+
+            //Überprüfung auf TRISA
+            #region
+            if ((Speicher.RAM[1, 5] & 0x01) == 0x00)
+            {
+                RABit0.Enabled = false;
+                if ((Speicher.RAM[0, 5] & 1) == 1) this.RABit0.Checked = true; else this.RABit0.Checked = false;
+            }
+            else RABit0.Enabled = true;
+            if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
+            {
+                RABit1.Enabled = false;
+                if ((Speicher.RAM[0, 5] & 2) == 2) RABit1.Checked = true; else RABit1.Checked = false;
+            }
+            else RABit1.Enabled = true;
+            if ((Speicher.RAM[1, 5] & 0x04) == 0x00)
+            {
+                RABit2.Enabled = false;
+                if ((Speicher.RAM[0, 5] & 4) == 4) RABit2.Checked = true; else RABit2.Checked = false;
+            }
+            else RABit2.Enabled = true;
+            if ((Speicher.RAM[1, 5] & 0x08) == 0x00)
+            {
+                RABit3.Enabled = false;
+                if ((Speicher.RAM[0, 5] & 8) == 8) RABit3.Checked = true; else RABit3.Checked = false;
+            }
+            else RABit3.Enabled = true;
+            if ((Speicher.RAM[1, 5] & 0x10) == 0x00)
+            {
+                RABit4.Enabled = false;
+                if ((Speicher.RAM[0, 5] & 16) == 16) RABit4.Checked = true; else RABit4.Checked = false;
+            }
+            else RABit4.Enabled = true;
+
+            //Überprüfung auf TRISB
+            if ((Speicher.RAM[1, 6] & 0x01) == 0x00)
+            {
+                RBBit0.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 1) == 1) this.RBBit0.Checked = true; else this.RBBit0.Checked = false;
+            }
+            else RBBit0.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x02) == 0x00)
+            {
+                RBBit1.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 2) == 2) RBBit1.Checked = true; else RBBit1.Checked = false;
+            }
+            else RBBit1.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x04) == 0x00)
+            {
+                RBBit2.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 4) == 4) RBBit2.Checked = true; else RBBit2.Checked = false;
+            }
+            else RBBit2.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x08) == 0x00)
+            {
+                RBBit3.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 8) == 8) RBBit3.Checked = true; else RBBit3.Checked = false;
+            }
+            else RBBit3.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x10) == 0x00)
+            {
+                RBBit4.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 16) == 16) RBBit4.Checked = true; else RBBit4.Checked = false;
+            }
+            else RBBit4.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x20) == 0x00)
+            {
+                RBBit5.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 0x20) == 0x20) RBBit5.Checked = true; else RBBit5.Checked = false;
+            }
+            else RBBit5.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x40) == 0x00)
+            {
+                RBBit6.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 0x40) == 0x40) RBBit6.Checked = true; else RBBit6.Checked = false;
+            }
+            else RBBit6.Enabled = true;
+            if ((Speicher.RAM[1, 6] & 0x80) == 0x00)
+            {
+                RBBit7.Enabled = false;
+                if ((Speicher.RAM[0, 6] & 0x80) == 0x80) RBBit7.Checked = true; else RBBit7.Checked = false;
+            }
+            else RBBit7.Enabled = true;
+            #endregion
+
+            for(int i = 0; i < 32; i++)
+            {
+                if (i == 0x00)
+                #region IF-Abfragen
+                {
+                    label007.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label006.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label005.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label004.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label003.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label002.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label001.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label000.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x01)
+                {
+                    label017.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label016.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label015.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label014.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label013.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label012.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label011.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label010.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x02)
+                {
+                    label027.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label026.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label025.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label024.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label023.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label022.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label021.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label020.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x03)
+                {
+                    label037.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label036.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label035.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label034.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label033.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label032.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label031.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label030.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x04)
+                {
+                    label047.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label046.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label045.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label044.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label043.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label042.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label041.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label040.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x05)
+                {
+                    label057.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label056.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label055.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label054.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label053.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label052.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label051.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label050.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x06)
+                {
+                    label067.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label066.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label065.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label064.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label063.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label062.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label061.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label060.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x07)
+                {
+                    label077.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label076.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label075.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label074.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label073.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label072.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label071.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label070.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x08)
+                {
+                    label087.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label086.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label085.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label084.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label083.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label082.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label081.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label080.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x09)
+                {
+                    label097.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label096.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label095.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label094.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label093.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label092.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label091.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label090.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x0A)
+                {
+                    label0A7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label0A6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label0A5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label0A4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label0A3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label0A2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label0A1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label0A0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x0B)
+                {
+                    label0B7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label0B6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label0B5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label0B4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label0B3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label0B2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label0B1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label0B0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x0C)
+                {
+                    label0C7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label0C6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label0C5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label0C4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label0C3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label0C2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label0C1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label0C0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x0D)
+                {
+                    label0D7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label0D6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label0D5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label0D4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label0D3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label0D2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label0D1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label0D0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x0E)
+                {
+                    label0E7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label0E6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label0E5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label0E4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label0E3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label0E2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label0E1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label0E0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x0F)
+                {
+                    label0F7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label0F6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label0F5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label0F4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label0F3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label0F2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label0F1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label0F0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x10)
+                {
+                    label107.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label106.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label105.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label104.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label103.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label102.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label101.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label100.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x11)
+                {
+                    label117.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label116.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label115.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label114.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label113.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label112.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label111.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label110.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x12)
+                {
+                    label127.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label126.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label125.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label124.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label123.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label122.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label121.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label120.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x13)
+                {
+                    label137.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label136.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label135.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label134.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label133.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label132.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label131.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label130.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x14)
+                {
+                    label147.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label146.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label145.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label144.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label143.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label142.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label141.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label140.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x15)
+                {
+                    label157.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label156.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label155.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label154.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label153.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label152.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label151.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label150.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x16)
+                {
+                    label167.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label166.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label165.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label164.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label163.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label162.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label161.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label160.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x17)
+                {
+                    label177.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label176.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label175.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label174.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label173.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label172.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label171.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label170.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x18)
+                {
+                    label187.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label186.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label185.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label184.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label183.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label182.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label181.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label180.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x19)
+                {
+                    label197.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label196.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label195.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label194.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label193.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label192.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label191.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label190.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x1A)
+                {
+                    label1A7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label1A6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label1A5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label1A4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label1A3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label1A2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label1A1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label1A0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x1B)
+                {
+                    label1B7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label1B6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label1B5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label1B4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label1B3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label1B2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label1B1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label1B0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x1C)
+                {
+                    label1C7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label1C6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label1C5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label1C4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label1C3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label1C2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label1C1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label1C0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x1D)
+                {
+                    label1D7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label1D6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label1D5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label1D4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label1D3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label1D2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label1D1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label1D0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x1E)
+                {
+                    label1E7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label1E6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label1E5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label1E4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label1E3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label1E2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label1E1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label1E0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x1F)
+                {
+                    label1F7.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x80) >> 7));
+                    label1F6.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x40) >> 6));
+                    label1F5.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x20) >> 5));
+                    label1F4.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x10) >> 4));
+                    label1F3.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x08) >> 3));
+                    label1F2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
+                    label1F1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
+                    label1F0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                }
+                if (i == 0x01)
+                {
+                    label1117.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x80) >> 7));
+                    label1116.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x40) >> 6));
+                    label1115.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x20) >> 5));
+                    label1114.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x10) >> 4));
+                    label1113.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x08) >> 3));
+                    label1112.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x04) >> 2));
+                    label1111.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x02) >> 1));
+                    label1110.Text = Convert.ToString((Speicher.RAM[1, i] & 0x01));
+                }
+                if (i == 0x05)
+                {
+                    label1157.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x80) >> 7));
+                    label1156.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x40) >> 6));
+                    label1155.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x20) >> 5));
+                    label1154.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x10) >> 4));
+                    label1153.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x08) >> 3));
+                    label1154.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x04) >> 2));
+                    label1151.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x02) >> 1));
+                    label1150.Text = Convert.ToString((Speicher.RAM[1, i] & 0x01));
+                }
+                if (i == 0x06)
+                {
+                    label1167.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x80) >> 7));
+                    label1166.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x40) >> 6));
+                    label1165.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x20) >> 5));
+                    label1164.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x10) >> 4));
+                    label1163.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x08) >> 3));
+                    label1162.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x04) >> 2));
+                    label1161.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x02) >> 1));
+                    label1160.Text = Convert.ToString((Speicher.RAM[1, i] & 0x01));
+                }
+                #endregion 
+            } 
         }
 
-        private void RAMVisualisierung()
+       //alte RAMVisualisierung auskommentiert
+       /* private void RAMVisualisierung()
         {
             LWBox.Text = Convert.ToString(Speicher.W, 16);
 
@@ -532,7 +1038,7 @@ namespace Mikroprozesser_22
                 if ((Speicher.RAM[0, 6] & 0x80) == 0x80) RBBit7.Checked = true; else RBBit7.Checked = false;
             }
             else RBBit7.Enabled = true;
-        }
+        }*/
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -577,6 +1083,16 @@ namespace Mikroprozesser_22
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label23_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label65_Click(object sender, EventArgs e)
         {
 
         }
