@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMDVisualise.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="RAM.cs" />
     <Compile Include="CMDLine.cs" />

@@ -485,7 +485,7 @@ namespace Mikroprozesser_22
             RAM.PC = (byte)RAM.Stack.Last();
             RAM.RAM[0, 2] = (byte)(RAM.PC & 0xFF);
             RAM.RAM[1, 2] = (byte)(RAM.PC & 0xFF);
-            RAM.Stack.RemoveAt(RAM.Stack.Count -1);
+            RAM.removeStack();
             RAM.incInternalTimer(2);
         }
 
@@ -495,7 +495,7 @@ namespace Mikroprozesser_22
             RAM.PC = (byte)RAM.Stack.Last();
             RAM.RAM[0, 2] = (byte)(RAM.PC & 0xFF);
             RAM.RAM[1, 2] = (byte)(RAM.PC & 0xFF);
-            RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
+            RAM.removeStack();
             RAM.incInternalTimer(2);
         }
 
@@ -604,7 +604,7 @@ namespace Mikroprozesser_22
             RAM.PC = (byte)RAM.Stack.Last();
             RAM.RAM[0, 2] = (byte)(RAM.PC & 0xFF);
             RAM.RAM[1, 2] = (byte)(RAM.PC & 0xFF);
-            RAM.Stack.RemoveAt(RAM.Stack.Count - 1);
+            RAM.removeStack();
             RAM.RAM[0, 0x0b] |= 0x80;
             RAM.RAM[1, 0x0b] |= 0x80;
             RAM.incInternalTimer(2);

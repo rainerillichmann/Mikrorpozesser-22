@@ -13,15 +13,24 @@ namespace Mikroprozesser_22
         public byte W = 0;
         public UInt16 PC = 0;
         public List<int> Stack = new List<int>();
+        
+        int stackCounter = 0;
         public int internalTimerCounter = 0;
         public int externalTimerCounter = 0;
+       
 
         public void addStack(int pc)
         {
-            Stack.Add(pc);
+            if (stackCounter < 8) this.Stack.Add(pc);
+            else this.Stack[stackCounter % 8] = pc;
+            this.stackCounter++;
         }
 
-
+        public void removeStack()
+        {
+            this.Stack.RemoveAt(this.Stack.Count - 1);
+            this.stackCounter--;
+        }
 
         public Arbeitsspeicher()
         {

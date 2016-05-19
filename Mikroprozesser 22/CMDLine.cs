@@ -10,12 +10,13 @@ namespace Mikroprozesser_22
     {
         public UInt16 counter;
         public UInt16 command;
+        public bool breakPoint;
 
         public CommandLine(UInt16 cou, UInt16 com)
         {
             this.counter = cou;
             this.command = com;
-
+            this.breakPoint = false;
         }
         public CommandLine() : base() { }
     }

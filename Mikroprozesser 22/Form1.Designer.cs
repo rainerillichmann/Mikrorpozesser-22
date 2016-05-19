@@ -76,12 +76,24 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.Reset = new System.Windows.Forms.Button();
+            this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Stack0 = new System.Windows.Forms.TextBox();
+            this.Stack1 = new System.Windows.Forms.TextBox();
+            this.Stack2 = new System.Windows.Forms.TextBox();
+            this.Stack3 = new System.Windows.Forms.TextBox();
+            this.Stack4 = new System.Windows.Forms.TextBox();
+            this.Stack5 = new System.Windows.Forms.TextBox();
+            this.Stack6 = new System.Windows.Forms.TextBox();
+            this.Stack7 = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(30, 46);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
@@ -91,6 +103,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
             this.checkBox2.Location = new System.Drawing.Point(51, 46);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
@@ -100,6 +113,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
+            this.checkBox3.Enabled = false;
             this.checkBox3.Location = new System.Drawing.Point(72, 46);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
@@ -265,7 +279,8 @@
             // simulatorToolStripMenuItem
             // 
             this.simulatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dateiÖffnenToolStripMenuItem});
+            this.dateiÖffnenToolStripMenuItem,
+            this.beendenToolStripMenuItem});
             this.simulatorToolStripMenuItem.Name = "simulatorToolStripMenuItem";
             this.simulatorToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.simulatorToolStripMenuItem.Text = "Simulator";
@@ -273,7 +288,7 @@
             // dateiÖffnenToolStripMenuItem
             // 
             this.dateiÖffnenToolStripMenuItem.Name = "dateiÖffnenToolStripMenuItem";
-            this.dateiÖffnenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.dateiÖffnenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dateiÖffnenToolStripMenuItem.Text = "Datei öffnen";
             this.dateiÖffnenToolStripMenuItem.Click += new System.EventHandler(this.dateiÖffnenToolStripMenuItem_Click);
             // 
@@ -285,7 +300,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(290, 464);
+            this.button1.Location = new System.Drawing.Point(371, 463);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 20;
@@ -314,7 +329,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(371, 464);
+            this.button2.Location = new System.Drawing.Point(452, 463);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 23;
@@ -332,9 +347,11 @@
             // 
             this.OutputDing.Location = new System.Drawing.Point(12, 148);
             this.OutputDing.Name = "OutputDing";
-            this.OutputDing.Size = new System.Drawing.Size(237, 387);
+            this.OutputDing.Size = new System.Drawing.Size(302, 387);
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
+            this.OutputDing.TextChanged += new System.EventHandler(this.OutputDing_TextChanged_1);
+            this.OutputDing.DoubleClick += new System.EventHandler(this.OutputDing_DoubleClick);
             // 
             // speicher1
             // 
@@ -353,7 +370,7 @@
             // Einzelschritt
             // 
             this.Einzelschritt.Enabled = false;
-            this.Einzelschritt.Location = new System.Drawing.Point(290, 493);
+            this.Einzelschritt.Location = new System.Drawing.Point(371, 492);
             this.Einzelschritt.Name = "Einzelschritt";
             this.Einzelschritt.Size = new System.Drawing.Size(75, 23);
             this.Einzelschritt.TabIndex = 36;
@@ -507,7 +524,7 @@
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(371, 493);
+            this.Reset.Location = new System.Drawing.Point(452, 492);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 23);
             this.Reset.TabIndex = 53;
@@ -515,11 +532,109 @@
             this.Reset.UseVisualStyleBackColor = true;
             this.Reset.Click += new System.EventHandler(this.Reset_Click);
             // 
+            // beendenToolStripMenuItem
+            // 
+            this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.beendenToolStripMenuItem.Text = "Beenden";
+            this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
+            // 
+            // Stack0
+            // 
+            this.Stack0.Enabled = false;
+            this.Stack0.Location = new System.Drawing.Point(19, 26);
+            this.Stack0.Name = "Stack0";
+            this.Stack0.Size = new System.Drawing.Size(100, 20);
+            this.Stack0.TabIndex = 54;
+            this.Stack0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Stack1
+            // 
+            this.Stack1.Enabled = false;
+            this.Stack1.Location = new System.Drawing.Point(19, 52);
+            this.Stack1.Name = "Stack1";
+            this.Stack1.Size = new System.Drawing.Size(100, 20);
+            this.Stack1.TabIndex = 55;
+            this.Stack1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Stack2
+            // 
+            this.Stack2.Enabled = false;
+            this.Stack2.Location = new System.Drawing.Point(19, 78);
+            this.Stack2.Name = "Stack2";
+            this.Stack2.Size = new System.Drawing.Size(100, 20);
+            this.Stack2.TabIndex = 56;
+            this.Stack2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Stack3
+            // 
+            this.Stack3.Enabled = false;
+            this.Stack3.Location = new System.Drawing.Point(19, 104);
+            this.Stack3.Name = "Stack3";
+            this.Stack3.Size = new System.Drawing.Size(100, 20);
+            this.Stack3.TabIndex = 57;
+            this.Stack3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Stack4
+            // 
+            this.Stack4.Enabled = false;
+            this.Stack4.Location = new System.Drawing.Point(19, 130);
+            this.Stack4.Name = "Stack4";
+            this.Stack4.Size = new System.Drawing.Size(100, 20);
+            this.Stack4.TabIndex = 58;
+            this.Stack4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Stack5
+            // 
+            this.Stack5.Enabled = false;
+            this.Stack5.Location = new System.Drawing.Point(19, 156);
+            this.Stack5.Name = "Stack5";
+            this.Stack5.Size = new System.Drawing.Size(100, 20);
+            this.Stack5.TabIndex = 59;
+            this.Stack5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Stack5.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            // 
+            // Stack6
+            // 
+            this.Stack6.Enabled = false;
+            this.Stack6.Location = new System.Drawing.Point(19, 182);
+            this.Stack6.Name = "Stack6";
+            this.Stack6.Size = new System.Drawing.Size(100, 20);
+            this.Stack6.TabIndex = 60;
+            this.Stack6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Stack7
+            // 
+            this.Stack7.Enabled = false;
+            this.Stack7.Location = new System.Drawing.Point(19, 208);
+            this.Stack7.Name = "Stack7";
+            this.Stack7.Size = new System.Drawing.Size(100, 20);
+            this.Stack7.TabIndex = 61;
+            this.Stack7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.Stack0);
+            this.groupBox1.Controls.Add(this.Stack1);
+            this.groupBox1.Controls.Add(this.Stack7);
+            this.groupBox1.Controls.Add(this.Stack2);
+            this.groupBox1.Controls.Add(this.Stack6);
+            this.groupBox1.Controls.Add(this.Stack3);
+            this.groupBox1.Controls.Add(this.Stack5);
+            this.groupBox1.Controls.Add(this.Stack4);
+            this.groupBox1.Location = new System.Drawing.Point(425, 75);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(127, 237);
+            this.groupBox1.TabIndex = 63;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Stack";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 542);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Reset);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
@@ -565,9 +680,11 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "PIC16F84A Simulator";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -623,6 +740,16 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button Reset;
+        private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
+        private System.Windows.Forms.TextBox Stack0;
+        private System.Windows.Forms.TextBox Stack1;
+        private System.Windows.Forms.TextBox Stack2;
+        private System.Windows.Forms.TextBox Stack3;
+        private System.Windows.Forms.TextBox Stack4;
+        private System.Windows.Forms.TextBox Stack5;
+        private System.Windows.Forms.TextBox Stack6;
+        private System.Windows.Forms.TextBox Stack7;
+        private System.Windows.Forms.GroupBox groupBox1;
 
     }
 }
