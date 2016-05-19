@@ -16,7 +16,11 @@ namespace Mikroprozesser_22
         {
             byte tempBank = (byte)(RAM.RAM[0, 3]>>5);
             
-            
+            /* In dieser Klasse werden die einzelnen Befehlscodes analysiert und die passenden Funktionen aufgerufen
+             * nach Befehlen die Register verändern, werden mit updateReg die Register, die auf beiden Bänken gleich sind
+             * kopiert. Nach jedem Befehl wird außerdem die interrupt funktion aufgerufen, die überprüft, ob nach dem Ausführen
+             * eines Befehls ein Interrupt aufgetreten ist.
+             */
             
             //MOVLW
             if ((Befehl.command & 0x3F00) == 0x3000) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
@@ -361,14 +365,14 @@ namespace Mikroprozesser_22
 
             if ((0xFF & Befehl) > RAM.W) RAM.CarryBit(bank,1);
             else RAM.CarryBit(bank,0);                          //C
-
+            if (((RAM.W & 0xF) + ((~Befehl & 0xF) + 1)) > 0xF) RAM.DigitCarryBit(bank, 1); //DC, Komplement des Subtrahenten wird addiert
+            else RAM.DigitCarryBit(bank, 0);
 
             RAM.ChangeW((byte)((0xFF & Befehl) - RAM.W));
 
             RAM.ZeroBit(bank);
 
-            if (((RAM.W & 0xF) + ~(Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1); //DC, komplett des Subtrahenten wird addiert
-            else RAM.DigitCarryBit(bank,0);
+            
 
             ++RAM.RAM[bank, 2];
             RAM.incInternalTimer(1);
@@ -397,7 +401,7 @@ namespace Mikroprozesser_22
 
             if ((regValue + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
             else RAM.CarryBit(bank,0); //C
-            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1);
+            if (((RAM.W & 0xF) + (regValue & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1);
             else RAM.DigitCarryBit(bank,0); //DC, wenn die beiden Low Byte addiert >15 sind
 
 
@@ -420,10 +424,10 @@ namespace Mikroprozesser_22
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
 
-            if (((0xFF & Befehl) + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
+            if ((regValue + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
             else RAM.CarryBit(bank,0); //C
-            if (((RAM.W & 0xF) + (Befehl & 0xF)) > 0xF) RAM.DigitCarryBit(bank,1);
-            else RAM.DigitCarryBit(bank,0); //DC, wenn die beiden Low Byte addiert >15 sind
+            if (((RAM.W & 0xF) + ((~regValue & 0xF)+1)) > 0xF) RAM.DigitCarryBit(bank,1);
+            else RAM.DigitCarryBit(bank,0); //DC, wenn Low Byte von W
 
 
             if ((Befehl & 0x80) == 0)

@@ -983,7 +983,7 @@ namespace Mikroprozesser_22
        /* private void RAMVisualisierung()
         {
             /** Der RAM wird visualisiert, 
-             * */
+             * *
             LWBox.Text = Convert.ToString(Speicher.W, 16);
 
             speicher1.Clear();

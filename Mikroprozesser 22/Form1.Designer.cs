@@ -639,11 +639,7 @@
             // StartButton
             // 
             this.StartButton.Enabled = false;
-<<<<<<< HEAD
-            this.StartButton.Location = new System.Drawing.Point(371, 463);
-=======
             this.StartButton.Location = new System.Drawing.Point(217, 46);
->>>>>>> Anderer-RAM
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
             this.StartButton.TabIndex = 20;
@@ -672,12 +668,8 @@
             // 
             // StopButton
             // 
-<<<<<<< HEAD
             this.StopButton.Enabled = false;
-            this.StopButton.Location = new System.Drawing.Point(452, 463);
-=======
             this.StopButton.Location = new System.Drawing.Point(298, 46);
->>>>>>> Anderer-RAM
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 23;
@@ -864,12 +856,8 @@
             // 
             // Reset
             // 
-<<<<<<< HEAD
             this.Reset.Enabled = false;
-            this.Reset.Location = new System.Drawing.Point(452, 492);
-=======
             this.Reset.Location = new System.Drawing.Point(298, 75);
->>>>>>> Anderer-RAM
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 23);
             this.Reset.TabIndex = 53;
@@ -1052,65 +1040,65 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(436, 167);
+            this.label29.Location = new System.Drawing.Point(430, 167);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(25, 13);
+            this.label29.Size = new System.Drawing.Size(32, 13);
             this.label29.TabIndex = 73;
-            this.label29.Text = "00h";
+            this.label29.Text = "INDF";
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(436, 180);
+            this.label30.Location = new System.Drawing.Point(423, 180);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(25, 13);
+            this.label30.Size = new System.Drawing.Size(37, 13);
             this.label30.TabIndex = 74;
-            this.label30.Text = "01h";
+            this.label30.Text = "TMR0";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(436, 193);
+            this.label31.Location = new System.Drawing.Point(433, 193);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(25, 13);
+            this.label31.Size = new System.Drawing.Size(27, 13);
             this.label31.TabIndex = 75;
-            this.label31.Text = "02h";
+            this.label31.Text = "PCL";
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(436, 206);
+            this.label32.Location = new System.Drawing.Point(410, 206);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(25, 13);
+            this.label32.Size = new System.Drawing.Size(50, 13);
             this.label32.TabIndex = 76;
-            this.label32.Text = "03h";
+            this.label32.Text = "STATUS";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(436, 219);
+            this.label33.Location = new System.Drawing.Point(432, 219);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(25, 13);
+            this.label33.Size = new System.Drawing.Size(28, 13);
             this.label33.TabIndex = 77;
-            this.label33.Text = "04h";
+            this.label33.Text = "FSR";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(436, 232);
+            this.label34.Location = new System.Drawing.Point(417, 232);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(25, 13);
+            this.label34.Size = new System.Drawing.Size(44, 13);
             this.label34.TabIndex = 78;
-            this.label34.Text = "05h";
+            this.label34.Text = "PORTA";
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(436, 245);
+            this.label35.Location = new System.Drawing.Point(417, 245);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(25, 13);
+            this.label35.Size = new System.Drawing.Size(44, 13);
             this.label35.TabIndex = 79;
-            this.label35.Text = "06h";
+            this.label35.Text = "PORTB";
             // 
             // label36
             // 
@@ -1124,38 +1112,38 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(436, 271);
+            this.label37.Location = new System.Drawing.Point(410, 271);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(25, 13);
+            this.label37.Size = new System.Drawing.Size(50, 13);
             this.label37.TabIndex = 81;
-            this.label37.Text = "08h";
+            this.label37.Text = "EEDATA";
             // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(436, 284);
+            this.label38.Location = new System.Drawing.Point(417, 284);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(25, 13);
+            this.label38.Size = new System.Drawing.Size(44, 13);
             this.label38.TabIndex = 82;
-            this.label38.Text = "09h";
+            this.label38.Text = "EEADR";
             // 
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(436, 297);
+            this.label39.Location = new System.Drawing.Point(412, 297);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(26, 13);
+            this.label39.Size = new System.Drawing.Size(49, 13);
             this.label39.TabIndex = 83;
-            this.label39.Text = "0Ah";
+            this.label39.Text = "PCLATH";
             // 
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(436, 310);
+            this.label40.Location = new System.Drawing.Point(414, 310);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(26, 13);
+            this.label40.Size = new System.Drawing.Size(48, 13);
             this.label40.TabIndex = 84;
-            this.label40.Text = "0Bh";
+            this.label40.Text = "INTCON";
             // 
             // label41
             // 
@@ -3861,29 +3849,29 @@
             // label85
             // 
             this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(759, 245);
+            this.label85.Location = new System.Drawing.Point(747, 245);
             this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(25, 13);
+            this.label85.Size = new System.Drawing.Size(39, 13);
             this.label85.TabIndex = 372;
-            this.label85.Text = "86h";
+            this.label85.Text = "TRISB";
             // 
             // label86
             // 
             this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(759, 232);
+            this.label86.Location = new System.Drawing.Point(747, 232);
             this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(25, 13);
+            this.label86.Size = new System.Drawing.Size(39, 13);
             this.label86.TabIndex = 371;
-            this.label86.Text = "85h";
+            this.label86.Text = "TRISA";
             // 
             // label87
             // 
             this.label87.AutoSize = true;
-            this.label87.Location = new System.Drawing.Point(759, 180);
+            this.label87.Location = new System.Drawing.Point(738, 180);
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(25, 13);
+            this.label87.Size = new System.Drawing.Size(48, 13);
             this.label87.TabIndex = 370;
-            this.label87.Text = "81h";
+            this.label87.Text = "OPTION";
             // 
             // label88
             // 
