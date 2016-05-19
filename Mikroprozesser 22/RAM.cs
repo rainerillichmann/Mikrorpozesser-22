@@ -219,7 +219,7 @@ namespace Mikroprozesser_22
                 else
                 {
                     if ((byte)(indAdress & 0x80) == 0) this.RAM[0, (byte)(indAdress & 0x7F)] = newValue;  //überprüfe Bit 7, welche Bank angesprochen wird
-                    else this.RAM[0, (byte)(indAdress & 0x7F)] = newValue; 
+                    else this.RAM[0, (byte)(indAdress & 0x7F)] = newValue;
                 }
             }
             else this.RAM[bank, register] = newValue;
