@@ -452,22 +452,27 @@ namespace Mikroprozesser_22
 
             if ((Speicher.RAM[1, 5] & 0x01) == 0x00)
             {
+                checkBox8.Enabled = false;
                 if ((Speicher.RAM[0, 5] & 1) == 1) this.checkBox8.Checked = true; else this.checkBox8.Checked = false;
             }
             if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
             {
+                checkBox7.Enabled = false;
                 if ((Speicher.RAM[0, 5] & 2) == 2) checkBox7.Checked = true; else checkBox7.Checked = false;
             }
             if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
             {
+                checkBox6.Enabled = false;
                 if ((Speicher.RAM[0, 5] & 4) == 4) checkBox6.Checked = true; else checkBox6.Checked = false;
             }
             if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
             {
+                checkBox5.Enabled = false;
                 if ((Speicher.RAM[0, 5] & 8) == 8) checkBox5.Checked = true; else checkBox5.Checked = false;
             }
             if ((Speicher.RAM[1, 5] & 0x02) == 0x00)
             {
+                checkBox4.Enabled = false;
                 if ((Speicher.RAM[0, 5] & 16) == 16) checkBox4.Checked = true; else checkBox4.Checked = false;
             }
         }
