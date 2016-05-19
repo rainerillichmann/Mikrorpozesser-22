@@ -18,7 +18,9 @@ namespace Mikroprozesser_22
 
         public CommandLine(UInt16 cou, UInt16 com)
         {
-            //Konstruktor 
+
+            //Konstruktor
+
             this.counter = cou;
             this.command = com;
             this.breakPoint = false;

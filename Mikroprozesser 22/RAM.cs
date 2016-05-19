@@ -22,9 +22,11 @@ namespace Mikroprozesser_22
         public void addStack(int pc)
         {
             /* Der Stack des RAM wird beschrieben, und der stackCounter erhöht.
-             * Wird nun versucht mehr als acht mal in den Stack zu schreiben, werden 
-             * wieder die ersten Elemente des Stack überschrieben, mit Hilfe des stackCounter
-             */
+
+              * Wird nun versucht mehr als acht mal in den Stack zu schreiben, werden 
+              * wieder die ersten Elemente des Stack überschrieben, mit Hilfe des stackCounter
+              */
+
             if (this.Stack.Count() < 8) this.Stack.Add(pc);
             else this.Stack[stackCounter % 8] = pc;
             this.stackCounter++;
@@ -134,7 +136,9 @@ namespace Mikroprozesser_22
         }
 
         public void incExternalTimer()
-        { 
+
+        {
+
             /* Diese Funktion wird aufgerufen, wenn RA4 also Clock Input benutzt wird.
              * der externTimerCoutner wird erhöht und an die Prescaler Funktion übergeben,
              * um evtl TIM0 zu erhöhen
@@ -209,7 +213,9 @@ namespace Mikroprozesser_22
             if (register == 0)      //überprüfe ob INDF angesprochen wird
             {
                 byte indAdress = this.RAM[bank, 4];
-                if ((byte)(indAdress & 0x7F) == 0);  //falls indf addressiert wird, passiert nichts;
+
+                if ((byte)(indAdress & 0x7F) == 0) ;  //falls indf addressiert wird, passiert nichts;
+
                 else
                 {
                     if ((byte)(indAdress & 0x80) == 0) this.RAM[0, (byte)(indAdress & 0x7F)] = newValue;  //überprüfe Bit 7, welche Bank angesprochen wird
@@ -417,7 +423,9 @@ namespace Mikroprozesser_22
                 }
                 
             }
-            else                     // Falls kein Prescaler aktiv ist
+
+            else            //falls kein Prescaler aktiv ist 
+
             {
                 ++this.RAM[0, 1]; // wenn kein prescaler aktiv ist, wird der Timer nach jedem Cycle erhöht
                 if (this.RAM[0, 1] == 0)
