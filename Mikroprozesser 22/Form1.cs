@@ -981,6 +981,7 @@ namespace Mikroprozesser_22
             } 
         }
 
+
        //alte RAMVisualisierung auskommentiert
        /* private void RAMVisualisierung()
         {
@@ -1104,6 +1105,7 @@ namespace Mikroprozesser_22
             else RBBit7.Enabled = true;
         }*/
 
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -1125,7 +1127,6 @@ namespace Mikroprozesser_22
         {
 
              /*Bei einem Doppelklick auf eine Zeile wird die jeweilige Zeile gesucht 
-
              *und dem Befehl in dieser Zeile ein Breakpoint hinzugefügt.
              *Um dies anzuzeigen wird die Befehlsausgabe gecleart, und neu erzeugt
              */

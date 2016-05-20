@@ -15,10 +15,10 @@ namespace Mikroprozesser_22
         public List<int> Stack = new List<int>();
         
         int stackCounter = 0;
-        
+       
         public uint internalTimerCounter = 0;
         public uint externalTimerCounter = 0;
-        
+
        
 
         public void addStack(int pc)
