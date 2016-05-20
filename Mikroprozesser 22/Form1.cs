@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 
 namespace Mikroprozesser_22
@@ -1164,6 +1166,36 @@ namespace Mikroprozesser_22
         }
 
         private void label65_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hilfeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Convert The resource Data into Byte[] 
+            byte[] PDF = Properties.Resources.Hilfe;
+
+            MemoryStream ms = new MemoryStream(PDF);
+
+            //Create PDF File From Binary of resources folders help.pdf
+            FileStream f = new FileStream("Hilfe.pdf", FileMode.OpenOrCreate);
+
+            //Write Bytes into Our Created help.pdf
+            ms.WriteTo(f);
+            f.Close();
+            ms.Close();
+
+            // Finally Show the Created PDF from resources 
+            Process.Start("Hilfe.pdf");
+            
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
         }

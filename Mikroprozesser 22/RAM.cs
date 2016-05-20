@@ -15,8 +15,10 @@ namespace Mikroprozesser_22
         public List<int> Stack = new List<int>();
         
         int stackCounter = 0;
-        public int internalTimerCounter = 0;
-        public int externalTimerCounter = 0;
+        
+        public uint internalTimerCounter = 0;
+        public uint externalTimerCounter = 0;
+        
        
 
         public void addStack(int pc)
@@ -114,23 +116,23 @@ namespace Mikroprozesser_22
             else { for (int i = 0x0A; i < 0x0C; i++) this.RAM[0, i] = this.RAM[1, i]; }
 
             //die ersten 5 Bit des PC werden nur über PCLATH geändert, die unteren 8 Bit werden dem PCL entnommen
-            this.PC = (UInt16)((this.PC & 0x1F00) + (this.RAM[0, 2]));
+            this.PC =(UInt16)( (this.PC & 0xFF00) + (this.RAM[0, 2]));
         }
 
-        public void incInternalTimer(byte takt)
+        public void incInternalTimer(byte cycle)
         {
-            /* dieser Counter wird nach jedem Befehl aufgerufen. Je nach angegebenem Takt wird hier der Counter 
+            /* dieser Counter wird nach jedem Befehl aufgerufen. Je nach angegebenem Cyclus wird hier der Counter 
              * entsprechend erhöht.
              * Bei jedem einzelnen erhöhehn des Counters, muss über den Prescaler gelaufen werden, um evtl ein 
              * erhöhen des TIM0 auszulösen, deswegen die for-Schleife
              */
-            for (int i = takt; i> 0; i--)
+            for (int i = cycle; i> 0; i--)
             {
                 ++this.internalTimerCounter;
                 if ((this.RAM[1, 1] & 0x20) == 0)  //Internal Clock is used
                 {
                     
-                   internalTimerCounter = this.TimerPrescaler(internalTimerCounter);
+                   this.TimerPrescaler(internalTimerCounter);
                 }
             }
         }
@@ -144,7 +146,7 @@ namespace Mikroprozesser_22
              * um evtl TIM0 zu erhöhen
              */
             ++this.externalTimerCounter;
-            externalTimerCounter = this.TimerPrescaler(externalTimerCounter);
+            this.TimerPrescaler(externalTimerCounter);
         }
 
         public void ZeroBit( int bank)              //changes ZeroBit if W == 0
@@ -212,17 +214,35 @@ namespace Mikroprozesser_22
             // Wird aufgerufen, wenn ein Register verändert werden muss, mit Berücksichtigung auf FSR
             if (register == 0)      //überprüfe ob INDF angesprochen wird
             {
-                byte indAdress = this.RAM[bank, 4];
+                byte FSRAddress = this.RAM[bank, 4];
 
-                if ((byte)(indAdress & 0x7F) == 0) ;  //falls indf addressiert wird, passiert nichts;
+                if ((byte)(FSRAddress & 0x7F) == 0) ;  //falls indf addressiert wird, passiert nichts;
 
                 else
                 {
-                    if ((byte)(indAdress & 0x80) == 0) this.RAM[0, (byte)(indAdress & 0x7F)] = newValue;  //überprüfe Bit 7, welche Bank angesprochen wird
-                    else this.RAM[0, (byte)(indAdress & 0x7F)] = newValue; 
+                    if ((byte)(FSRAddress & 0x80) == 0) this.RAM[0, (byte)(FSRAddress & 0x7F)] = newValue;  //überprüfe Bit 7, welche Bank angesprochen wird
+                    else
+                    {
+                        if (FSRAddress == 2)            //Abfrage ob PCL verändert wird, falls ja, PC neu zusammensetzen aus PCL und PCLATH
+                        {
+                            this.RAM[0, 2] = newValue;
+                            this.RAM[1, 2] = newValue;
+                            this.PC = (UInt16)(newValue + (this.RAM[0, 0xA] << 8));
+                        }                       
+                        else this.RAM[0, (byte)(FSRAddress & 0x7F)] = newValue;
+                    }
                 }
             }
-            else this.RAM[bank, register] = newValue;
+            else
+            {
+                if (register == 2)                      //Abfrage ob PCL verändert wird, falls ja, PC neu zusammensetzen aus PCL und PCLATH
+                {
+                    this.RAM[0, 2] = newValue;
+                    this.RAM[1, 2] = newValue;
+                    this.PC =(UInt16) (newValue + (this.RAM[0, 0xA] << 8));
+                }
+                this.RAM[bank, register] = newValue;
+            }
         }
 
         public void interrupt()
@@ -274,7 +294,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        public int TimerPrescaler(int counter)
+        public void TimerPrescaler(uint counter)
         {
             //Bei jedem erhöhen der Counter wird diese Funktion aufgerufen, und es wird überprüft, ob und welcher Prescaler aktiv ist
             if ((this.RAM[1, 1] & 0x08) == 0)   //wenn PSA = 0 ist der Timer-Prescaler aktiv
@@ -290,9 +310,9 @@ namespace Mikroprozesser_22
                             RAM[1, 0xB] |= 0x04; //Bei Überlauf T0IF setzen
                             RAM[0, 0xB] |= 0x04;
                         }
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
                 }
 
                 // 1:4
@@ -307,9 +327,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                  
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
 
@@ -325,9 +345,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                   ;
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
 
@@ -344,9 +364,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                       
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
 
@@ -362,9 +382,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                       
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
 
@@ -380,9 +400,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                        
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
 
@@ -398,9 +418,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                        
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
 
@@ -416,9 +436,9 @@ namespace Mikroprozesser_22
                             RAM[0, 0xB] |= 0x04;
                         }
                         
-                        return 0;
+                        return;
                     }
-                    return counter;
+                    return;
 
                 }
                 
@@ -434,10 +454,10 @@ namespace Mikroprozesser_22
                     RAM[0, 0xB] |= 0x04;
                 }
                 
-                return 0;
+                return;
                 
             }
-            return 0;
+            return;
         }
 
     }
