@@ -482,13 +482,8 @@ namespace Mikroprozesser_22
         {
             LWBox.Text = Convert.ToString(Speicher.W, 16);
 
-            //Laufzeitberechnung und Ausgabe
-            if (Speicher.internalTimerCounter == 0) Laufzeit.Text = "0";
-            else
-            {
-                double cycleTime = 1.0 / (Speicher.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
-                Laufzeit.Text = Convert.ToString((double)(cycleTime * (double)Speicher.internalTimerCounter));
-            }
+            //Laufzeit Ausgabe
+            Laufzeit.Text = Convert.ToString( Speicher.runTime);
 
             //Überprüfung und Ausgabe im Stack
             try { Stack0.Text = Convert.ToString(Speicher.Stack[0], 16); }

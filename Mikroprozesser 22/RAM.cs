@@ -20,6 +20,7 @@ namespace Mikroprozesser_22
         public uint externalTimerCounter = 0;
 
         public byte frequenzy = 4;
+        public double runTime = 0;
 
         public void addStack(int pc)
         {
@@ -78,6 +79,7 @@ namespace Mikroprozesser_22
             this.stackCounter = 0;
             this.internalTimerCounter = 0;
             this.externalTimerCounter = 0;
+            this.runTime = 0;
 
             this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
@@ -135,6 +137,11 @@ namespace Mikroprozesser_22
                    this.TimerPrescaler(internalTimerCounter);
                 }
             }
+
+            
+            double cycleTime = 1.0 / (this.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
+            this.runTime = cycleTime * this.internalTimerCounter;
+            
         }
 
         public void incExternalTimer()
