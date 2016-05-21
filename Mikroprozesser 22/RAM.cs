@@ -111,6 +111,65 @@ namespace Mikroprozesser_22
             this.RAM[1, 11] = 0x00; //INTCON
         }
 
+        public void watchdogReset()
+        {
+            // Power On Reset des Prozessors
+            
+            this.PC = 0;
+            this.Stack.Clear();
+            this.stackCounter = 0;
+            this.watchdogTimeout = 0;
+
+            this.RAM[0, 0] = 0x00; //INDF
+            
+            this.RAM[0, 2] = 0x00; //PCL
+            this.RAM[0, 3] = (byte) (0x08 + (this.RAM[0, 3] & 0x07)); //STATUS
+            
+            this.RAM[0, 10] = 0x00; //PCLATH
+            this.RAM[0, 11] = (byte)(this.RAM[0,11] & 0x01); //INTCON
+            
+
+            this.RAM[1, 1] = 0xFF; //OPTION
+            this.RAM[1, 2] = 0x00; //PCL
+            this.RAM[1, 3] = (byte)(0x08 + (this.RAM[1, 3] & 0x07)); //STATUS
+            
+            this.RAM[1, 5] = 0x1F; //TRIS A
+            this.RAM[1, 6] = 0xFF; //TRIS B
+            this.RAM[1, 8] = 0x00; //EECON
+            this.RAM[1, 10] = 0x00; //PCLATH
+            this.RAM[1, 11] = (byte)(this.RAM[1, 11] & 0x01); //INTCON
+        }
+
+        public bool watchdog()
+        {
+            if ((this.ConfigurationWord & 0x0004) == 0x0004) //Watchdogtimer enabled
+            {
+                if (this.watchdogTimeout == 0) this.watchdogTimeout = this.runTime + WatchdogPrescaler(); //Falls timeout 0 ist, neuen Timeout setzen;
+
+                if (this.runTime >= this.watchdogTimeout)
+                {
+                    if ((this.RAM[0, 3] & 0x08) == 0x00)    //falls PD gesetzt ist, wird ein Wake up ausgeführt
+                    {
+                        this.RAM[0, 3] &= 0xEF; //TO = 0
+                        this.RAM[0, 3] |= 0x08; //PD = 1
+                        this.RAM[1, 3] &= 0xEF; //TO = 0
+                        this.RAM[1, 3] |= 0x08; //PD = 1
+                        this.RAM[0, 2]++;
+                        this.RAM[1, 2]++;
+                        this.PC++;
+
+                        this.watchdogTimeout = 0;
+                    }
+                    else                                    //Programm Reset
+                    {
+                        watchdogReset();
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void updateReg(byte bank)
         {
             /* Die Resiter 2:4 und 0xA:0xB des RAM ist auf beiden Seiten gleich, je nach verwendeter Bank werden die Werte in die jeweils
@@ -474,5 +533,76 @@ namespace Mikroprozesser_22
             return;
         }
 
+
+        public double WatchdogPrescaler()
+        {
+            
+            /*if ((this.RAM[1, 1] & 0x08) == 0x08)   //wenn PSA = 1 ist der WDT-Prescaler aktiv
+            {
+                // 1:1
+                if ((this.RAM[1, 1] & 0x07) == 0)
+                {
+                    return 2.3;
+                }
+
+                // 1:2
+                if ((this.RAM[1, 1] & 0x07) == 1)
+                {                   
+                    return 4.6;
+                }
+
+                // 1:4
+                if ((this.RAM[1, 1] & 0x07) == 2)
+                {
+                    
+                    return 9.2;
+
+                }
+
+                // 1:8
+                if ((this.RAM[1, 1] & 0x07) == 3)
+                {
+                    
+                    return 18.4;
+
+                }
+
+                // 1:16
+                if ((this.RAM[1, 1] & 0x07) == 4)
+                {
+                    
+                    return 36.8;
+
+                }
+
+                // 1:32
+                if ((this.RAM[1, 1] & 0x07) == 4)
+                {
+                    
+                    return 73.6;
+
+                }
+
+                // 1:64
+                if ((this.RAM[1, 1] & 0x07) == 5)
+                {
+                    
+                    return 147.2;
+
+                }
+
+                // 1:128
+                if ((this.RAM[1, 1] & 0x07) == 6)
+                {
+                    
+                    return 294.4;
+
+                }
+
+            }*/
+
+            return 2.3;
+
+        }
     }
 }

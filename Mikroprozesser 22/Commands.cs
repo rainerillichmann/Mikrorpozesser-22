@@ -21,7 +21,11 @@ namespace Mikroprozesser_22
              * kopiert. Nach jedem Befehl wird außerdem die interrupt funktion aufgerufen, die überprüft, ob nach dem Ausführen
              * eines Befehls ein Interrupt aufgetreten ist.
              */
-            
+
+            if (RAM.watchdog()) return;
+
+            //SLEEP
+            if ((Befehl.command & 0x3FFF) == 0x0063) { SLEEP(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); return; }
             //MOVLW
             if ((Befehl.command & 0x3F00) == 0x3000) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             if ((Befehl.command & 0x3F00) == 0x3100) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
@@ -99,8 +103,7 @@ namespace Mikroprozesser_22
             if ((Befehl.command & 0x3C00) == 0x1C00) { BTFSS(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
             //RETFIE
             if ((Befehl.command & 0x3FFF) == 0x0009) { RETFIE(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
-            //SLEEP
-            if ((Befehl.command & 0x3FFF) == 0x0063) { SLEEP(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); return; }
+            
         }
 
         static void NOP(Arbeitsspeicher RAM, byte bank)
@@ -622,23 +625,14 @@ namespace Mikroprozesser_22
             RAM.RAM[1, 3] |= 0x10; //TO = 1
             RAM.RAM[1, 3] &= 0xF7; //PD = 0
 
-            if (RAM.watchdogTimeout == 0) RAM.watchdogTimeout = RAM.runTime + 2.3;
-            else
+           
+            if ((RAM.RAM[0, 0x0B] & 0x03) > 0)          //Wake up wenn INTF oder RBIF == 1
             {
-                if (((RAM.ConfigurationWord & 0x0004) == 0x0004) && (RAM.watchdogTimeout <= RAM.runTime)) //Wake up nach 2,3ms, falls WDTE = 1
-                {
-                    RAM.RAM[bank, 3] &= 0xEF; //TO = 1
-                    RAM.RAM[bank, 3] &= 0xF7; //PD = 0
-                    RAM.RAM[bank, 2]++;
-                    
-                }
-                if ((RAM.RAM[0, 0x0B] & 0x03) > 0)          //Wake up wenn INTF oder RBIF == 1
-                {
-                    RAM.RAM[bank, 3] &= 0xEF; //TO = 1
-                    RAM.RAM[bank, 3] &= 0xF7; //PD = 0
-                    RAM.RAM[bank, 2]++;
-                }
+                RAM.RAM[bank, 3] &= 0xEF; //TO = 1
+                RAM.RAM[bank, 3] &= 0xF7; //PD = 0
+                RAM.RAM[bank, 2]++;
             }
+            
 
             RAM.runTimeCounter++;                            //update der Runtime
             double cycleTime = 1.0 / (RAM.frequenzy * 1000); //Ausgabe in ms, deswegen *1000

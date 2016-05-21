@@ -479,6 +479,8 @@ namespace Mikroprozesser_22
             OutputDing.SelectionColor = Color.White;
 
             RAMVisualisierung2();
+
+            WDTenabled.Checked = false;
         }
         //neue RAMVisualisierung, bessere Perfomance
         private void RAMVisualisierung2()
