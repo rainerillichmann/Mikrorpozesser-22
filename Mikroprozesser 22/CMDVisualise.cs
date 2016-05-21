@@ -328,22 +328,22 @@ namespace Mikroprozesser_22
 
         static string BSF(int command)
         {
-            return "BSF " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
+            return "BSF " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380)>>7);
         }
 
         static string BCF(int command)
         {
-            return "BCF " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
+            return "BCF " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380) >> 7);
         }
 
         static string BTFSC(int command)
         {
-            return "BTFSC " + Convert.ToString((int)(command & 0x7F), 16) + "h";
+            return "BTFSC " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380)>>7);
         }
 
         static string BTFSS(int command)
         {
-            return "BTFSC " + Convert.ToString((int)(command & 0x7F), 16) + "h";
+            return "BTFSC " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380) >> 7);
         }
 
         static string RETFIE(int command)

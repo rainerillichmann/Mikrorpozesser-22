@@ -150,9 +150,9 @@ namespace Mikroprozesser_22
                 {
                     if ((this.RAM[0, 3] & 0x08) == 0x00)    //falls PD gesetzt ist, wird ein Wake up ausgeführt
                     {
-                        this.RAM[0, 3] &= 0xEF; //TO = 0
+                       
                         this.RAM[0, 3] |= 0x08; //PD = 1
-                        this.RAM[1, 3] &= 0xEF; //TO = 0
+                        
                         this.RAM[1, 3] |= 0x08; //PD = 1
                         this.RAM[0, 2]++;
                         this.RAM[1, 2]++;
@@ -537,25 +537,25 @@ namespace Mikroprozesser_22
         public double WatchdogPrescaler()
         {
             
-            /*if ((this.RAM[1, 1] & 0x08) == 0x08)   //wenn PSA = 1 ist der WDT-Prescaler aktiv
+            if ((this.RAM[1, 1] & 0x08) == 0x08)   //wenn PSA = 1 ist der WDT-Prescaler aktiv
             {
                 // 1:1
                 if ((this.RAM[1, 1] & 0x07) == 0)
                 {
-                    return 2.3;
+                    return 18;
                 }
 
                 // 1:2
                 if ((this.RAM[1, 1] & 0x07) == 1)
                 {                   
-                    return 4.6;
+                    return 36;
                 }
 
                 // 1:4
                 if ((this.RAM[1, 1] & 0x07) == 2)
                 {
                     
-                    return 9.2;
+                    return 72;
 
                 }
 
@@ -563,7 +563,7 @@ namespace Mikroprozesser_22
                 if ((this.RAM[1, 1] & 0x07) == 3)
                 {
                     
-                    return 18.4;
+                    return 144;
 
                 }
 
@@ -571,7 +571,7 @@ namespace Mikroprozesser_22
                 if ((this.RAM[1, 1] & 0x07) == 4)
                 {
                     
-                    return 36.8;
+                    return 288;
 
                 }
 
@@ -579,7 +579,7 @@ namespace Mikroprozesser_22
                 if ((this.RAM[1, 1] & 0x07) == 4)
                 {
                     
-                    return 73.6;
+                    return 576;
 
                 }
 
@@ -587,7 +587,7 @@ namespace Mikroprozesser_22
                 if ((this.RAM[1, 1] & 0x07) == 5)
                 {
                     
-                    return 147.2;
+                    return 1152;
 
                 }
 
@@ -595,13 +595,13 @@ namespace Mikroprozesser_22
                 if ((this.RAM[1, 1] & 0x07) == 6)
                 {
                     
-                    return 294.4;
+                    return 2304;
 
                 }
 
-            }*/
+            }
 
-            return 2.3;
+            return 18;
 
         }
     }

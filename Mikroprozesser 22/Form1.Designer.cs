@@ -472,6 +472,10 @@
             this.TRISAValue = new System.Windows.Forms.Label();
             this.TRISBValue = new System.Windows.Forms.Label();
             this.WDTenabled = new System.Windows.Forms.CheckBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.Value21 = new System.Windows.Forms.Label();
+            this.Value20 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -4057,7 +4061,7 @@
             this.groupBox2.Controls.Add(this.panel1);
             this.groupBox2.Location = new System.Drawing.Point(363, 148);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(404, 467);
+            this.groupBox2.Size = new System.Drawing.Size(410, 467);
             this.groupBox2.TabIndex = 397;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RAM Bank 0";
@@ -4065,6 +4069,10 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.Value20);
+            this.panel1.Controls.Add(this.Value21);
+            this.panel1.Controls.Add(this.label66);
+            this.panel1.Controls.Add(this.label65);
             this.panel1.Controls.Add(this.Value1F);
             this.panel1.Controls.Add(this.Value1E);
             this.panel1.Controls.Add(this.Value1D);
@@ -4397,7 +4405,7 @@
             this.panel1.Controls.Add(this.label1C5);
             this.panel1.Location = new System.Drawing.Point(16, 18);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(379, 443);
+            this.panel1.Size = new System.Drawing.Size(388, 443);
             this.panel1.TabIndex = 0;
             // 
             // groupBox3
@@ -4851,6 +4859,42 @@
             this.WDTenabled.Text = "WDT enabled";
             this.WDTenabled.UseVisualStyleBackColor = true;
             this.WDTenabled.CheckedChanged += new System.EventHandler(this.WDTenabled_CheckedChanged);
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(26, 440);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(25, 13);
+            this.label65.TabIndex = 438;
+            this.label65.Text = "20h";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(27, 453);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(25, 13);
+            this.label66.TabIndex = 439;
+            this.label66.Text = "21h";
+            // 
+            // Value21
+            // 
+            this.Value21.AutoSize = true;
+            this.Value21.Location = new System.Drawing.Point(59, 453);
+            this.Value21.Name = "Value21";
+            this.Value21.Size = new System.Drawing.Size(13, 13);
+            this.Value21.TabIndex = 440;
+            this.Value21.Text = "0";
+            // 
+            // Value20
+            // 
+            this.Value20.AutoSize = true;
+            this.Value20.Location = new System.Drawing.Point(59, 440);
+            this.Value20.Name = "Value20";
+            this.Value20.Size = new System.Drawing.Size(13, 13);
+            this.Value20.TabIndex = 441;
+            this.Value20.Text = "0";
             // 
             // Form1
             // 
@@ -5372,6 +5416,10 @@
         private System.Windows.Forms.Label OPTIONValue;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.CheckBox WDTenabled;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label Value20;
+        private System.Windows.Forms.Label Value21;
 
     }
 }

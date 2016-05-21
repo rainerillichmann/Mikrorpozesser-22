@@ -620,9 +620,9 @@ namespace Mikroprozesser_22
         static void SLEEP(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
-            RAM.RAM[0, 3] |= 0x10; //TO = 1
+            if ((RAM.RAM[0, 3] & 0x08) == 0x08) RAM.watchdogTimeout = 0; //Vor Powerdown Reset des WD
             RAM.RAM[0, 3] &= 0xF7; //PD = 0
-            RAM.RAM[1, 3] |= 0x10; //TO = 1
+            
             RAM.RAM[1, 3] &= 0xF7; //PD = 0
 
            

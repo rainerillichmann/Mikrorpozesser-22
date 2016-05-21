@@ -600,7 +600,7 @@ namespace Mikroprozesser_22
             else RBBit7.Enabled = true;
             #endregion
 
-            for(int i = 0; i < 32; i++)
+            for(int i = 0; i < 34; i++)
             {
                 if (i == 0x00)
                 #region IF-Abfragen
@@ -986,6 +986,14 @@ namespace Mikroprozesser_22
                     label1F1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1F0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
                     Value1F.Text = Convert.ToString(Speicher.RAM[0, i], 16);
+                }
+                if (i == 0x20)
+                {                   
+                    Value20.Text = Convert.ToString(Speicher.RAM[0, i], 16);
+                }
+                if (i == 0x21)
+                {
+                    Value21.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x01)
                 {
