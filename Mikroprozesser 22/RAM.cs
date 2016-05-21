@@ -10,6 +10,7 @@ namespace Mikroprozesser_22
     public class Arbeitsspeicher
     {
         public byte[,] RAM = new byte [2,64];
+        public UInt16 ConfigurationWord = 0;
         public byte W = 0;
         public UInt16 PC = 0;
         public List<int> Stack = new List<int>();
@@ -17,10 +18,12 @@ namespace Mikroprozesser_22
         int stackCounter = 0;
        
         public uint internalTimerCounter = 0;
+        public uint runTimeCounter = 0;
         public uint externalTimerCounter = 0;
 
         public byte frequenzy = 4;
         public double runTime = 0;
+        public double watchdogTimeout = 0;
 
         public void addStack(int pc)
         {
@@ -70,7 +73,7 @@ namespace Mikroprozesser_22
             
         }
 
-        public void Reset()
+        public void PowerOnReset()
         {
             // Power On Reset des Prozessors
             this.W = 0;
@@ -79,7 +82,10 @@ namespace Mikroprozesser_22
             this.stackCounter = 0;
             this.internalTimerCounter = 0;
             this.externalTimerCounter = 0;
+            this.runTimeCounter = 0;
             this.runTime = 0;
+            this.ConfigurationWord = 0;
+            this.watchdogTimeout = 0;
 
             this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
@@ -131,6 +137,7 @@ namespace Mikroprozesser_22
             for (int i = cycle; i> 0; i--)
             {
                 ++this.internalTimerCounter;
+                ++this.runTimeCounter;
                 if ((this.RAM[1, 1] & 0x20) == 0)  //Internal Clock is used
                 {
                     
@@ -140,7 +147,7 @@ namespace Mikroprozesser_22
 
             
             double cycleTime = 1.0 / (this.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
-            this.runTime = cycleTime * this.internalTimerCounter;
+            this.runTime = cycleTime * this.runTimeCounter;
             
         }
 

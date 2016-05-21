@@ -89,7 +89,7 @@ namespace Mikroprozesser_22
             //RETFIE
             if ((Befehl.command & 0x3FFF) == 0x0009) return RETFIE(Befehl.command); 
             //SLEEP
-            if ((Befehl.command & 0x3FFF) == 0x0063) return RETFIE(Befehl.command);
+            if ((Befehl.command & 0x3FFF) == 0x0063) return SLEEP(Befehl.command);
             return "";
         }
 

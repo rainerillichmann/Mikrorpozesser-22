@@ -164,7 +164,7 @@ namespace Mikroprozesser_22
                 //Speicher wird resettet, Programmvisualisierung wird gelöscht, und Kommandoliste wird gecleart
                 LineList.Clear();
                 OutputDing.Clear();
-                Speicher.Reset();
+                Speicher.PowerOnReset();
 
                 //Zeilenweises Einlesen der Datei
                 while ((line = sr.ReadLine()) != null)
@@ -260,12 +260,15 @@ namespace Mikroprozesser_22
                  * */
                 if (LineList[Speicher.PC].breakPoint == false)
                 {
-                    OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
-                    OutputDing.SelectionBackColor = Color.White;
-                    OutputDing.SelectionColor = Color.Black;
+                    UInt16 tempPC = Speicher.PC;
+                    
 
 
                     Commands.Befehlsanalyse(LineList[Speicher.PC], Speicher);
+
+                    OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(tempPC), OutputDing.Lines[tempPC].Length);
+                    OutputDing.SelectionBackColor = Color.White;
+                    OutputDing.SelectionColor = Color.Black;
 
                     OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
                     OutputDing.SelectionBackColor = Color.Blue;
@@ -469,7 +472,7 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.White;
             OutputDing.SelectionColor = Color.Black;
 
-            Speicher.Reset();
+            Speicher.PowerOnReset();
 
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.Blue;
@@ -608,6 +611,8 @@ namespace Mikroprozesser_22
                     label002.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label001.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label000.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    
+                    INDFValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x01)
                 {
@@ -619,6 +624,7 @@ namespace Mikroprozesser_22
                     label012.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label011.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label010.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    TMR0Value.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x02)
                 {
@@ -630,6 +636,7 @@ namespace Mikroprozesser_22
                     label022.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label021.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label020.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    PCLValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x03)
                 {
@@ -641,6 +648,7 @@ namespace Mikroprozesser_22
                     label032.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label031.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label030.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    STATUSValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x04)
                 {
@@ -652,6 +660,7 @@ namespace Mikroprozesser_22
                     label042.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label041.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label040.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    FSRValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x05)
                 {
@@ -663,6 +672,7 @@ namespace Mikroprozesser_22
                     label052.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label051.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label050.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    PORTAValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x06)
                 {
@@ -674,6 +684,7 @@ namespace Mikroprozesser_22
                     label062.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label061.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label060.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    PORTBValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x07)
                 {
@@ -696,6 +707,7 @@ namespace Mikroprozesser_22
                     label082.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label081.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label080.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    EEDATAValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x09)
                 {
@@ -707,6 +719,7 @@ namespace Mikroprozesser_22
                     label092.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label091.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label090.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    EEADRValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x0A)
                 {
@@ -718,6 +731,7 @@ namespace Mikroprozesser_22
                     label0A2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label0A1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label0A0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    PCLATHValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x0B)
                 {
@@ -729,6 +743,7 @@ namespace Mikroprozesser_22
                     label0B2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label0B1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label0B0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    INTCONValue.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x0C)
                 {
@@ -740,6 +755,7 @@ namespace Mikroprozesser_22
                     label0C2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label0C1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label0C0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value0C.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x0D)
                 {
@@ -751,6 +767,7 @@ namespace Mikroprozesser_22
                     label0D2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label0D1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label0D0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value0D.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x0E)
                 {
@@ -762,6 +779,7 @@ namespace Mikroprozesser_22
                     label0E2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label0E1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label0E0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value0E.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x0F)
                 {
@@ -773,6 +791,7 @@ namespace Mikroprozesser_22
                     label0F2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label0F1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label0F0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value0F.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x10)
                 {
@@ -784,6 +803,7 @@ namespace Mikroprozesser_22
                     label102.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label101.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label100.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value10.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x11)
                 {
@@ -795,6 +815,7 @@ namespace Mikroprozesser_22
                     label112.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label111.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label110.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value11.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x12)
                 {
@@ -806,6 +827,7 @@ namespace Mikroprozesser_22
                     label122.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label121.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label120.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value12.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x13)
                 {
@@ -817,6 +839,7 @@ namespace Mikroprozesser_22
                     label132.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label131.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label130.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value13.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x14)
                 {
@@ -828,6 +851,7 @@ namespace Mikroprozesser_22
                     label142.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label141.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label140.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value14.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x15)
                 {
@@ -839,6 +863,7 @@ namespace Mikroprozesser_22
                     label152.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label151.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label150.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value15.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x16)
                 {
@@ -850,6 +875,7 @@ namespace Mikroprozesser_22
                     label162.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label161.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label160.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value16.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x17)
                 {
@@ -861,6 +887,7 @@ namespace Mikroprozesser_22
                     label172.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label171.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label170.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value17.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x18)
                 {
@@ -872,6 +899,7 @@ namespace Mikroprozesser_22
                     label182.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label181.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label180.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value18.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x19)
                 {
@@ -883,6 +911,7 @@ namespace Mikroprozesser_22
                     label192.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label191.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label190.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value19.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x1A)
                 {
@@ -894,6 +923,7 @@ namespace Mikroprozesser_22
                     label1A2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label1A1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1A0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value1A.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x1B)
                 {
@@ -905,6 +935,7 @@ namespace Mikroprozesser_22
                     label1B2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label1B1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1B0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value1B.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x1C)
                 {
@@ -916,6 +947,7 @@ namespace Mikroprozesser_22
                     label1C2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label1C1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1C0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value1C.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x1D)
                 {
@@ -927,6 +959,7 @@ namespace Mikroprozesser_22
                     label1D2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label1D1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1D0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value1D.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x1E)
                 {
@@ -938,6 +971,7 @@ namespace Mikroprozesser_22
                     label1E2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label1E1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1E0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value1E.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x1F)
                 {
@@ -949,6 +983,7 @@ namespace Mikroprozesser_22
                     label1F2.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x04) >> 2));
                     label1F1.Text = Convert.ToString(((Speicher.RAM[0, i] & 0x02) >> 1));
                     label1F0.Text = Convert.ToString((Speicher.RAM[0, i] & 0x01));
+                    Value1F.Text = Convert.ToString(Speicher.RAM[0, i], 16);
                 }
                 if (i == 0x01)
                 {
@@ -960,6 +995,7 @@ namespace Mikroprozesser_22
                     label1112.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x04) >> 2));
                     label1111.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x02) >> 1));
                     label1110.Text = Convert.ToString((Speicher.RAM[1, i] & 0x01));
+                    OPTIONValue.Text = Convert.ToString(Speicher.RAM[1, i], 16);
                 }
                 if (i == 0x05)
                 {
@@ -971,6 +1007,7 @@ namespace Mikroprozesser_22
                     label1154.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x04) >> 2));
                     label1151.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x02) >> 1));
                     label1150.Text = Convert.ToString((Speicher.RAM[1, i] & 0x01));
+                    TRISAValue.Text = Convert.ToString(Speicher.RAM[1, i], 16);
                 }
                 if (i == 0x06)
                 {
@@ -982,6 +1019,7 @@ namespace Mikroprozesser_22
                     label1162.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x04) >> 2));
                     label1161.Text = Convert.ToString(((Speicher.RAM[1, i] & 0x02) >> 1));
                     label1160.Text = Convert.ToString((Speicher.RAM[1, i] & 0x01));
+                    TRISBValue.Text = Convert.ToString(Speicher.RAM[1, i], 16);
                 }
                 #endregion 
             } 
@@ -1225,6 +1263,12 @@ namespace Mikroprozesser_22
         {
             Speicher.frequenzy = 4;
             Frequenz.Text = "4";
+        }
+
+        private void WDTenabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WDTenabled.Checked == true) Speicher.ConfigurationWord |= 0x0004;
+            if (WDTenabled.Checked == false) Speicher.ConfigurationWord &= 0xFFFB;
         }
     }
 }

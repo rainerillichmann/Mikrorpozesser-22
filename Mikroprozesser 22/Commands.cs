@@ -100,7 +100,7 @@ namespace Mikroprozesser_22
             //RETFIE
             if ((Befehl.command & 0x3FFF) == 0x0009) { RETFIE(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             //SLEEP
-            if ((Befehl.command & 0x3FFF) == 0x0063) { RETFIE(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0063) { SLEEP(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); return; }
         }
 
         static void NOP(Arbeitsspeicher RAM, byte bank)
@@ -617,8 +617,32 @@ namespace Mikroprozesser_22
         static void SLEEP(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
-            RAM.RAM[bank, 3] |= 0x10; //TO = 1
-            RAM.RAM[bank, 3] &= 0xF7; //PD = 0
+            RAM.RAM[0, 3] |= 0x10; //TO = 1
+            RAM.RAM[0, 3] &= 0xF7; //PD = 0
+            RAM.RAM[1, 3] |= 0x10; //TO = 1
+            RAM.RAM[1, 3] &= 0xF7; //PD = 0
+
+            if (RAM.watchdogTimeout == 0) RAM.watchdogTimeout = RAM.runTime + 2.3;
+            else
+            {
+                if (((RAM.ConfigurationWord & 0x0004) == 0x0004) && (RAM.watchdogTimeout <= RAM.runTime)) //Wake up nach 2,3ms, falls WDTE = 1
+                {
+                    RAM.RAM[bank, 3] &= 0xEF; //TO = 1
+                    RAM.RAM[bank, 3] &= 0xF7; //PD = 0
+                    RAM.RAM[bank, 2]++;
+                    
+                }
+                if ((RAM.RAM[0, 0x0B] & 0x03) > 0)          //Wake up wenn INTF oder RBIF == 1
+                {
+                    RAM.RAM[bank, 3] &= 0xEF; //TO = 1
+                    RAM.RAM[bank, 3] &= 0xF7; //PD = 0
+                    RAM.RAM[bank, 2]++;
+                }
+            }
+
+            RAM.runTimeCounter++;                            //update der Runtime
+            double cycleTime = 1.0 / (RAM.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
+            RAM.runTime = cycleTime * RAM.runTimeCounter;
             
         }
     }
