@@ -19,7 +19,7 @@ namespace Mikroprozesser_22
         public uint internalTimerCounter = 0;
         public uint externalTimerCounter = 0;
 
-       
+        public byte frequenzy = 4;
 
         public void addStack(int pc)
         {

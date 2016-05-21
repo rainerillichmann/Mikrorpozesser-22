@@ -21,8 +21,8 @@ namespace Mikroprozesser_22
         List<CommandLine> LineList = new List<CommandLine>();
         Arbeitsspeicher Speicher = new Arbeitsspeicher();
         
-        
-
+       // Quarzfrequenz.Items.AddRange(Speicher.frequenzy);
+       
         public Form1()
         {
             InitializeComponent();
@@ -336,10 +336,12 @@ namespace Mikroprozesser_22
              * */
             this.backgroundWorker1.CancelAsync();
             this.backgroundWorker2.CancelAsync();
-            StartButton.Enabled = false;
+            RAMVisualisierung2();
+            StartButton.Enabled = true;
 
             Einzelschritt.Enabled = true;
             Reset.Enabled = true;
+           
         }
 
         private void LWBox_TextChanged(object sender, EventArgs e)
@@ -431,7 +433,7 @@ namespace Mikroprozesser_22
 
         private void button3_Click(object sender, EventArgs e)
         {
-            /** Dieser Button dazu einen Einzelschritt auszuführen
+            /** Dieser Button dient dazu einen Einzelschritt auszuführen
              * der Button ist nur aktiv, wenn kein Backgroundworker läuft
              * genauso werden die Zeilen auch hier wieder entsprechend markiert
              * */
@@ -479,6 +481,15 @@ namespace Mikroprozesser_22
         private void RAMVisualisierung2()
         {
             LWBox.Text = Convert.ToString(Speicher.W, 16);
+
+            //Laufzeitberechnung und Ausgabe
+            if (Speicher.internalTimerCounter == 0) Laufzeit.Text = "0";
+            else
+            {
+                double cycleTime = 1.0 / (Speicher.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
+                Laufzeit.Text = Convert.ToString((double)(cycleTime * (double)Speicher.internalTimerCounter));
+            }
+
             //Überprüfung und Ausgabe im Stack
             try { Stack0.Text = Convert.ToString(Speicher.Stack[0], 16); }
             catch { Stack0.Text = ""; }
@@ -979,6 +990,8 @@ namespace Mikroprozesser_22
                 }
                 #endregion 
             } 
+
+            
         }
 
 
@@ -1199,6 +1212,24 @@ namespace Mikroprozesser_22
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void mHzToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Speicher.frequenzy = 1;
+            Frequenz.Text = "1";
+        }
+
+        private void mHz2ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Speicher.frequenzy = 2;
+            Frequenz.Text = "2";
+        }
+
+        private void mHz4ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Speicher.frequenzy = 4;
+            Frequenz.Text = "4";
         }
     }
 }

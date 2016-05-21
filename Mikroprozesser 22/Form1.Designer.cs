@@ -50,7 +50,12 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.simulatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quarzfreqenzToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mHz1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mHz2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mHz4ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.StartButton = new System.Windows.Forms.Button();
             this.LWBox = new System.Windows.Forms.TextBox();
@@ -419,7 +424,6 @@
             this.label94 = new System.Windows.Forms.Label();
             this.label95 = new System.Windows.Forms.Label();
             this.label96 = new System.Windows.Forms.Label();
-            this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -427,7 +431,9 @@
             this.label61 = new System.Windows.Forms.Label();
             this.ms = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Frequenz = new System.Windows.Forms.TextBox();
+            this.Quarzfrequenz = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -614,7 +620,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.simulatorToolStripMenuItem});
+            this.simulatorToolStripMenuItem,
+            this.quarzfreqenzToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1126, 24);
@@ -634,16 +641,54 @@
             // dateiÖffnenToolStripMenuItem
             // 
             this.dateiÖffnenToolStripMenuItem.Name = "dateiÖffnenToolStripMenuItem";
-            this.dateiÖffnenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateiÖffnenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.dateiÖffnenToolStripMenuItem.Text = "Datei öffnen";
             this.dateiÖffnenToolStripMenuItem.Click += new System.EventHandler(this.dateiÖffnenToolStripMenuItem_Click);
+            // 
+            // hilfeToolStripMenuItem
+            // 
+            this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
+            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.hilfeToolStripMenuItem.Text = "Hilfe";
+            this.hilfeToolStripMenuItem.Click += new System.EventHandler(this.hilfeToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
+            // 
+            // quarzfreqenzToolStripMenuItem
+            // 
+            this.quarzfreqenzToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mHz1ToolStripMenuItem,
+            this.mHz2ToolStripMenuItem1,
+            this.mHz4ToolStripMenuItem2});
+            this.quarzfreqenzToolStripMenuItem.Name = "quarzfreqenzToolStripMenuItem";
+            this.quarzfreqenzToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.quarzfreqenzToolStripMenuItem.Text = "Quarzfreqenz";
+            // 
+            // mHz1ToolStripMenuItem
+            // 
+            this.mHz1ToolStripMenuItem.Name = "mHz1ToolStripMenuItem";
+            this.mHz1ToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.mHz1ToolStripMenuItem.Text = "1 MHz";
+            this.mHz1ToolStripMenuItem.Click += new System.EventHandler(this.mHzToolStripMenuItem_Click);
+            // 
+            // mHz2ToolStripMenuItem1
+            // 
+            this.mHz2ToolStripMenuItem1.Name = "mHz2ToolStripMenuItem1";
+            this.mHz2ToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
+            this.mHz2ToolStripMenuItem1.Text = "2 MHz";
+            this.mHz2ToolStripMenuItem1.Click += new System.EventHandler(this.mHz2ToolStripMenuItem1_Click);
+            // 
+            // mHz4ToolStripMenuItem2
+            // 
+            this.mHz4ToolStripMenuItem2.Name = "mHz4ToolStripMenuItem2";
+            this.mHz4ToolStripMenuItem2.Size = new System.Drawing.Size(108, 22);
+            this.mHz4ToolStripMenuItem2.Text = "4 MHz";
+            this.mHz4ToolStripMenuItem2.Click += new System.EventHandler(this.mHz4ToolStripMenuItem2_Click);
             // 
             // openFileDialog1
             // 
@@ -3969,13 +4014,6 @@
             this.label96.TabIndex = 361;
             this.label96.Text = "Register";
             // 
-            // hilfeToolStripMenuItem
-            // 
-            this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
-            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.hilfeToolStripMenuItem.Text = "Hilfe";
-            this.hilfeToolStripMenuItem.Click += new System.EventHandler(this.hilfeToolStripMenuItem_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.panel1);
@@ -4338,11 +4376,12 @@
             // 
             // Laufzeit
             // 
-            this.Laufzeit.Enabled = false;
             this.Laufzeit.Location = new System.Drawing.Point(985, 40);
             this.Laufzeit.Name = "Laufzeit";
+            this.Laufzeit.ReadOnly = true;
             this.Laufzeit.Size = new System.Drawing.Size(100, 20);
             this.Laufzeit.TabIndex = 399;
+            this.Laufzeit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label61
             // 
@@ -4366,21 +4405,42 @@
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // comboBox1
+            // Frequenz
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(782, 39);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 402;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
+            this.Frequenz.Enabled = false;
+            this.Frequenz.Location = new System.Drawing.Point(844, 40);
+            this.Frequenz.Name = "Frequenz";
+            this.Frequenz.Size = new System.Drawing.Size(25, 20);
+            this.Frequenz.TabIndex = 402;
+            this.Frequenz.Text = "4";
+            this.Frequenz.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // Quarzfrequenz
+            // 
+            this.Quarzfrequenz.AutoSize = true;
+            this.Quarzfrequenz.Location = new System.Drawing.Point(762, 43);
+            this.Quarzfrequenz.Name = "Quarzfrequenz";
+            this.Quarzfrequenz.Size = new System.Drawing.Size(76, 13);
+            this.Quarzfrequenz.TabIndex = 403;
+            this.Quarzfrequenz.Text = "Quarzfrequenz";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(874, 43);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(29, 13);
+            this.label62.TabIndex = 404;
+            this.label62.Text = "MHz";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 627);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label62);
+            this.Controls.Add(this.Quarzfrequenz);
+            this.Controls.Add(this.Frequenz);
             this.Controls.Add(this.ms);
             this.Controls.Add(this.label61);
             this.Controls.Add(this.Laufzeit);
@@ -4847,7 +4907,13 @@
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label ms;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem quarzfreqenzToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mHz1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mHz2ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mHz4ToolStripMenuItem2;
+        private System.Windows.Forms.TextBox Frequenz;
+        private System.Windows.Forms.Label Quarzfrequenz;
+        private System.Windows.Forms.Label label62;
 
     }
 }
