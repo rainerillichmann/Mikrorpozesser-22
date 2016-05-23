@@ -468,6 +468,7 @@ namespace Mikroprozesser_22
             this.backgroundWorker1.CancelAsync();
             this.backgroundWorker2.CancelAsync();
             StartButton.Enabled = true;
+            WDTenabled.Checked = false;
 
             OutputDing.Select(OutputDing.GetFirstCharIndexFromLine(Speicher.PC), OutputDing.Lines[Speicher.PC].Length);
             OutputDing.SelectionBackColor = Color.White;
@@ -479,9 +480,7 @@ namespace Mikroprozesser_22
             OutputDing.SelectionBackColor = Color.Blue;
             OutputDing.SelectionColor = Color.White;
 
-            RAMVisualisierung2();
-
-            WDTenabled.Checked = false;
+            RAMVisualisierung2();          
         }
         //neue RAMVisualisierung, bessere Perfomance
         private void RAMVisualisierung2()
@@ -490,6 +489,10 @@ namespace Mikroprozesser_22
 
             //Laufzeit Ausgabe
             Laufzeit.Text = Convert.ToString( Speicher.runTime);
+
+            //Darstellung des Watchdog-Time-Out
+            if (WDTenabled.Checked == true) TimeOutBox.Text = Convert.ToString(Speicher.watchdogTimeout);
+            else TimeOutBox.Text = "";
 
             //Überprüfung und Ausgabe im Stack
             try { Stack0.Text = Convert.ToString(Speicher.Stack[0], 16); }

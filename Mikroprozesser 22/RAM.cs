@@ -203,6 +203,7 @@ namespace Mikroprozesser_22
              * entsprechend erhöht.
              * Bei jedem einzelnen erhöhehn des Counters, muss über den Prescaler gelaufen werden, um evtl ein 
              * erhöhen des TIM0 auszulösen, deswegen die for-Schleife
+             * Desweiteren wird hier auch die Runtime erhöht, da die Funktion nach jedem Befehl (außer SLEEP) aufgerufen wird.
              */
             for (int i = cycle; i> 0; i--)
             {

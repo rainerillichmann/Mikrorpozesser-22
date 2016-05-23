@@ -366,9 +366,9 @@ namespace Mikroprozesser_22
              
             byte tempW = RAM.W;
 
-            if ((0xFF & Befehl) > RAM.W) RAM.CarryBit(bank,1);
+            if ((0xFF & Befehl) >= RAM.W) RAM.CarryBit(bank,1);
             else RAM.CarryBit(bank,0);                          //C
-            if (((RAM.W & 0xF) + ((~Befehl & 0xF) + 1)) > 0xF) RAM.DigitCarryBit(bank, 1); //DC, Komplement des Subtrahenten wird addiert
+            if ((Befehl & 0x0F) >= (RAM.W & 0x0F)) RAM.DigitCarryBit(bank, 1); //DC, Komplement des Subtrahenten wird addiert
             else RAM.DigitCarryBit(bank, 0);
 
             RAM.ChangeW((byte)((0xFF & Befehl) - RAM.W));
@@ -425,11 +425,12 @@ namespace Mikroprozesser_22
 
         static void SUBWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
-            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
+            byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
 
-            if ((regValue + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
+            if (regValue >= RAM.W) RAM.CarryBit(bank, 1);
             else RAM.CarryBit(bank,0); //C
-            if (((RAM.W & 0xF) + ((~regValue & 0xF)+1)) > 0xF) RAM.DigitCarryBit(bank,1);
+
+            if ((regValue & 0x0F) >= (RAM.W & 0x0F) ) RAM.DigitCarryBit(bank,1);
             else RAM.DigitCarryBit(bank,0); //DC, wenn Low Byte von W
 
 
@@ -628,7 +629,7 @@ namespace Mikroprozesser_22
            
             if ((RAM.RAM[0, 0x0B] & 0x03) > 0)          //Wake up wenn INTF oder RBIF == 1
             {
-                RAM.RAM[bank, 3] &= 0xEF; //TO = 1
+                RAM.RAM[bank, 3] &= 0xEF; //TO = 0
                 RAM.RAM[bank, 3] &= 0xF7; //PD = 0
                 RAM.RAM[bank, 2]++;
             }

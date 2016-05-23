@@ -426,39 +426,10 @@
             this.label96 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.Laufzeit = new System.Windows.Forms.TextBox();
-            this.label61 = new System.Windows.Forms.Label();
-            this.ms = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Frequenz = new System.Windows.Forms.TextBox();
-            this.Quarzfrequenz = new System.Windows.Forms.Label();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.INDFValue = new System.Windows.Forms.Label();
-            this.TMR0Value = new System.Windows.Forms.Label();
-            this.STATUSValue = new System.Windows.Forms.Label();
-            this.PCLValue = new System.Windows.Forms.Label();
-            this.label68 = new System.Windows.Forms.Label();
-            this.PORTBValue = new System.Windows.Forms.Label();
-            this.PORTAValue = new System.Windows.Forms.Label();
-            this.FSRValue = new System.Windows.Forms.Label();
-            this.Value0F = new System.Windows.Forms.Label();
-            this.Value0E = new System.Windows.Forms.Label();
-            this.Value0D = new System.Windows.Forms.Label();
-            this.Value0C = new System.Windows.Forms.Label();
-            this.INTCONValue = new System.Windows.Forms.Label();
-            this.PCLATHValue = new System.Windows.Forms.Label();
-            this.EEADRValue = new System.Windows.Forms.Label();
-            this.EEDATAValue = new System.Windows.Forms.Label();
-            this.Value17 = new System.Windows.Forms.Label();
-            this.Value16 = new System.Windows.Forms.Label();
-            this.Value15 = new System.Windows.Forms.Label();
-            this.Value14 = new System.Windows.Forms.Label();
-            this.Value13 = new System.Windows.Forms.Label();
-            this.Value12 = new System.Windows.Forms.Label();
-            this.Value11 = new System.Windows.Forms.Label();
-            this.Value10 = new System.Windows.Forms.Label();
+            this.Value20 = new System.Windows.Forms.Label();
+            this.Value21 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
             this.Value1F = new System.Windows.Forms.Label();
             this.Value1E = new System.Windows.Forms.Label();
             this.Value1D = new System.Windows.Forms.Label();
@@ -467,15 +438,47 @@
             this.Value1A = new System.Windows.Forms.Label();
             this.Value19 = new System.Windows.Forms.Label();
             this.Value18 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.OPTIONValue = new System.Windows.Forms.Label();
-            this.TRISAValue = new System.Windows.Forms.Label();
+            this.Value17 = new System.Windows.Forms.Label();
+            this.Value16 = new System.Windows.Forms.Label();
+            this.Value15 = new System.Windows.Forms.Label();
+            this.Value14 = new System.Windows.Forms.Label();
+            this.Value13 = new System.Windows.Forms.Label();
+            this.Value12 = new System.Windows.Forms.Label();
+            this.Value11 = new System.Windows.Forms.Label();
+            this.Value10 = new System.Windows.Forms.Label();
+            this.Value0F = new System.Windows.Forms.Label();
+            this.Value0E = new System.Windows.Forms.Label();
+            this.Value0D = new System.Windows.Forms.Label();
+            this.Value0C = new System.Windows.Forms.Label();
+            this.INTCONValue = new System.Windows.Forms.Label();
+            this.PCLATHValue = new System.Windows.Forms.Label();
+            this.EEADRValue = new System.Windows.Forms.Label();
+            this.EEDATAValue = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.PORTBValue = new System.Windows.Forms.Label();
+            this.PORTAValue = new System.Windows.Forms.Label();
+            this.FSRValue = new System.Windows.Forms.Label();
+            this.STATUSValue = new System.Windows.Forms.Label();
+            this.PCLValue = new System.Windows.Forms.Label();
+            this.TMR0Value = new System.Windows.Forms.Label();
+            this.INDFValue = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.TRISBValue = new System.Windows.Forms.Label();
+            this.TRISAValue = new System.Windows.Forms.Label();
+            this.OPTIONValue = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.Laufzeit = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.ms = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Frequenz = new System.Windows.Forms.TextBox();
+            this.Quarzfrequenz = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
             this.WDTenabled = new System.Windows.Forms.CheckBox();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.Value21 = new System.Windows.Forms.Label();
-            this.Value20 = new System.Windows.Forms.Label();
+            this.TimeOutBox = new System.Windows.Forms.TextBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -788,7 +791,7 @@
             // 
             this.OutputDing.Location = new System.Drawing.Point(12, 148);
             this.OutputDing.Name = "OutputDing";
-            this.OutputDing.Size = new System.Drawing.Size(331, 478);
+            this.OutputDing.Size = new System.Drawing.Size(309, 478);
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
             this.toolTip1.SetToolTip(this.OutputDing, "Doppel-Klick auf eine Zeile erzeugt/enfternt einen Breakpoint");
@@ -4408,338 +4411,41 @@
             this.panel1.Size = new System.Drawing.Size(388, 443);
             this.panel1.TabIndex = 0;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.TRISBValue);
-            this.groupBox3.Controls.Add(this.TRISAValue);
-            this.groupBox3.Controls.Add(this.OPTIONValue);
-            this.groupBox3.Controls.Add(this.label64);
-            this.groupBox3.Controls.Add(this.label96);
-            this.groupBox3.Controls.Add(this.label95);
-            this.groupBox3.Controls.Add(this.label1160);
-            this.groupBox3.Controls.Add(this.label94);
-            this.groupBox3.Controls.Add(this.label1161);
-            this.groupBox3.Controls.Add(this.label93);
-            this.groupBox3.Controls.Add(this.label1162);
-            this.groupBox3.Controls.Add(this.label92);
-            this.groupBox3.Controls.Add(this.label1163);
-            this.groupBox3.Controls.Add(this.label91);
-            this.groupBox3.Controls.Add(this.label1164);
-            this.groupBox3.Controls.Add(this.label90);
-            this.groupBox3.Controls.Add(this.label1165);
-            this.groupBox3.Controls.Add(this.label89);
-            this.groupBox3.Controls.Add(this.label1166);
-            this.groupBox3.Controls.Add(this.label88);
-            this.groupBox3.Controls.Add(this.label1167);
-            this.groupBox3.Controls.Add(this.label87);
-            this.groupBox3.Controls.Add(this.label1150);
-            this.groupBox3.Controls.Add(this.label86);
-            this.groupBox3.Controls.Add(this.label1151);
-            this.groupBox3.Controls.Add(this.label85);
-            this.groupBox3.Controls.Add(this.label1152);
-            this.groupBox3.Controls.Add(this.label1117);
-            this.groupBox3.Controls.Add(this.label1153);
-            this.groupBox3.Controls.Add(this.label1116);
-            this.groupBox3.Controls.Add(this.label1154);
-            this.groupBox3.Controls.Add(this.label1115);
-            this.groupBox3.Controls.Add(this.label1155);
-            this.groupBox3.Controls.Add(this.label1114);
-            this.groupBox3.Controls.Add(this.label1156);
-            this.groupBox3.Controls.Add(this.label1113);
-            this.groupBox3.Controls.Add(this.label1157);
-            this.groupBox3.Controls.Add(this.label1112);
-            this.groupBox3.Controls.Add(this.label1110);
-            this.groupBox3.Controls.Add(this.label1111);
-            this.groupBox3.Location = new System.Drawing.Point(773, 148);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(376, 146);
-            this.groupBox3.TabIndex = 398;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "RAM Bank 1";
-            // 
-            // Laufzeit
-            // 
-            this.Laufzeit.Location = new System.Drawing.Point(985, 40);
-            this.Laufzeit.Name = "Laufzeit";
-            this.Laufzeit.ReadOnly = true;
-            this.Laufzeit.Size = new System.Drawing.Size(100, 20);
-            this.Laufzeit.TabIndex = 399;
-            this.Laufzeit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(935, 43);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(44, 13);
-            this.label61.TabIndex = 400;
-            this.label61.Text = "Laufzeit";
-            // 
-            // ms
-            // 
-            this.ms.AutoSize = true;
-            this.ms.Location = new System.Drawing.Point(1091, 43);
-            this.ms.Name = "ms";
-            this.ms.Size = new System.Drawing.Size(20, 13);
-            this.ms.TabIndex = 401;
-            this.ms.Text = "ms";
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
-            // 
-            // Frequenz
-            // 
-            this.Frequenz.Enabled = false;
-            this.Frequenz.Location = new System.Drawing.Point(844, 40);
-            this.Frequenz.Name = "Frequenz";
-            this.Frequenz.Size = new System.Drawing.Size(25, 20);
-            this.Frequenz.TabIndex = 402;
-            this.Frequenz.Text = "4";
-            this.Frequenz.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // Quarzfrequenz
-            // 
-            this.Quarzfrequenz.AutoSize = true;
-            this.Quarzfrequenz.Location = new System.Drawing.Point(762, 43);
-            this.Quarzfrequenz.Name = "Quarzfrequenz";
-            this.Quarzfrequenz.Size = new System.Drawing.Size(76, 13);
-            this.Quarzfrequenz.TabIndex = 403;
-            this.Quarzfrequenz.Text = "Quarzfrequenz";
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(874, 43);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(29, 13);
-            this.label62.TabIndex = 404;
-            this.label62.Text = "MHz";
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(59, 9);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(30, 13);
-            this.label63.TabIndex = 405;
-            this.label63.Text = "Wert";
-            // 
-            // INDFValue
-            // 
-            this.INDFValue.AutoSize = true;
-            this.INDFValue.Location = new System.Drawing.Point(59, 25);
-            this.INDFValue.Name = "INDFValue";
-            this.INDFValue.Size = new System.Drawing.Size(13, 13);
-            this.INDFValue.TabIndex = 406;
-            this.INDFValue.Text = "0";
-            // 
-            // TMR0Value
-            // 
-            this.TMR0Value.AutoSize = true;
-            this.TMR0Value.Location = new System.Drawing.Point(59, 38);
-            this.TMR0Value.Name = "TMR0Value";
-            this.TMR0Value.Size = new System.Drawing.Size(13, 13);
-            this.TMR0Value.TabIndex = 407;
-            this.TMR0Value.Text = "0";
-            // 
-            // STATUSValue
-            // 
-            this.STATUSValue.AutoSize = true;
-            this.STATUSValue.Location = new System.Drawing.Point(59, 64);
-            this.STATUSValue.Name = "STATUSValue";
-            this.STATUSValue.Size = new System.Drawing.Size(13, 13);
-            this.STATUSValue.TabIndex = 409;
-            this.STATUSValue.Text = "0";
-            // 
-            // PCLValue
-            // 
-            this.PCLValue.AutoSize = true;
-            this.PCLValue.Location = new System.Drawing.Point(59, 51);
-            this.PCLValue.Name = "PCLValue";
-            this.PCLValue.Size = new System.Drawing.Size(13, 13);
-            this.PCLValue.TabIndex = 408;
-            this.PCLValue.Text = "0";
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(59, 116);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(13, 13);
-            this.label68.TabIndex = 413;
-            this.label68.Text = "0";
-            // 
-            // PORTBValue
-            // 
-            this.PORTBValue.AutoSize = true;
-            this.PORTBValue.Location = new System.Drawing.Point(59, 103);
-            this.PORTBValue.Name = "PORTBValue";
-            this.PORTBValue.Size = new System.Drawing.Size(13, 13);
-            this.PORTBValue.TabIndex = 412;
-            this.PORTBValue.Text = "0";
-            // 
-            // PORTAValue
-            // 
-            this.PORTAValue.AutoSize = true;
-            this.PORTAValue.Location = new System.Drawing.Point(59, 90);
-            this.PORTAValue.Name = "PORTAValue";
-            this.PORTAValue.Size = new System.Drawing.Size(13, 13);
-            this.PORTAValue.TabIndex = 411;
-            this.PORTAValue.Text = "0";
-            // 
-            // FSRValue
-            // 
-            this.FSRValue.AutoSize = true;
-            this.FSRValue.Location = new System.Drawing.Point(59, 77);
-            this.FSRValue.Name = "FSRValue";
-            this.FSRValue.Size = new System.Drawing.Size(13, 13);
-            this.FSRValue.TabIndex = 410;
-            this.FSRValue.Text = "0";
-            // 
-            // Value0F
-            // 
-            this.Value0F.AutoSize = true;
-            this.Value0F.Location = new System.Drawing.Point(59, 220);
-            this.Value0F.Name = "Value0F";
-            this.Value0F.Size = new System.Drawing.Size(13, 13);
-            this.Value0F.TabIndex = 421;
-            this.Value0F.Text = "0";
-            // 
-            // Value0E
-            // 
-            this.Value0E.AutoSize = true;
-            this.Value0E.Location = new System.Drawing.Point(59, 207);
-            this.Value0E.Name = "Value0E";
-            this.Value0E.Size = new System.Drawing.Size(13, 13);
-            this.Value0E.TabIndex = 420;
-            this.Value0E.Text = "0";
-            // 
-            // Value0D
-            // 
-            this.Value0D.AutoSize = true;
-            this.Value0D.Location = new System.Drawing.Point(59, 194);
-            this.Value0D.Name = "Value0D";
-            this.Value0D.Size = new System.Drawing.Size(13, 13);
-            this.Value0D.TabIndex = 419;
-            this.Value0D.Text = "0";
-            // 
-            // Value0C
-            // 
-            this.Value0C.AutoSize = true;
-            this.Value0C.Location = new System.Drawing.Point(59, 181);
-            this.Value0C.Name = "Value0C";
-            this.Value0C.Size = new System.Drawing.Size(13, 13);
-            this.Value0C.TabIndex = 418;
-            this.Value0C.Text = "0";
-            // 
-            // INTCONValue
-            // 
-            this.INTCONValue.AutoSize = true;
-            this.INTCONValue.Location = new System.Drawing.Point(59, 168);
-            this.INTCONValue.Name = "INTCONValue";
-            this.INTCONValue.Size = new System.Drawing.Size(13, 13);
-            this.INTCONValue.TabIndex = 417;
-            this.INTCONValue.Text = "0";
-            // 
-            // PCLATHValue
-            // 
-            this.PCLATHValue.AutoSize = true;
-            this.PCLATHValue.Location = new System.Drawing.Point(59, 155);
-            this.PCLATHValue.Name = "PCLATHValue";
-            this.PCLATHValue.Size = new System.Drawing.Size(13, 13);
-            this.PCLATHValue.TabIndex = 416;
-            this.PCLATHValue.Text = "0";
-            // 
-            // EEADRValue
-            // 
-            this.EEADRValue.AutoSize = true;
-            this.EEADRValue.Location = new System.Drawing.Point(59, 142);
-            this.EEADRValue.Name = "EEADRValue";
-            this.EEADRValue.Size = new System.Drawing.Size(13, 13);
-            this.EEADRValue.TabIndex = 415;
-            this.EEADRValue.Text = "0";
-            // 
-            // EEDATAValue
-            // 
-            this.EEDATAValue.AutoSize = true;
-            this.EEDATAValue.Location = new System.Drawing.Point(59, 129);
-            this.EEDATAValue.Name = "EEDATAValue";
-            this.EEDATAValue.Size = new System.Drawing.Size(13, 13);
-            this.EEDATAValue.TabIndex = 414;
-            this.EEDATAValue.Text = "0";
-            // 
-            // Value17
-            // 
-            this.Value17.AutoSize = true;
-            this.Value17.Location = new System.Drawing.Point(59, 324);
-            this.Value17.Name = "Value17";
-            this.Value17.Size = new System.Drawing.Size(13, 13);
-            this.Value17.TabIndex = 429;
-            this.Value17.Text = "0";
-            // 
-            // Value16
-            // 
-            this.Value16.AutoSize = true;
-            this.Value16.Location = new System.Drawing.Point(59, 311);
-            this.Value16.Name = "Value16";
-            this.Value16.Size = new System.Drawing.Size(13, 13);
-            this.Value16.TabIndex = 428;
-            this.Value16.Text = "0";
-            // 
-            // Value15
-            // 
-            this.Value15.AutoSize = true;
-            this.Value15.Location = new System.Drawing.Point(59, 298);
-            this.Value15.Name = "Value15";
-            this.Value15.Size = new System.Drawing.Size(13, 13);
-            this.Value15.TabIndex = 427;
-            this.Value15.Text = "0";
-            // 
-            // Value14
-            // 
-            this.Value14.AutoSize = true;
-            this.Value14.Location = new System.Drawing.Point(59, 285);
-            this.Value14.Name = "Value14";
-            this.Value14.Size = new System.Drawing.Size(13, 13);
-            this.Value14.TabIndex = 426;
-            this.Value14.Text = "0";
-            // 
-            // Value13
-            // 
-            this.Value13.AutoSize = true;
-            this.Value13.Location = new System.Drawing.Point(59, 272);
-            this.Value13.Name = "Value13";
-            this.Value13.Size = new System.Drawing.Size(13, 13);
-            this.Value13.TabIndex = 425;
-            this.Value13.Text = "0";
-            // 
-            // Value12
-            // 
-            this.Value12.AutoSize = true;
-            this.Value12.Location = new System.Drawing.Point(59, 259);
-            this.Value12.Name = "Value12";
-            this.Value12.Size = new System.Drawing.Size(13, 13);
-            this.Value12.TabIndex = 424;
-            this.Value12.Text = "0";
-            // 
-            // Value11
-            // 
-            this.Value11.AutoSize = true;
-            this.Value11.Location = new System.Drawing.Point(59, 246);
-            this.Value11.Name = "Value11";
-            this.Value11.Size = new System.Drawing.Size(13, 13);
-            this.Value11.TabIndex = 423;
-            this.Value11.Text = "0";
-            // 
-            // Value10
-            // 
-            this.Value10.AutoSize = true;
-            this.Value10.Location = new System.Drawing.Point(59, 233);
-            this.Value10.Name = "Value10";
-            this.Value10.Size = new System.Drawing.Size(13, 13);
-            this.Value10.TabIndex = 422;
-            this.Value10.Text = "0";
+            // Value20
+            // 
+            this.Value20.AutoSize = true;
+            this.Value20.Location = new System.Drawing.Point(59, 440);
+            this.Value20.Name = "Value20";
+            this.Value20.Size = new System.Drawing.Size(13, 13);
+            this.Value20.TabIndex = 441;
+            this.Value20.Text = "0";
+            // 
+            // Value21
+            // 
+            this.Value21.AutoSize = true;
+            this.Value21.Location = new System.Drawing.Point(59, 453);
+            this.Value21.Name = "Value21";
+            this.Value21.Size = new System.Drawing.Size(13, 13);
+            this.Value21.TabIndex = 440;
+            this.Value21.Text = "0";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(27, 453);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(25, 13);
+            this.label66.TabIndex = 439;
+            this.label66.Text = "21h";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(26, 440);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(25, 13);
+            this.label65.TabIndex = 438;
+            this.label65.Text = "20h";
             // 
             // Value1F
             // 
@@ -4813,23 +4519,288 @@
             this.Value18.TabIndex = 430;
             this.Value18.Text = "0";
             // 
-            // label64
+            // Value17
             // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(58, 27);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(30, 13);
-            this.label64.TabIndex = 397;
-            this.label64.Text = "Wert";
+            this.Value17.AutoSize = true;
+            this.Value17.Location = new System.Drawing.Point(59, 324);
+            this.Value17.Name = "Value17";
+            this.Value17.Size = new System.Drawing.Size(13, 13);
+            this.Value17.TabIndex = 429;
+            this.Value17.Text = "0";
             // 
-            // OPTIONValue
+            // Value16
             // 
-            this.OPTIONValue.AutoSize = true;
-            this.OPTIONValue.Location = new System.Drawing.Point(68, 56);
-            this.OPTIONValue.Name = "OPTIONValue";
-            this.OPTIONValue.Size = new System.Drawing.Size(13, 13);
-            this.OPTIONValue.TabIndex = 405;
-            this.OPTIONValue.Text = "0";
+            this.Value16.AutoSize = true;
+            this.Value16.Location = new System.Drawing.Point(59, 311);
+            this.Value16.Name = "Value16";
+            this.Value16.Size = new System.Drawing.Size(13, 13);
+            this.Value16.TabIndex = 428;
+            this.Value16.Text = "0";
+            // 
+            // Value15
+            // 
+            this.Value15.AutoSize = true;
+            this.Value15.Location = new System.Drawing.Point(59, 298);
+            this.Value15.Name = "Value15";
+            this.Value15.Size = new System.Drawing.Size(13, 13);
+            this.Value15.TabIndex = 427;
+            this.Value15.Text = "0";
+            // 
+            // Value14
+            // 
+            this.Value14.AutoSize = true;
+            this.Value14.Location = new System.Drawing.Point(59, 285);
+            this.Value14.Name = "Value14";
+            this.Value14.Size = new System.Drawing.Size(13, 13);
+            this.Value14.TabIndex = 426;
+            this.Value14.Text = "0";
+            // 
+            // Value13
+            // 
+            this.Value13.AutoSize = true;
+            this.Value13.Location = new System.Drawing.Point(59, 272);
+            this.Value13.Name = "Value13";
+            this.Value13.Size = new System.Drawing.Size(13, 13);
+            this.Value13.TabIndex = 425;
+            this.Value13.Text = "0";
+            // 
+            // Value12
+            // 
+            this.Value12.AutoSize = true;
+            this.Value12.Location = new System.Drawing.Point(59, 259);
+            this.Value12.Name = "Value12";
+            this.Value12.Size = new System.Drawing.Size(13, 13);
+            this.Value12.TabIndex = 424;
+            this.Value12.Text = "0";
+            // 
+            // Value11
+            // 
+            this.Value11.AutoSize = true;
+            this.Value11.Location = new System.Drawing.Point(59, 246);
+            this.Value11.Name = "Value11";
+            this.Value11.Size = new System.Drawing.Size(13, 13);
+            this.Value11.TabIndex = 423;
+            this.Value11.Text = "0";
+            // 
+            // Value10
+            // 
+            this.Value10.AutoSize = true;
+            this.Value10.Location = new System.Drawing.Point(59, 233);
+            this.Value10.Name = "Value10";
+            this.Value10.Size = new System.Drawing.Size(13, 13);
+            this.Value10.TabIndex = 422;
+            this.Value10.Text = "0";
+            // 
+            // Value0F
+            // 
+            this.Value0F.AutoSize = true;
+            this.Value0F.Location = new System.Drawing.Point(59, 220);
+            this.Value0F.Name = "Value0F";
+            this.Value0F.Size = new System.Drawing.Size(13, 13);
+            this.Value0F.TabIndex = 421;
+            this.Value0F.Text = "0";
+            // 
+            // Value0E
+            // 
+            this.Value0E.AutoSize = true;
+            this.Value0E.Location = new System.Drawing.Point(59, 207);
+            this.Value0E.Name = "Value0E";
+            this.Value0E.Size = new System.Drawing.Size(13, 13);
+            this.Value0E.TabIndex = 420;
+            this.Value0E.Text = "0";
+            // 
+            // Value0D
+            // 
+            this.Value0D.AutoSize = true;
+            this.Value0D.Location = new System.Drawing.Point(59, 194);
+            this.Value0D.Name = "Value0D";
+            this.Value0D.Size = new System.Drawing.Size(13, 13);
+            this.Value0D.TabIndex = 419;
+            this.Value0D.Text = "0";
+            // 
+            // Value0C
+            // 
+            this.Value0C.AutoSize = true;
+            this.Value0C.Location = new System.Drawing.Point(59, 181);
+            this.Value0C.Name = "Value0C";
+            this.Value0C.Size = new System.Drawing.Size(13, 13);
+            this.Value0C.TabIndex = 418;
+            this.Value0C.Text = "0";
+            // 
+            // INTCONValue
+            // 
+            this.INTCONValue.AutoSize = true;
+            this.INTCONValue.Location = new System.Drawing.Point(59, 168);
+            this.INTCONValue.Name = "INTCONValue";
+            this.INTCONValue.Size = new System.Drawing.Size(13, 13);
+            this.INTCONValue.TabIndex = 417;
+            this.INTCONValue.Text = "0";
+            // 
+            // PCLATHValue
+            // 
+            this.PCLATHValue.AutoSize = true;
+            this.PCLATHValue.Location = new System.Drawing.Point(59, 155);
+            this.PCLATHValue.Name = "PCLATHValue";
+            this.PCLATHValue.Size = new System.Drawing.Size(13, 13);
+            this.PCLATHValue.TabIndex = 416;
+            this.PCLATHValue.Text = "0";
+            // 
+            // EEADRValue
+            // 
+            this.EEADRValue.AutoSize = true;
+            this.EEADRValue.Location = new System.Drawing.Point(59, 142);
+            this.EEADRValue.Name = "EEADRValue";
+            this.EEADRValue.Size = new System.Drawing.Size(13, 13);
+            this.EEADRValue.TabIndex = 415;
+            this.EEADRValue.Text = "0";
+            // 
+            // EEDATAValue
+            // 
+            this.EEDATAValue.AutoSize = true;
+            this.EEDATAValue.Location = new System.Drawing.Point(59, 129);
+            this.EEDATAValue.Name = "EEDATAValue";
+            this.EEDATAValue.Size = new System.Drawing.Size(13, 13);
+            this.EEDATAValue.TabIndex = 414;
+            this.EEDATAValue.Text = "0";
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(59, 116);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(13, 13);
+            this.label68.TabIndex = 413;
+            this.label68.Text = "0";
+            // 
+            // PORTBValue
+            // 
+            this.PORTBValue.AutoSize = true;
+            this.PORTBValue.Location = new System.Drawing.Point(59, 103);
+            this.PORTBValue.Name = "PORTBValue";
+            this.PORTBValue.Size = new System.Drawing.Size(13, 13);
+            this.PORTBValue.TabIndex = 412;
+            this.PORTBValue.Text = "0";
+            // 
+            // PORTAValue
+            // 
+            this.PORTAValue.AutoSize = true;
+            this.PORTAValue.Location = new System.Drawing.Point(59, 90);
+            this.PORTAValue.Name = "PORTAValue";
+            this.PORTAValue.Size = new System.Drawing.Size(13, 13);
+            this.PORTAValue.TabIndex = 411;
+            this.PORTAValue.Text = "0";
+            // 
+            // FSRValue
+            // 
+            this.FSRValue.AutoSize = true;
+            this.FSRValue.Location = new System.Drawing.Point(59, 77);
+            this.FSRValue.Name = "FSRValue";
+            this.FSRValue.Size = new System.Drawing.Size(13, 13);
+            this.FSRValue.TabIndex = 410;
+            this.FSRValue.Text = "0";
+            // 
+            // STATUSValue
+            // 
+            this.STATUSValue.AutoSize = true;
+            this.STATUSValue.Location = new System.Drawing.Point(59, 64);
+            this.STATUSValue.Name = "STATUSValue";
+            this.STATUSValue.Size = new System.Drawing.Size(13, 13);
+            this.STATUSValue.TabIndex = 409;
+            this.STATUSValue.Text = "0";
+            // 
+            // PCLValue
+            // 
+            this.PCLValue.AutoSize = true;
+            this.PCLValue.Location = new System.Drawing.Point(59, 51);
+            this.PCLValue.Name = "PCLValue";
+            this.PCLValue.Size = new System.Drawing.Size(13, 13);
+            this.PCLValue.TabIndex = 408;
+            this.PCLValue.Text = "0";
+            // 
+            // TMR0Value
+            // 
+            this.TMR0Value.AutoSize = true;
+            this.TMR0Value.Location = new System.Drawing.Point(59, 38);
+            this.TMR0Value.Name = "TMR0Value";
+            this.TMR0Value.Size = new System.Drawing.Size(13, 13);
+            this.TMR0Value.TabIndex = 407;
+            this.TMR0Value.Text = "0";
+            // 
+            // INDFValue
+            // 
+            this.INDFValue.AutoSize = true;
+            this.INDFValue.Location = new System.Drawing.Point(59, 25);
+            this.INDFValue.Name = "INDFValue";
+            this.INDFValue.Size = new System.Drawing.Size(13, 13);
+            this.INDFValue.TabIndex = 406;
+            this.INDFValue.Text = "0";
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(59, 9);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(30, 13);
+            this.label63.TabIndex = 405;
+            this.label63.Text = "Wert";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.TRISBValue);
+            this.groupBox3.Controls.Add(this.TRISAValue);
+            this.groupBox3.Controls.Add(this.OPTIONValue);
+            this.groupBox3.Controls.Add(this.label64);
+            this.groupBox3.Controls.Add(this.label96);
+            this.groupBox3.Controls.Add(this.label95);
+            this.groupBox3.Controls.Add(this.label1160);
+            this.groupBox3.Controls.Add(this.label94);
+            this.groupBox3.Controls.Add(this.label1161);
+            this.groupBox3.Controls.Add(this.label93);
+            this.groupBox3.Controls.Add(this.label1162);
+            this.groupBox3.Controls.Add(this.label92);
+            this.groupBox3.Controls.Add(this.label1163);
+            this.groupBox3.Controls.Add(this.label91);
+            this.groupBox3.Controls.Add(this.label1164);
+            this.groupBox3.Controls.Add(this.label90);
+            this.groupBox3.Controls.Add(this.label1165);
+            this.groupBox3.Controls.Add(this.label89);
+            this.groupBox3.Controls.Add(this.label1166);
+            this.groupBox3.Controls.Add(this.label88);
+            this.groupBox3.Controls.Add(this.label1167);
+            this.groupBox3.Controls.Add(this.label87);
+            this.groupBox3.Controls.Add(this.label1150);
+            this.groupBox3.Controls.Add(this.label86);
+            this.groupBox3.Controls.Add(this.label1151);
+            this.groupBox3.Controls.Add(this.label85);
+            this.groupBox3.Controls.Add(this.label1152);
+            this.groupBox3.Controls.Add(this.label1117);
+            this.groupBox3.Controls.Add(this.label1153);
+            this.groupBox3.Controls.Add(this.label1116);
+            this.groupBox3.Controls.Add(this.label1154);
+            this.groupBox3.Controls.Add(this.label1115);
+            this.groupBox3.Controls.Add(this.label1155);
+            this.groupBox3.Controls.Add(this.label1114);
+            this.groupBox3.Controls.Add(this.label1156);
+            this.groupBox3.Controls.Add(this.label1113);
+            this.groupBox3.Controls.Add(this.label1157);
+            this.groupBox3.Controls.Add(this.label1112);
+            this.groupBox3.Controls.Add(this.label1110);
+            this.groupBox3.Controls.Add(this.label1111);
+            this.groupBox3.Location = new System.Drawing.Point(773, 148);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(376, 146);
+            this.groupBox3.TabIndex = 398;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "RAM Bank 1";
+            // 
+            // TRISBValue
+            // 
+            this.TRISBValue.AutoSize = true;
+            this.TRISBValue.Location = new System.Drawing.Point(68, 121);
+            this.TRISBValue.Name = "TRISBValue";
+            this.TRISBValue.Size = new System.Drawing.Size(13, 13);
+            this.TRISBValue.TabIndex = 407;
+            this.TRISBValue.Text = "0";
             // 
             // TRISAValue
             // 
@@ -4840,14 +4811,82 @@
             this.TRISAValue.TabIndex = 406;
             this.TRISAValue.Text = "0";
             // 
-            // TRISBValue
+            // OPTIONValue
             // 
-            this.TRISBValue.AutoSize = true;
-            this.TRISBValue.Location = new System.Drawing.Point(68, 121);
-            this.TRISBValue.Name = "TRISBValue";
-            this.TRISBValue.Size = new System.Drawing.Size(13, 13);
-            this.TRISBValue.TabIndex = 407;
-            this.TRISBValue.Text = "0";
+            this.OPTIONValue.AutoSize = true;
+            this.OPTIONValue.Location = new System.Drawing.Point(68, 56);
+            this.OPTIONValue.Name = "OPTIONValue";
+            this.OPTIONValue.Size = new System.Drawing.Size(13, 13);
+            this.OPTIONValue.TabIndex = 405;
+            this.OPTIONValue.Text = "0";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(58, 27);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(30, 13);
+            this.label64.TabIndex = 397;
+            this.label64.Text = "Wert";
+            // 
+            // Laufzeit
+            // 
+            this.Laufzeit.Location = new System.Drawing.Point(985, 40);
+            this.Laufzeit.Name = "Laufzeit";
+            this.Laufzeit.ReadOnly = true;
+            this.Laufzeit.Size = new System.Drawing.Size(100, 20);
+            this.Laufzeit.TabIndex = 399;
+            this.Laufzeit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(935, 43);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(44, 13);
+            this.label61.TabIndex = 400;
+            this.label61.Text = "Laufzeit";
+            // 
+            // ms
+            // 
+            this.ms.AutoSize = true;
+            this.ms.Location = new System.Drawing.Point(1091, 43);
+            this.ms.Name = "ms";
+            this.ms.Size = new System.Drawing.Size(20, 13);
+            this.ms.TabIndex = 401;
+            this.ms.Text = "ms";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
+            // 
+            // Frequenz
+            // 
+            this.Frequenz.Enabled = false;
+            this.Frequenz.Location = new System.Drawing.Point(844, 40);
+            this.Frequenz.Name = "Frequenz";
+            this.Frequenz.Size = new System.Drawing.Size(25, 20);
+            this.Frequenz.TabIndex = 402;
+            this.Frequenz.Text = "4";
+            this.Frequenz.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // Quarzfrequenz
+            // 
+            this.Quarzfrequenz.AutoSize = true;
+            this.Quarzfrequenz.Location = new System.Drawing.Point(762, 43);
+            this.Quarzfrequenz.Name = "Quarzfrequenz";
+            this.Quarzfrequenz.Size = new System.Drawing.Size(76, 13);
+            this.Quarzfrequenz.TabIndex = 403;
+            this.Quarzfrequenz.Text = "Quarzfrequenz";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(874, 43);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(29, 13);
+            this.label62.TabIndex = 404;
+            this.label62.Text = "MHz";
             // 
             // WDTenabled
             // 
@@ -4860,47 +4899,41 @@
             this.WDTenabled.UseVisualStyleBackColor = true;
             this.WDTenabled.CheckedChanged += new System.EventHandler(this.WDTenabled_CheckedChanged);
             // 
-            // label65
+            // TimeOutBox
             // 
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(26, 440);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(25, 13);
-            this.label65.TabIndex = 438;
-            this.label65.Text = "20h";
+            this.TimeOutBox.Location = new System.Drawing.Point(985, 72);
+            this.TimeOutBox.Name = "TimeOutBox";
+            this.TimeOutBox.ReadOnly = true;
+            this.TimeOutBox.Size = new System.Drawing.Size(100, 20);
+            this.TimeOutBox.TabIndex = 409;
+            this.TimeOutBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // label66
+            // label67
             // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(27, 453);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(25, 13);
-            this.label66.TabIndex = 439;
-            this.label66.Text = "21h";
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(1091, 75);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(20, 13);
+            this.label67.TabIndex = 410;
+            this.label67.Text = "ms";
             // 
-            // Value21
+            // label69
             // 
-            this.Value21.AutoSize = true;
-            this.Value21.Location = new System.Drawing.Point(59, 453);
-            this.Value21.Name = "Value21";
-            this.Value21.Size = new System.Drawing.Size(13, 13);
-            this.Value21.TabIndex = 440;
-            this.Value21.Text = "0";
-            // 
-            // Value20
-            // 
-            this.Value20.AutoSize = true;
-            this.Value20.Location = new System.Drawing.Point(59, 440);
-            this.Value20.Name = "Value20";
-            this.Value20.Size = new System.Drawing.Size(13, 13);
-            this.Value20.TabIndex = 441;
-            this.Value20.Text = "0";
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(917, 75);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(62, 13);
+            this.label69.TabIndex = 411;
+            this.label69.Text = "Time Out at";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1161, 627);
+            this.Controls.Add(this.label69);
+            this.Controls.Add(this.label67);
+            this.Controls.Add(this.TimeOutBox);
             this.Controls.Add(this.WDTenabled);
             this.Controls.Add(this.label62);
             this.Controls.Add(this.Quarzfrequenz);
@@ -5420,6 +5453,9 @@
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label Value20;
         private System.Windows.Forms.Label Value21;
+        private System.Windows.Forms.TextBox TimeOutBox;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label label69;
 
     }
 }
