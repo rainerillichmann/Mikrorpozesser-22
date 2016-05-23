@@ -24,6 +24,7 @@ namespace Mikroprozesser_22
         public byte frequenzy = 4;
         public double runTime = 0;
         public double watchdogTimeout = 0;
+        public double watchdogStartTime = 0;
 
         public void addStack(int pc)
         {
@@ -86,6 +87,7 @@ namespace Mikroprozesser_22
             this.runTime = 0;
             this.ConfigurationWord = 0;
             this.watchdogTimeout = 0;
+            this.watchdogStartTime = 0;
 
             this.RAM[0, 0] = 0x00; //INDF
             this.RAM[0, 1] = 0x00; //TIMR0
@@ -144,7 +146,11 @@ namespace Mikroprozesser_22
         {
             if ((this.ConfigurationWord & 0x0004) == 0x0004) //Watchdogtimer enabled
             {
-                if (this.watchdogTimeout == 0) this.watchdogTimeout = this.runTime + WatchdogPrescaler(); //Falls timeout 0 ist, neuen Timeout setzen;
+                if (this.watchdogTimeout == 0) 
+                {
+                    this.watchdogTimeout = this.runTime + WatchdogPrescaler(); //Falls timeout 0 ist, neuen Timeout setzen;
+                    this.watchdogStartTime = this.runTime;                     //Die Startzeit des Watchdog wird gespeichert, falls nachträglich der Prescaler verändert wird
+                }
 
                 if (this.runTime >= this.watchdogTimeout)
                 {
@@ -170,9 +176,14 @@ namespace Mikroprozesser_22
             return false;
         }
 
-        public void updateReg(byte bank)
+        public void newWatchdogTimeOut()
         {
-            /* Die Resiter 2:4 und 0xA:0xB des RAM ist auf beiden Seiten gleich, je nach verwendeter Bank werden die Werte in die jeweils
+            this.watchdogTimeout = this.watchdogStartTime + WatchdogPrescaler(); //Neue Berechnung des timeout, falls Prescaler aktiviert wird
+        }
+
+        public void updateBank(byte bank)
+        {
+            /* Die Register 2:4 und 0xA:0xB des RAM ist auf beiden Seiten gleich, je nach verwendeter Bank werden die Werte in die jeweils
              * andere Bank des RAM übertragen.
              * zusätlich wird der PC geupdatet.
              */
@@ -303,6 +314,7 @@ namespace Mikroprozesser_22
                             this.PC = (UInt16)(newValue + (this.RAM[0, 0xA] << 8));
                         }                       
                         else this.RAM[0, (byte)(FSRAddress & 0x7F)] = newValue;
+                        if (((FSRAddress & 0x80) == 0x80) && ((FSRAddress & 0x7F) == 1)) newWatchdogTimeOut(); // falls OPtiON Register verändert wird, wird überprüft, ob ein neue watchdog Time Out gesetzt werden muss
                     }
                 }
             }
@@ -315,6 +327,7 @@ namespace Mikroprozesser_22
                     this.PC =(UInt16) (newValue + (this.RAM[0, 0xA] << 8));
                 }
                 this.RAM[bank, register] = newValue;
+                if ((bank == 1) && (register == 1)) newWatchdogTimeOut(); // falls OPtiON Register verändert wird, wird überprüft, ob ein neue watchdog Time Out gesetzt werden muss
             }
         }
 
@@ -576,7 +589,7 @@ namespace Mikroprozesser_22
                 }
 
                 // 1:32
-                if ((this.RAM[1, 1] & 0x07) == 4)
+                if ((this.RAM[1, 1] & 0x07) == 5)
                 {
                     
                     return 576;
@@ -584,7 +597,7 @@ namespace Mikroprozesser_22
                 }
 
                 // 1:64
-                if ((this.RAM[1, 1] & 0x07) == 5)
+                if ((this.RAM[1, 1] & 0x07) == 6)
                 {
                     
                     return 1152;
@@ -592,7 +605,7 @@ namespace Mikroprozesser_22
                 }
 
                 // 1:128
-                if ((this.RAM[1, 1] & 0x07) == 6)
+                if ((this.RAM[1, 1] & 0x07) == 7)
                 {
                     
                     return 2304;
@@ -601,7 +614,7 @@ namespace Mikroprozesser_22
 
             }
 
-            return 2.3;
+            return 18;
 
         }
     }

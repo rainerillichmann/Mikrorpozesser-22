@@ -25,49 +25,49 @@ namespace Mikroprozesser_22
             if (RAM.watchdog()) return;
 
             //SLEEP
-            if ((Befehl.command & 0x3FFF) == 0x0063) { SLEEP(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0063) { SLEEP(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); return; }
             //MOVLW
-            if ((Befehl.command & 0x3F00) == 0x3000) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3100) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3200) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3300) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3000) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3100) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3200) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3300) { MOVLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //MOVWF
-            if ((Befehl.command & 0x3F80) == 0x0080) { MOVWF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F80) == 0x0080) { MOVWF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //MOVF
-            if ((Befehl.command & 0x3F00) == 0x0800) { MOVF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0800) { MOVF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //ANDLW
-            if ((Befehl.command & 0x3F00) == 0x3900) { ANDLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3900) { ANDLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //ANDWF
-            if ((Befehl.command & 0x3F00) == 0x0500) { ANDWF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0500) { ANDWF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //IORLW
-            if ((Befehl.command & 0x3F00) == 0x3800) { IORLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3800) { IORLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //IORWF
-            if ((Befehl.command & 0x3F00) == 0x0400) { IORWF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0400) { IORWF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //SUBLW
-            if ((Befehl.command & 0x3F00) == 0x3C00) { SUBLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3D00) { SUBLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3C00) { SUBLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3D00) { SUBLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //XORLW
-            if ((Befehl.command & 0x3F00) == 0x3A00) { XORLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3A00) { XORLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //XORWF
-            if ((Befehl.command & 0x3F00) == 0x0600) { XORWF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0600) { XORWF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //ADDLW
-            if ((Befehl.command & 0x3F00) == 0x3E00) { ADDLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3F00) == 0x3F00) { ADDLW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3E00) { ADDLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x3F00) { ADDLW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //ADDWF
-            if ((Befehl.command & 0x3F00) == 0x0700) { ADDWF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0700) { ADDWF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //SUBWF
-            if ((Befehl.command & 0x3F00) == 0x0200) { SUBWF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0200) { SUBWF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //SWAPF
-            if ((Befehl.command & 0x3F00) == 0x0E00) { SWAPF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0E00) { SWAPF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //GOTO
             if ((Befehl.command & 0x3800) == 0x2800) { g0t0(Befehl.command, RAM, tempBank);  RAM.interrupt(); return; }
             //CALL
             if ((Befehl.command & 0x3800) == 0x2000) { CALL(Befehl.command, RAM, tempBank);  RAM.interrupt(); return; }
             //NOP
-            if ((Befehl.command & 0x3FFF) == 0x0000) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3FFF) == 0x0020) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3FFF) == 0x0040) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
-            if ((Befehl.command & 0x3FFF) == 0x0060) { NOP(RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0000) { NOP(RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0020) { NOP(RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0040) { NOP(RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3FFF) == 0x0060) { NOP(RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //RETURN
             if ((Befehl.command & 0x3FFF) == 0x0008) { RETURN(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             //RETLW
@@ -76,31 +76,31 @@ namespace Mikroprozesser_22
             if ((Befehl.command & 0x3F00) == 0x3600) { RETLW(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             if ((Befehl.command & 0x3F00) == 0x3700) { RETLW(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             //CLRF
-            if ((Befehl.command & 0x3F80) == 0x0180) { CLRF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F80) == 0x0180) { CLRF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //CLRW
-            if (((Befehl.command & 0x3FFF) >= 0x0100) && ((Befehl.command & 0x3FFF) <= 0x017F)) { CLRW(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if (((Befehl.command & 0x3FFF) >= 0x0100) && ((Befehl.command & 0x3FFF) <= 0x017F)) { CLRW(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //RLF
-            if ((Befehl.command & 0x3F00) == 0x0D00) { RLF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0D00) { RLF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //RRF
-            if ((Befehl.command & 0x3F00) == 0x0C00) { RRF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0C00) { RRF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //COMF
-            if ((Befehl.command & 0x3F00) == 0x0900) { COMF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0900) { COMF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //DECF
-            if ((Befehl.command & 0x3F00) == 0x0300) { DECF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank);RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0300) { DECF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank);RAM.interrupt(); return; }
             //DECFSZ
-            if ((Befehl.command & 0x3F00) == 0x0B00) { DECFSZ(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0B00) { DECFSZ(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //INCF
-            if ((Befehl.command & 0x3F00) == 0x0A00) { INCF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0A00) { INCF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //INCFSZ
-            if ((Befehl.command & 0x3F00) == 0x0F00) { INCFSZ(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3F00) == 0x0F00) { INCFSZ(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //BSF
-            if ((Befehl.command & 0x3C00) == 0x1400) { BSF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3C00) == 0x1400) { BSF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //BCF
-            if ((Befehl.command & 0x3C00) == 0x1000) { BCF(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3C00) == 0x1000) { BCF(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //BTFSC
-            if ((Befehl.command & 0x3C00) == 0x1800) { BTFSC(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3C00) == 0x1800) { BTFSC(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //BTFSS
-            if ((Befehl.command & 0x3C00) == 0x1C00) { BTFSS(Befehl.command, RAM, tempBank); RAM.updateReg(tempBank); RAM.interrupt(); return; }
+            if ((Befehl.command & 0x3C00) == 0x1C00) { BTFSS(Befehl.command, RAM, tempBank); RAM.updateBank(tempBank); RAM.interrupt(); return; }
             //RETFIE
             if ((Befehl.command & 0x3FFF) == 0x0009) { RETFIE(Befehl.command, RAM, tempBank); RAM.interrupt(); return; }
             
