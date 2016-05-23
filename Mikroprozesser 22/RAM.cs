@@ -218,7 +218,7 @@ namespace Mikroprozesser_22
 
             
             double cycleTime = 1.0 / (this.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
-            this.runTime = cycleTime * this.runTimeCounter;
+            this.runTime = 4* cycleTime * this.runTimeCounter;
             
         }
 

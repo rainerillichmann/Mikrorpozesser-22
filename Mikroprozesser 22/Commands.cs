@@ -637,7 +637,7 @@ namespace Mikroprozesser_22
 
             RAM.runTimeCounter++;                            //update der Runtime
             double cycleTime = 1.0 / (RAM.frequenzy * 1000); //Ausgabe in ms, deswegen *1000
-            RAM.runTime = cycleTime * RAM.runTimeCounter;
+            RAM.runTime = 4 * cycleTime * RAM.runTimeCounter;
             
         }
     }
