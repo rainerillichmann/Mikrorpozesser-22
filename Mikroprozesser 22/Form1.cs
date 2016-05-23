@@ -216,6 +216,7 @@ namespace Mikroprozesser_22
                     Einzelschritt.Enabled = true;
                     StopButton.Enabled = true;
                     Reset.Enabled = true;
+                    WDTenabled.Checked = false;
                     RAMVisualisierung2();
                 }
 

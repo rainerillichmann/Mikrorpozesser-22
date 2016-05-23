@@ -601,7 +601,7 @@ namespace Mikroprozesser_22
 
             }
 
-            return 18;
+            return 2.3;
 
         }
     }
