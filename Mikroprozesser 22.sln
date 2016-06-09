@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mikroprozesser 22", "Mikroprozesser 22\Mikroprozesser 22.csproj", "{BA1E6F98-EFD7-4C91-A38C-988764FE5550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikroprozessorTest", "MikroprozessorTest\MikroprozessorTest.csproj", "{2748B2AC-298A-4095-A731-981CF77DB0A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{BA1E6F98-EFD7-4C91-A38C-988764FE5550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA1E6F98-EFD7-4C91-A38C-988764FE5550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA1E6F98-EFD7-4C91-A38C-988764FE5550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2748B2AC-298A-4095-A731-981CF77DB0A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2748B2AC-298A-4095-A731-981CF77DB0A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2748B2AC-298A-4095-A731-981CF77DB0A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2748B2AC-298A-4095-A731-981CF77DB0A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
