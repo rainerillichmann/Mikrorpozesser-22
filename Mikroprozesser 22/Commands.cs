@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Mikroprozesser_22
 {
     using Mikroprozesser_22;
-    class Commands
+    public class Commands
     {
         public static void Befehlsanalyse(CommandLine Befehl, Arbeitsspeicher RAM)
         {
@@ -106,14 +106,14 @@ namespace Mikroprozesser_22
             
         }
 
-        static void NOP(Arbeitsspeicher RAM, byte bank)
+        public static void NOP(Arbeitsspeicher RAM, byte bank)
         {
             RAM.incInternalTimer(1);
             ++RAM.RAM[bank, 2];
         }
 
 
-        static void MOVLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void MOVLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             RAM.incInternalTimer(1);
             ++RAM.RAM[bank, 2];
@@ -121,7 +121,7 @@ namespace Mikroprozesser_22
             
         }
 
-        static void MOVWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void MOVWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             RAM.incInternalTimer(1); 
             ++RAM.RAM[bank, 2];
@@ -130,7 +130,7 @@ namespace Mikroprozesser_22
             
         }
 
-        static void MOVF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void MOVF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {           
             if ((Befehl & 0x80) == 0)
             {               
@@ -143,7 +143,7 @@ namespace Mikroprozesser_22
             ++RAM.RAM[bank, 2];
         }
 
-        static void CLRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void CLRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
             RAM.ChangeRegister(bank, (byte)(Befehl & 0x007F), 0);
@@ -152,7 +152,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void CLRW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void CLRW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
            
             RAM.ChangeW (0);
@@ -162,7 +162,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void ANDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void ANDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             
             RAM.ChangeW ((byte)((0xFF & Befehl) & RAM.W));
@@ -172,7 +172,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void ANDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void ANDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
@@ -191,7 +191,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void IORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void IORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             RAM.incInternalTimer(1);
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
@@ -210,7 +210,7 @@ namespace Mikroprozesser_22
             ++RAM.RAM[bank, 2];
         }
 
-        static void XORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void XORWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
@@ -231,7 +231,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void COMF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void COMF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             RAM.incInternalTimer(1);
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
@@ -250,7 +250,7 @@ namespace Mikroprozesser_22
             ++RAM.RAM[bank, 2];
         }
 
-        static void DECF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void DECF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
@@ -270,7 +270,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void DECFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void DECFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             bool zeroFlag = false;
@@ -297,7 +297,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static void INCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void INCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             if ((Befehl & 0x80) == 0)
@@ -316,7 +316,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void INCFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void INCFSZ(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             bool zeroFlag = false;
@@ -343,7 +343,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static void IORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void IORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             RAM.ChangeW((byte)((0xFF & Befehl) | RAM.W));
@@ -352,7 +352,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void XORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void XORLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
             RAM.ChangeW((byte)((0xFF & Befehl) ^ RAM.W));
@@ -361,7 +361,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void SUBLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void SUBLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             byte tempW = RAM.W;
@@ -381,7 +381,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void ADDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void ADDLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             if (((0xFF & Befehl) + RAM.W) > 0xFF) RAM.CarryBit(bank,1);
@@ -398,7 +398,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void ADDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void ADDWF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
 
@@ -462,7 +462,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void g0t0(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        static public void g0t0(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             UInt16 newPC = (UInt16)((Befehl & 0x7FF) + ((RAM.RAM[0, 0xA] & 0x18) << 8)); //Berechnung des neuen PC
             RAM.PC = newPC;                                                              //PC wird in den RAM geschrieben
@@ -473,7 +473,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(2);
         }
 
-        static void CALL(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void CALL(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             
             RAM.addStack(RAM.PC + 1);
@@ -487,7 +487,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(2);
         }
 
-        static void RETURN(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void RETURN(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             RAM.PC = (byte)RAM.Stack.Last();
@@ -497,7 +497,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(2);
         }
 
-        static void RETLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void RETLW(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             RAM.ChangeW((byte)(Befehl & 0xFF));
             RAM.PC = (byte)RAM.Stack.Last();
@@ -507,7 +507,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(2);
         }
 
-        static void RLF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void RLF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             byte tempState = RAM.RAM[bank, 3];
@@ -528,7 +528,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void RRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void RRF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
              
             byte tempState = RAM.RAM[0, 3];
@@ -549,7 +549,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void BSF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void BSF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             int tempBit =(int) Math.Pow( 2, ((Befehl & 0x0380)>>7));
@@ -560,7 +560,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void BCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void BCF(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));  
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
@@ -571,7 +571,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(1);
         }
 
-        static void BTFSC(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void BTFSC(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F));
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
@@ -588,7 +588,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static void BTFSS(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void BTFSS(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
             byte regValue = RAM.getRegisterValue(bank, (byte)(Befehl & 0x7F)); 
             int tempBit = (int)Math.Pow(2, ((Befehl & 0x0380) >> 7));
@@ -606,7 +606,7 @@ namespace Mikroprozesser_22
             
         }
 
-        static void RETFIE(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void RETFIE(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
             RAM.PC = (byte)RAM.Stack.Last();
@@ -618,7 +618,7 @@ namespace Mikroprozesser_22
             RAM.incInternalTimer(2);
         }
 
-        static void SLEEP(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
+        public static void SLEEP(UInt16 Befehl, Arbeitsspeicher RAM, byte bank)
         {
 
             if ((RAM.RAM[0, 3] & 0x08) == 0x08) RAM.watchdogTimeout = 0; //Vor Powerdown Reset des WD

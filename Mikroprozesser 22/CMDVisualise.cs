@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mikroprozesser_22
 {
-    class CMDVisualise
+    public class CMDVisualise
     {
         public static string Befehlsstring(CommandLine Befehl)
         {
@@ -93,47 +93,47 @@ namespace Mikroprozesser_22
             return "";
         }
 
-        static string NOP(int command)
+        public static string NOP(int command)
         {
             return "NOP\t";
         }
 
 
-        static string MOVLW(int command)
+        public static string MOVLW(int command)
         {            
             return "MOVLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string MOVWF(int command)
+        public static string MOVWF(int command)
         {
             return "MOVWF " + Convert.ToString((int)(command & 0x7F), 16) + "h";
         }
 
-        static string MOVF(int command)
+        public static string MOVF(int command)
         {
 
             return "MOVF " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
         }
 
-        static string CLRF(int command)
+        public static string CLRF(int command)
         {
 
             return "CLRF " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
         }
 
-        static string CLRW(int command)
+        public static string CLRW(int command)
         {
 
-            return "CLRW " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
+            return "CLRW\t";
         }
 
-        static string ANDLW(int command)
+        public static string ANDLW(int command)
         {
 
             return "ANDLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string ANDWF(int command)
+        public static string ANDWF(int command)
         {
 
             if ((command & 0x80) == 0)
@@ -146,7 +146,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string IORWF(int command)
+        public static string IORWF(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -158,7 +158,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string XORWF(int command)
+        public static string XORWF(int command)
         {
 
             if ((command & 0x80) == 0)
@@ -171,7 +171,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string COMF(int command)
+        public static string COMF(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -183,7 +183,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string DECF(int command)
+        public static string DECF(int command)
         {
 
             if ((command & 0x80) == 0)
@@ -196,7 +196,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string DECFSZ(int command)
+        public static string DECFSZ(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -208,7 +208,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string INCF(int command)
+        public static string INCF(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -220,7 +220,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string INCFSZ(int command)
+        public static string INCFSZ(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -232,31 +232,31 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string IORLW(int command)
+        public static string IORLW(int command)
         {
 
             return "IORLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string XORLW(int command)
+        public static string XORLW(int command)
         {
 
             return "XORLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string SUBLW(int command)
+        public static string SUBLW(int command)
         {
 
             return "SUBLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string ADDLW(int command)
+        public static string ADDLW(int command)
         {
 
             return "ADDLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string ADDWF(int command)
+        public static string ADDWF(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -268,7 +268,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string SUBWF(int command)
+        public static string SUBWF(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -280,7 +280,7 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string SWAPF(int command)
+        public static string SWAPF(int command)
         {
             if ((command & 0x80) == 0)
             {
@@ -292,67 +292,67 @@ namespace Mikroprozesser_22
             }
         }
 
-        static string g0t0(int command)
+        public static string g0t0(int command)
         {
 
             return "GOTO " + Convert.ToString((int)(command & 0x7F), 16) + "h ";
         }
 
-        static string CALL(int command)
+        public static string CALL(int command)
         {
 
             return "CALL " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
         }
 
-        static string RETURN(int command)
+        public static string RETURN(int command)
         {
             return "RETURN\t";
         }
 
-        static string RETLW(int command)
+        public static string RETLW(int command)
         {
             return "RETLW " + Convert.ToString((int)(command & 0xFF), 16) + "h";
         }
 
-        static string RLF(int command)
+        public static string RLF(int command)
         {
 
             return "RLF " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
         }
 
-        static string RRF(int command)
+        public static string RRF(int command)
         {
 
             return "RRF " + Convert.ToString((int)(command & 0x7F), 16) + "h\t";
         }
 
-        static string BSF(int command)
+        public static string BSF(int command)
         {
             return "BSF " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380)>>7);
         }
 
-        static string BCF(int command)
+        public static string BCF(int command)
         {
             return "BCF " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380) >> 7);
         }
 
-        static string BTFSC(int command)
+        public static string BTFSC(int command)
         {
             return "BTFSC " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380)>>7);
         }
 
-        static string BTFSS(int command)
+        public static string BTFSS(int command)
         {
             return "BTFSC " + Convert.ToString((int)(command & 0x7F), 16) + "h, " + Convert.ToString((command & 0x0380) >> 7);
         }
 
-        static string RETFIE(int command)
+        public static string RETFIE(int command)
         {
 
             return "RETFIE \t";
         }
 
-        static string SLEEP(int command)
+        public static string SLEEP(int command)
         {
             return "SLEEP \t" ;
 

@@ -29,10 +29,7 @@ namespace Mikroprozesser_22
             CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e) //RB0
         {
@@ -227,25 +224,6 @@ namespace Mikroprozesser_22
 
         }
 
-        private void OutputDing_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
-        private void checkBox8_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void Programmablauf(BackgroundWorker bw)
         {
@@ -347,42 +325,7 @@ namespace Mikroprozesser_22
             Reset.Enabled = true;
            
         }
-
-        private void LWBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_2(object sender, EventArgs e)
-        {
-
-        }
-
+     
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             /* Wird RA Bit4 verändert, wird noch einmal TRISA überprüft, und dann der Wert im RAM PortA gespeichert.
@@ -1166,20 +1109,6 @@ namespace Mikroprozesser_22
         }*/
 
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void QuarzFrequenz_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void OutputDing_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
 
         
 
@@ -1216,20 +1145,7 @@ namespace Mikroprozesser_22
             System.Windows.Forms.Application.Exit();
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label23_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label65_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void hilfeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1256,10 +1172,6 @@ namespace Mikroprozesser_22
 
         }
 
-        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void mHzToolStripMenuItem_Click(object sender, EventArgs e)
         {

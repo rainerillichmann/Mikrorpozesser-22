@@ -561,7 +561,6 @@
             this.RABit0.Size = new System.Drawing.Size(15, 14);
             this.RABit0.TabIndex = 7;
             this.RABit0.UseVisualStyleBackColor = true;
-            this.RABit0.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // label1
             // 
@@ -580,7 +579,6 @@
             this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 17;
             this.label2.Text = "RB";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // RBBit0
             // 
@@ -758,7 +756,7 @@
             this.LWBox.ReadOnly = true;
             this.LWBox.Size = new System.Drawing.Size(100, 20);
             this.LWBox.TabIndex = 21;
-            this.LWBox.TextChanged += new System.EventHandler(this.LWBox_TextChanged);
+            
             // 
             // label3
             // 
@@ -768,7 +766,6 @@
             this.label3.Size = new System.Drawing.Size(18, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "W";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // StopButton
             // 
@@ -795,7 +792,6 @@
             this.OutputDing.TabIndex = 24;
             this.OutputDing.Text = "";
             this.toolTip1.SetToolTip(this.OutputDing, "Doppel-Klick auf eine Zeile erzeugt/enfternt einen Breakpoint");
-            this.OutputDing.TextChanged += new System.EventHandler(this.OutputDing_TextChanged_1);
             this.OutputDing.DoubleClick += new System.EventHandler(this.OutputDing_DoubleClick);
             // 
             // backgroundWorker2
@@ -1023,7 +1019,7 @@
             this.Stack5.Size = new System.Drawing.Size(100, 20);
             this.Stack5.TabIndex = 59;
             this.Stack5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Stack5.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            
             // 
             // Stack6
             // 
@@ -1095,7 +1091,6 @@
             this.label23.Size = new System.Drawing.Size(28, 13);
             this.label23.TabIndex = 67;
             this.label23.Text = "Bit 5";
-            this.label23.Click += new System.EventHandler(this.label23_Click);
             // 
             // label24
             // 
@@ -1474,7 +1469,7 @@
             this.label003.Size = new System.Drawing.Size(13, 13);
             this.label003.TabIndex = 109;
             this.label003.Text = "0";
-            this.label003.Click += new System.EventHandler(this.label65_Click);
+
             // 
             // label002
             // 
